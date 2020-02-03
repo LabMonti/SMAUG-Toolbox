@@ -1,0 +1,1 @@
+If you request that the output of clustering be saved, it will appear in this directory (in a sub-directory labeled with the date, time and any output tag specified).  
