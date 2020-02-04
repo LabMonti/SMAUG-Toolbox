@@ -1,8 +1,14 @@
-%06Jun18 NDB: Given a set of parameterized segments, create a larger set of
-%segment parameters by duplicating each segment's info in proportion to the
-%length of the segment
 function [SegParamsWithDups, segIDs, Nduplicates, OGvsDup] = ...
     DuplicateSegments(AllSegments, SegmentParameters, length_per_dup)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Given a set of parameterized segments, create a
+    %larger set of segment parameters by duplicating each segment's info 
+    %in proportion to the length of the segment
+    %
     %~~~INPUTS~~~:
     %
     %AllSegments: an array holding the x- and y- endpoint values for all

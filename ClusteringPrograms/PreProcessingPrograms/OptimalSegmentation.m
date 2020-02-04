@@ -1,8 +1,14 @@
-%11May18 NDB: Segments a trace in the "optimal" way by using the Iterative
-%L-Method to find a target # of segments to use and the
-%bottom-up-segmentation algorithm to segment the trace
 function [final_segs, final_bounds, TotalError, ErrorGained] = ...
     OptimalSegmentation(trace,EvalType,ToPlot)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Segments a trace in the "optimal" way by using 
+    %the Iterative L-Method to find a target # of segments to use and the
+    %bottom-up-segmentation algorithm to segment the trace
+    %
     %~~~INPUTS~~~:
     %
     %trace: a two-column array with distances in the first column and

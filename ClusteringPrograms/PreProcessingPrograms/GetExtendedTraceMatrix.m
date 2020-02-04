@@ -1,12 +1,19 @@
-%22Mar18 NDB: This function reads in a trace structure, then re-samples and
-%extends each trace so that all the traces share the same set of x-values
-%(outputted as Xdist).  These re-sampled traces are stored in TraceMat with
-%one raw per trace and one column per x-value. On the left side, the traces
-%are chopped off at 'LeftChop' and thrown out if they do not reach
-%'LeftChop'  On the right side, each trace is extended up to the end of the
-%longest trace by adding points along 'CondFloor'.  
 function [Xdist, TraceMat, OriginalTrace_Ends] = GetExtendedTraceMatrix(...
     TraceStruct, LeftChop, CondFloor, distStep, maxDist) 
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: This function reads in a trace structure, then 
+    %re-samples and extends each trace so that all the traces share the 
+    %same set of x-values (outputted as Xdist).  These re-sampled traces 
+    %are stored in TraceMat with one raw per trace and one column per 
+    %x-value. On the left side, the traces are chopped off at 'LeftChop' 
+    %and thrown out if they do not reach 'LeftChop'  On the right side, 
+    %each trace is extended up to the end of the longest trace by adding
+    %points along 'CondFloor'.  
+    %
     %~~~INPUTS~~~:
     %
     %TraceStruct: a matlab structure containing log(G/G_0) vs. distance

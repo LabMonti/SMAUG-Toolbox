@@ -1,6 +1,12 @@
-%04May18 NDB: Program to standardize data before clustering, with different
-%behavior for different data formats
 function X = DataStandardization(X,format,w)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Program to standardize data before clustering, 
+    %with different behavior for different data formats
+    %
     %~~~INPUTS~~~:
     %
     %X: input data
@@ -16,6 +22,7 @@ function X = DataStandardization(X,format,w)
     %
     %X: output data; same as input data but now standardized
 
+    
     if nargin < 3
         w = 1;
     end

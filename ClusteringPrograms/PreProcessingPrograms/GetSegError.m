@@ -1,6 +1,13 @@
-%11May18 NDB: Given an array of xy-data, find the total sum-of-squares
-%residual error when a linear regression is performed on the data
 function error = GetSegError(SegmentPoints)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: given an array of xy-data, find the total 
+    %sum-of-squares residual error when a linear regression is performed 
+    %on the data
+    %
     %~~~INPUTS~~~:
     %
     %SegmentPoints: a two-column array of data points with x in the 1st

@@ -1,12 +1,18 @@
-%21Feb18 NDB: This program turns a trace structure file into a data file
-%with format appropriate for input into Ben's clustering algorithm (i.e.
-%first column is interelectrode distance, 2nd column is log(conductance),
-%and third column is counts for each nonzero bin in the 2d histogram).  
-%The noise floor will be assumed from the input data file
-%All data left of 'left_chop_nm' on the x-axis will be excluded
 function DataMatrix = MakeHistogramDataFile_FromTraceStructure(TraceStruct, ...
     binsper_x, binsper_y, left_chop_nm, ToPlot)
-
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: This program turns a trace structure file into 
+    %a data file with format appropriate for input into Ben's clustering 
+    %algorithm (i.e. *first column is interelectrode distance, 2nd column 
+    %is log(conductance), and third column is counts for each nonzero bin 
+    %in the 2d histogram).  The noise floor will be assumed from the 
+    %input data file and all data left of 'left_chop_nm' on the x-axis 
+    %will be excluded.
+    %
     %~~~INPUTS~~~:
     %
     %TraceStruct: a matlab structure containing log(G/G_0) vs. distance
@@ -30,6 +36,7 @@ function DataMatrix = MakeHistogramDataFile_FromTraceStructure(TraceStruct, ...
     %row per non-zero bin; the first column is the center x-value, the 2nd
     %column is the center y-value, and the third column is the bin's count
 
+    
     %Default inputs
     if nargin < 5
         ToPlot = false;

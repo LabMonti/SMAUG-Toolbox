@@ -1,10 +1,16 @@
-%04May18 NDB: this program takes in a trace structure and cretaes a single
-%array of all data points which also includes a third column with, for each
-%point, the best-fit slope of the points to either side of that point in
-%the trace it comes from (thus adding in a dash of 'non-local' information
-%to the raw data points)
 function Xdata = getTraceEnhancedRawData(TraceStruct, slope_window, ...
     left_chop)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: this program takes in a trace structure and 
+    %cretaes a single array of all data points which also includes a third 
+    %column with, for each point, the best-fit slope of the points to 
+    %either side of that point in the trace it comes from (thus adding in 
+    %a dash of 'non-local' information to the raw data points)
+    %
     %~~~INPUTS~~~:
     %
     %TraceStruct: a matlab structure containing log(G/G_0) vs. distance

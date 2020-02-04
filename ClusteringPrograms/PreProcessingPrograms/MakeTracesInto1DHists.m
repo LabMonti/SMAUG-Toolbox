@@ -1,7 +1,13 @@
-%15Mar18 NDB: This function takes a trace structure and turns it into a
-%matrix of 1d histograms for each individual trace.  
 function [OG_Traces, trace_1dhist_matrix, bin_centers] = ...
     MakeTracesInto1DHists(TraceStruct, binsper, minCond, maxCond, left_chop)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: takes a trace structure and turns it into a
+    %matrix of 1d histograms for each individual trace.  
+    %
     %~~~INPUTS~~~:
     %
     %TraceStruct: a matlab structure containing log(G/G_0) vs. distance

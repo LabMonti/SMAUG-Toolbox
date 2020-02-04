@@ -1,11 +1,18 @@
-%11May18 NDB: Find the "best" # of segments to split a trace into by
-%finding the "knee" of the total error/error gain vs. # of segments graph.
-%Repeat process iteratively to correct for imbalance of lots of low-error
-%points vs. just a few high error points
-%Based on algorithm suggested by Salvador & Chan 2004 (DOI:
-%10.1109/ICTAI.2004.50)
 function [currentKnee, bestErrorCut] = ...
     Iterative_LMethod(EvaluationGraphData,minCutoff,EvalType,ToPlot)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Find the "best" # of segments to split a trace 
+    %into by finding the "knee" of the total error/error gain vs. # of 
+    %segments graph. Repeat process iteratively to correct for imbalance 
+    %of lots of low-error points vs. just a few high error points
+    %
+    %ATTRIBUTION NOTE: Based on algorithm developed and described by 
+    %Salvador & Chan 2004  in doi.org/10.1109/ICTAI.2004.50
+    %
     %~~~INPUTS~~~:
     %
     %EvaluationGraphData: the data for the "evaluation graph" that we are
