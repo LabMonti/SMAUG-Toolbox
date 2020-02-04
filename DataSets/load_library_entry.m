@@ -22,8 +22,9 @@ function TraceStruct = load_library_entry(dataset_library, id2load)
     TraceStruct = importdata(file_path);
     
     %If the file contains multiple trace structures, select just the one we
-    %want
-    if ~isempty(dataset_library.section_name{id2load})
+    %want (only relevant for LabMonti library)
+    if isfield(dataset_library,'path_name') && ...
+            ~isempty(dataset_library.section_name{id2load})
         TraceStruct = TraceStruct.(dataset_library.section_name{id2load});
     end
 
