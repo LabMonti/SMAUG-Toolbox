@@ -1,9 +1,15 @@
-%14Mar18 NDB: The purpose of this function is take in a normal trace and
-%re-sample it "only along y", by which I mean overlaying horizontal lines
-%on top of the trace and making new data points where they cross the trace.
-%yStep is the distance between each of these lines.  yStart is the y-value
-%of the first horizontal line (the lowest one). 
 function newtrace = resampleTrace_AlongY(trace, yStep, yStart, ToPlot)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: this function takes in a normal trace and
+    %re-samples it "only along y", by which I mean overlaying horizontal 
+    %lines on top of the trace and making new data points where they cross 
+    %the trace. yStep is the distance between each of these lines.  yStart 
+    %is the y-value of the first horizontal line (the lowest one). 
+    %
     %~~~INPUTS~~~:
     %
     %trace: a single trace as a 2-column array with distance in the 1st

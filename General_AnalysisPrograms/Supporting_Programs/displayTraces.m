@@ -1,6 +1,12 @@
-%NDB 20Aug2018: Plot selected traces from a TraceStruct; not intended for
-%direct call by user
 function displayTraces(TraceStruct,ChosenTraceIndices,offset_nm,LinLog)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Plot selected traces from a TraceStruct; not 
+    %intended for direct call by user
+    %
     %~~~INPUTS~~~:
     %
     %TraceStruct: a trace structure containing all the traces in a dataset

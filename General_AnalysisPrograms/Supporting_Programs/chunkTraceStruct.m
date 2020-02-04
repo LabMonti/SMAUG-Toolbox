@@ -1,8 +1,14 @@
-%14Sep18 NDB: Given a trace structure, produce a list of trace structures
-%corresponding to consecutive "chunks" of the same number of traces from
-%that structure
 function [TS_List, chunk_names] = chunkTraceStruct(TraceStruct, ...
     TracesPerChunk, StartTrace, EndTrace)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Given a trace structure, produce a list of trace
+    %structures corresponding to consecutive "chunks" of the same number of
+    %traces from that structure
+    %
     %~~~INPUTS~~~:
     %
     %TraceStruct: a trace structure containing all the traces in a dataset
@@ -26,6 +32,7 @@ function [TS_List, chunk_names] = chunkTraceStruct(TraceStruct, ...
     TraceStruct = LoadTraceStruct(TraceStruct);
     Ntraces = TraceStruct.Ntraces;
     
+    %Default inputs
     if nargin < 4
         EndTrace = Ntraces;
     end
@@ -69,12 +76,21 @@ function [TS_List, chunk_names] = chunkTraceStruct(TraceStruct, ...
     %pretend that it's not so that the GetTraceStructSubsections program
     %doesn't split up subsections at combo bounds.  Since TraceStruct isn't
     %being saved out from this program, this shouldn't be a big deal.  
-    TraceStruct.combo = 'no';
+    change_flag = false;
+    if strcmp(TraceStruct.combo, 'yes')
+        change_flag = true;
+        TraceStruct.combo = 'no';
+    end
     
     %Now, take advantage of programs that already exist to get a trace
     %structure for each chunk:
     SubSections = GetTraceStructSubsections(TraceStruct, Bounds);
     SubSections = LoadTraceStruct(SubSections);
     TS_List = get_TSO_combo_components(SubSections);
+    
+    %Turn it back if it was changed above
+    if change_flag
+        TraceStruct.combo = 'yes';
+    end
 
 end

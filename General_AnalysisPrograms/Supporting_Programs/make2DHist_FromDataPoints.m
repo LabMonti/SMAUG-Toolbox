@@ -1,7 +1,13 @@
-%Creates a 2D histogram using a matrix of 2D points as input
-%Last Modified: 15Dec2017 NDB
 function make2DHist_FromDataPoints(DataPoints2D, binsPer_x, binsPer_y, ...
     LinLog_x, LinLog_y, noise_floor, CountScalar)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Creates a 2D histogram using a matrix of 2D 
+    %points as input
+    %
     %~~~INPUTS~~~:
     %
     %DataPoints2D: a two-column matrix representing data points in 2D to be

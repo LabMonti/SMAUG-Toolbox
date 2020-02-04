@@ -1,7 +1,13 @@
-%20Aug2018 NDB: Makes a 2D histogram give two-column 2D data, no matter
-%what the data is for the most part
 function [counts, centers] = make2DHistogram_fromArbitraryData(DataArray, ...
     NBins, LinLog, CountScalar)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: makes a 2D histogram give two-column 2D data, 
+    %no matter what the data is for the most part
+    %
     %~~~INPUTS~~~:
     %
     %DataArray: a two-column array containing the coordinates of a set of

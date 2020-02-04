@@ -1,7 +1,14 @@
-%14Mar19 NDB: Fit the tunneling section of each trace, and return the
-%slope, intercept, and r^2 values
 function [slopes, intercepts, r2s, nPoints, trace_IDs] = fit_tunneling_sections(...
     TraceStruct, min_cond, max_cond, StartTrace, EndTrace)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Fit the tunneling section of each trace, and 
+    %return the slope, intercept, r^2 values, # of points in each tunneling
+    %region, and which tunneling regions could be fit at all
+    %
     %~~~INPUTS~~~:
     %
     %TraceStruct: a trace structure containing all the traces in a dataset
@@ -38,6 +45,7 @@ function [slopes, intercepts, r2s, nPoints, trace_IDs] = fit_tunneling_sections(
 
     Ntraces = TraceStruct.Ntraces;
 
+    %Default inputs
     if nargin < 5 || strcmp(EndTrace, 'max')
         EndTrace = Ntraces;
     end

@@ -1,10 +1,16 @@
-%21May18 NDB: resamples each trace along evenly spaced horizontal lines (in
-%contrast to the original data, which is evenly spaced along the x-axis,
-%i.e. along evenly spaced vertical lines).  The placement of the horizontal
-%lines is different for each trace (randomly chosen) to avoid strange
-%sampling effects.  
 function AllNewPoints = resampleAllPointsAlongY(TraceStruct, yStep, ...
     StartTrace, EndTrace)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: resamples each trace along evenly spaced 
+    %horizontal lines (in contrast to the original data, which is evenly 
+    %spaced along the x-axis, i.e. along evenly spaced vertical lines).  
+    %The placement of the horizontal lines is different for each trace 
+    %(randomly chosen) to avoid strange sampling effects.
+    %
     %~~~INPUTS~~~:
     %
     %TraceStruct: a structure containing all traces in a data set along
