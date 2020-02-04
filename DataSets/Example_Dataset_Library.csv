@@ -1,0 +1,2 @@
+ID,file_name,Ntraces,molecule_name,molecule_concentration_uM,solvent_name,section_type,deposition_number,trial_number,sample_name,notes
+1,Example_OPV3-2BT-F_Dataset,1200,OPV3-2BT-F,1,DCM,Molecular_Subset,2,1,99-1,Only a subset of a full dataset so that the file is small enough to fit on GitHub
