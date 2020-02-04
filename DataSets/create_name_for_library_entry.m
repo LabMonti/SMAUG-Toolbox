@@ -1,6 +1,27 @@
 %NDB 07May19: Create a name containing the key information for a given
 %entry from the library
 function name = create_name_for_library_entry(dataset_library, id)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: creates a name containing key information for a
+    %given entry from the dataset library
+    %
+    %~~~INPUTS~~~:
+    %
+    %dataset_library: a structure containing a dataset "library" created by
+    %   build_library.m
+    %
+    %id: the ID# for the library entry that we wish to construct a name for
+    %
+    %######################################################################
+    %
+    %~~~OUTPUTS~~~:
+    %    
+    %name: a string containing an identifying name for the specified
+    %   dataset from the library
 
     sample = dataset_library.sample_name(id);
 

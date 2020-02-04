@@ -1,7 +1,27 @@
-%NDB 07May19: Loads a single trace structure listed in the dataset library
-%given its ID number
 function TraceStruct = load_library_entry(dataset_library, id2load)
-
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Loads a single trace structure listed in the 
+    %dataset library given its ID number
+    %
+    %~~~INPUTS~~~:
+    %
+    %dataset_library: a structure containing a dataset "library" created by
+    %   build_library.m
+    %
+    %id2load: the integer id# corresponding to a row in the dataset library
+    %
+    %######################################################################
+    %
+    %~~~OUTPUTS~~~:
+    %    
+    %TraceStruct: a trace structure for the dataset ID specified in the
+    %   library
+    
+    
     %Read in from the LabMonti library
     if isfield(dataset_library,'path_name')
         %Where all the data is located
