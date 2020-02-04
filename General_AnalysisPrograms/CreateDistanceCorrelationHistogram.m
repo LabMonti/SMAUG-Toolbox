@@ -1,9 +1,15 @@
-%21May18 NDB: Program to create a "distance correlation histogram" which
-%shows how much the conductance values for each trace at two different
-%"distance cuts" are correlated with each other (normalized to a value
-%between -1 for complete anticorrelation and 1 for complete correlation. 
 function CreateDistanceCorrelationHistogram(TraceStruct, binsper_x, ...
     StartTrace, EndTrace, SignedCorr, PlotNumTraces)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Creates a "distance correlation histogram" by
+    %calculating the correlation coefficient between the conductances of
+    %all traces at each pair of distances.  Those conductances are
+    %determined by linear interpolation.  
+    %
     %~~~INPUTS~~~:
     %
     %TraceStruct: a structure containing all the traces from a data set
@@ -28,7 +34,7 @@ function CreateDistanceCorrelationHistogram(TraceStruct, binsper_x, ...
     
     Ntraces = TraceStruct.Ntraces;
     
-    %Default value
+    %Default values
     if nargin < 2
         binsper_x = 40;
     end

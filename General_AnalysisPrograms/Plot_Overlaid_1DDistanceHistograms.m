@@ -2,6 +2,14 @@
 %multiple data sets and plot them overlaid on top of each other
 function Plot_Overlaid_1DDistanceHistograms(TraceStructList,linesper_y,...
     binsper_x, UpperCondChop, NormalizeCounts, LegendOverride)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: finds the 1D distance histograms for
+    %multiple data sets and plot them overlaid on top of each other
+    %
     %~~~INPUTS~~~:
     %
     %TraceStructList: a 1D cell array containing a TraceStruct in each cell
@@ -25,6 +33,7 @@ function Plot_Overlaid_1DDistanceHistograms(TraceStructList,linesper_y,...
     %   plot's legend
 
 
+    %Default inputs
     if nargin < 6
         LegendOverride = [];
     end

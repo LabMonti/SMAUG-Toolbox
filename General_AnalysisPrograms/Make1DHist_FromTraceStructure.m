@@ -1,8 +1,13 @@
-%20Feb2018 NDB: This function reads in a "Nathan-Style" trace structure and
-%makes a 1D histogram from it
 function [Counts, centers] = ...
     Make1DHist_FromTraceStructure(TraceStruct, binsper_x, StartTrace, ...
     EndTrace, LinLog, NormalizeCounts, DisplayOff)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Makes a 1D conductance histogram from a dataset.
+    %
     %~~~INPUTS~~~:
     %
     %TraceStruct: a trace structure containing all the traces in a dataset
@@ -40,6 +45,7 @@ function [Counts, centers] = ...
     
     Ntraces = TraceStruct.Ntraces;
 
+    %Default inputs
     if nargin < 7
         DisplayOff = false;
     end

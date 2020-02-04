@@ -1,7 +1,19 @@
-%Create a "2D cross correlation histogram" as described in Makk et al. 2012
-%(DOI:10.1021/nn300440f)
 function CreateCorrelationHistogram(TraceStruct, binsper, LinLog, ...
     condData, StartTrace, EndTrace)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Creates a "conductance correlation histogram" by
+    %first generating a 1D conductance histogram for every trace, then
+    %finding the correlation coefficient between the number of counts at
+    %each pair of bins.  
+    %
+    %ATTRIBUTION NOTE: This type of correlation histogram was developed and
+    %introduced by Martinek et al. in 
+    %doi.org/10.1103/PhysRevLett.105.266805.  
+    %
     %~~~INPUTS~~~:
     %
     %TraceStruct: a trace structure containing all the traces in a dataset
@@ -27,6 +39,7 @@ function CreateCorrelationHistogram(TraceStruct, binsper, LinLog, ...
     
     Ntraces = TraceStruct.Ntraces;
 
+    %Default inputs
     if nargin < 6 
         EndTrace = Ntraces;
     end

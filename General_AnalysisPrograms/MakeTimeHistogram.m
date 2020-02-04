@@ -1,11 +1,17 @@
-%New version of TimeHistogram that lets the bin width on the trace axis be
-%chosen to be other than 1
-%20Feb2018 NDB: Added default inputs and plotting of lines on top of plot
-%if the input structure is a combination of multiple data sets
-
-%The concept of a time histogram was introduced in DOI: 10.1063/1.4975180
 function MakeTimeHistogram(TraceStruct, tracesperbin, binsper_y, LinLog,...
     PlotMotorPosition)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Creates a "Time Histogram" showing how the 1D
+    %conductance histograms for traces vary over time.  
+    %
+    %ATTRIBUTION NOTE: The idea of using time histograms to analyze
+    %breaking traces in this way was introduced and developed by Solomon et
+    %al. in doi.org/10.1063/1.4975180.  
+    %
     %~~~INPUTS~~~:
     %
     %TraceStruct: a trace structure containing all the traces in a dataset

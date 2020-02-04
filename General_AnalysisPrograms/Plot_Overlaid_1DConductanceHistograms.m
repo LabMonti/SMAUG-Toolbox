@@ -1,7 +1,13 @@
-%11Sep2018 NDB: A single function to find the 1D conductance histograms for
-%multiple data sets and plot them overlaid on top of each other
 function Plot_Overlaid_1DConductanceHistograms(TraceStructList,...
     binsper_x, LinLog, NormalizeCounts, LegendOverride)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: finds the 1D conductance histograms for
+    %multiple data sets and plot them overlaid on top of each other
+    %
     %~~~INPUTS~~~:
     %
     %TraceStructList: a 1D cell array containing a TraceStruct in each cell
@@ -20,6 +26,7 @@ function Plot_Overlaid_1DConductanceHistograms(TraceStructList,...
     %   plot's legend
 
 
+    %Default inputs
     if nargin < 5
         LegendOverride = [];
     end
@@ -87,9 +94,6 @@ function Plot_Overlaid_1DConductanceHistograms(TraceStructList,...
         ylabel('Counts');
     end
     
-
-    
-    
     %Make a legend
     if isempty(LegendOverride)
         label_list = cell(N_datasets, 1);
@@ -101,7 +105,4 @@ function Plot_Overlaid_1DConductanceHistograms(TraceStructList,...
     end
     legend(label_list, 'Interpreter', 'none');
     
-
-
-
 end

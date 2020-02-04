@@ -1,8 +1,32 @@
-%15Mar19 NDB: Given two data sets, create a 2D histogram of the difference
-%in counts per trace between the two (first minus second)
 function Difference_of_2DHists(TraceStruct1, TraceStruct2, binsper_x, ...
     binsper_y, LinLog)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Creates a 2D histogram showing the difference
+    %between two datasets (the first minus the second)
+    %
+    %~~~INPUTS~~~:
+    %
+    %TraceStruct1: a structure containing all the traces from a data set
+    %   along with relevant associated information
+    %
+    %TraceStruct2: a second trace structure whose 2D histogram will be
+    %   subtracted from the first
+    %
+    %binsper_x: the number of bins to use per unit on the x-axis
+    %   (i.e.inter-electrode distance)
+    %
+    %binsper_y: the number of bins to use per unit on the y-axis (i.e.
+    %   conductance of log(conductance)
+    %
+    %LinLog: Whether the x-axis (Conductance) should be on a linear or
+    %   logarithmic scale; acceptable values are "Lin" and "Log"
+    
 
+    %Default values
     if nargin < 5
         LinLog = {'Lin', 'Log'};
     end

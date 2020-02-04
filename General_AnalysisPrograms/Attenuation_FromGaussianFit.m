@@ -1,9 +1,16 @@
-%10Sep19 NDB: Determine attenuation by first finding the implied
-%attenuation from each trace's slope in the tunneling region, then fitting
-%the distribution of attenuations with a single gaussian function
 function [atten_peak, atten_width, atten_error, FormPeakInfo] = ...
     Attenuation_FromGaussianFit(TraceStruct, StartTrace, EndTrace, ...
     min_cond, max_cond, ToPlot, IncludeForming)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Determine attenuation for a dataset by first 
+    %finding the implied attenuation from each trace's slope in the defined
+    %tunneling region, then fitting the distribution of attenuations with 
+    %a single gaussian function.
+    %
     %~~~INPUTS~~~:
     %
     %TraceStruct: a trace structure containing all the traces in a dataset
@@ -23,7 +30,7 @@ function [atten_peak, atten_width, atten_error, FormPeakInfo] = ...
     %
     %IncludeForming: logical variable; whether or not to also plot the
     %   attenuations implied by the tunneling slopes of the forming traces
-    %   (assuming that they exist)
+    %   (assuming that they exist in the trace structure)
     %
     %######################################################################
     %
@@ -39,10 +46,12 @@ function [atten_peak, atten_width, atten_error, FormPeakInfo] = ...
     %
     %FormPeakInfo: structure containing information about the fit to the
     %   forming trace attenuations, if they exist
-    
-    Ntraces = TraceStruct.Ntraces;
-    TraceStruct = LoadTraceStruct(TraceStruct);
 
+    
+    TraceStruct = LoadTraceStruct(TraceStruct);
+    Ntraces = TraceStruct.Ntraces;
+
+    %Default inputs:
     if nargin < 7
         IncludeForming = true;
     end
@@ -64,8 +73,7 @@ function [atten_peak, atten_width, atten_error, FormPeakInfo] = ...
     if nargin < 1 || nargin > 7
         error('Incorrect # of input parameters');
     end
-    
-    
+        
     %Convert conductance boundaries to log space:
     max_cond = log10(max_cond);
     min_cond = log10(min_cond);
@@ -99,7 +107,7 @@ function [atten_peak, atten_width, atten_error, FormPeakInfo] = ...
             forming_attenuations = TraceStruct.FormingTunnelingSlopes(StartTrace:EndTrace) ...
                 ./ (correct_slope);
             forming_attenuations = forming_attenuations(~isnan(forming_attenuations));
-            %bin_width = 2 * iqr(forming_attenuations) * length(forming_attenuations)^(-1/3);
+            bin_width = 2 * iqr(forming_attenuations) * length(forming_attenuations)^(-1/3);
             nbins = round(range(forming_attenuations) / bin_width);
             [counts, centers] = hist(forming_attenuations, nbins);
             

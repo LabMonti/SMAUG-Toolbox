@@ -1,8 +1,14 @@
-%14Sep18 NDB: Breaks up a data set into "chunks" of consecutive traces,
-%then overlays the 1D distance histograms for each chunk to see if there
-%is any systematic drift over time
 function Plot_1D_DistHist_OverTime(TraceStruct, TracesPerChunk, ...
     linesper_y, binsper_x, StartTrace, EndTrace, UpperCondChop, NormByTrace)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Breaks up a data set into "chunks" of 
+    %consecutive traces, then overlays the 1D distance histograms for each 
+    %chunk to see if there is any systematic drift over time
+    %
     %~~~INPUTS~~~:
     %
     %TraceStruct: a trace structure containing all the traces in a dataset
@@ -25,8 +31,10 @@ function Plot_1D_DistHist_OverTime(TraceStruct, TracesPerChunk, ...
     %   of traces
     
     
+    TraceStruct = LoadTraceStruct(TraceStruct);
     Ntraces = TraceStruct.Ntraces;
     
+    %Default inputs
     if nargin < 8
         NormByTrace = true;
     end

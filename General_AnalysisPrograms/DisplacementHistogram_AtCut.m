@@ -1,9 +1,32 @@
-%NDB 08Mar2019: Program to make a histogram of the distances at which
-%(specifically, the last time) each trace reaches a particular conductance 
-%level
 function [counts, centers] = DisplacementHistogram_AtCut(TraceStruct, ...
     CondCut, binsper_x, StartTrace, EndTrace, Normalize, ToPlot)
-
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Makes a histogram of the distances at which each
+    %   trace LAST reaches a particular conductance
+    %
+    %~~~INPUTS~~~:
+    %
+    %TraceStruct: a trace structure containing all the traces in a dataset
+    %   and associated information
+    %
+    %CondCut: the conductance value (NOT on a logarithmic scale!) at which
+    %   to find trace distances
+    %
+    %binsper_x: how many bins to use per unit on the x-axis (i.e.
+    %   inter-electrode distance)
+    %
+    %StartTrace/EndTrace: First/last trace to include in processing
+    %
+    %Normalize: logical variable; whether or not to normalize # of traces
+    %   to probability density
+    %
+    %ToPlot: logical variable; whether or not to make a visible plot
+    
+    
     Ntraces = TraceStruct.Ntraces;
     if nargin < 7
         ToPlot = true;

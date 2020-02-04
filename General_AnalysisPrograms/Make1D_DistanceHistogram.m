@@ -1,10 +1,15 @@
-%21May18 NDB: Make a 1D "distance histogram" in which peaks correspond to
-%cliffs in traces rather than plateaus. Obtained by resampling traces
-%evenly along the y-axis instead of the x-axis. Also plot a 1D histogram of
-%the conductance values after the resampling. 
 function [counts, centers] = Make1D_DistanceHistogram(TraceStruct, ...
     linesper_y, binsper_dist, UpperCondChop, StartTrace, EndTrace, ...
     NormalizeCounts, varargin)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Makes a 1D "distance histogram" in which peaks 
+    %correspond to cliffs in traces rather than plateaus. Obtained by 
+    %resampling traces evenly along the y-axis instead of the x-axis. 
+    %
     %~~~INPUTS~~~:
     %
     %TraceStruct: a structure containing all traces in a data set along

@@ -1,7 +1,13 @@
-%20Aug2018 NDB: This function randomly selects traces from a trace
-%structure and plots them on the same plot
 function DisplayRandomTraces(TraceStruct, nDisp, offset_nm, LinLog, ...
     StartTrace, EndTrace)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Randomly selects traces from a dataset and plots
+    %them on the same plot.  
+    %
     %~~~INPUTS~~~:
     %
     %TraceStruct: a trace structure containing all the traces in a dataset
@@ -23,8 +29,10 @@ function DisplayRandomTraces(TraceStruct, nDisp, offset_nm, LinLog, ...
     %   user wants to only use a subset of the data
     
     
+    TraceStruct = LoadTraceStruct(TraceStruct);
     Ntraces = TraceStruct.Ntraces;
 
+    %Default inputs
     if nargin < 6
         EndTrace = Ntraces;
     end

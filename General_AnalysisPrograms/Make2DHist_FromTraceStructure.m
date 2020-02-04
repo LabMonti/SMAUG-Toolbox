@@ -1,7 +1,13 @@
-%Creates a 2D histogram using a TraceStructure file as input
-%Last Modified: 15Dec2017 NDB
 function Make2DHist_FromTraceStructure(TraceStruct, binsPer_x, binsPer_y, ...
     StartTrace, EndTrace, LinLog_x, LinLog_y, NormalizeCounts)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Creates a distance-condutance 2D histogram from 
+    %a dataset
+    %
     %~~~INPUTS~~~:
     %
     %TraceStruct: a structure containing all traces in a data set along
