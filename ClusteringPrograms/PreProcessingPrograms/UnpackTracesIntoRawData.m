@@ -1,8 +1,14 @@
-%04May2018 NDB: The program takes in a trace structure and "unpacks" all
-%the traces to combine their data into a single array. If a noise floor is
-%defined in the trace structure then points below it will be thrown out;
-%points left of the left_chop value will also be thrown out.  
 function Xdata = UnpackTracesIntoRawData(TraceStruct, left_chop)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: takes in a trace structure and "unpacks" all
+    %the traces to combine their data into a single array. If a noise floor
+    %is defined in the trace structure then points below it will be thrown
+    %out; points left of the left_chop value will also be thrown out.
+    %
     %~~~INPUTS~~~:
     %
     %TraceStruct: a matlab structure containing log(G/G_0) vs. distance
@@ -19,6 +25,7 @@ function Xdata = UnpackTracesIntoRawData(TraceStruct, left_chop)
     %Xdata: a two-column array containing all data points from all traces,
     %with distance in the first column and log(G/G_0) in the second
 
+    
     Ntraces = TraceStruct.Ntraces;
 
     %Get total # of data points

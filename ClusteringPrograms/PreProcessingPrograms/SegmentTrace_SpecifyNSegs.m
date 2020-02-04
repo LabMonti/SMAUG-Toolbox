@@ -1,11 +1,18 @@
-%02May2018 NDB: This function segments the input trace using the bottom-up
-%segmentation algorithm.  numSegsChosenRange can either be a single number
-%representing the target # of final segments, or a 2-element vector
-%containing a minimum and maximum targe # of final segments.  If the
-%latter, the final trace_segments will be stored for each value in that
-%range.  The error gained at each merge step is stored for all merge steps.
 function [trace_segments,ErrorData] = SegmentTrace_SpecifyNSegs(trace, ...
     numSegsChosenRange, initial_pointsPerSeg, ToPlot)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: This function segments the input trace using 
+    %the bottom-up segmentation algorithm.  numSegsChosenRange can either 
+    %be a single number representing the target # of final segments, or a 
+    %2-element vector containing a minimum and maximum targe # of final 
+    %segments.  If the latter, the final trace_segments will be stored for
+    %each value in that range.  The error gained at each merge step is 
+    %stored for all merge steps.
+    %
     %~~~INPUTS~~~:
     %
     %trace: a two-column array with distances in the first column and
@@ -36,11 +43,6 @@ function [trace_segments,ErrorData] = SegmentTrace_SpecifyNSegs(trace, ...
     %ErrorData: a three-column array with # of segments in the first
     %   column, error gained in the second, and total error in the third
 
-
-
-%     %Remove duplicate x-values so that we never get problems with linear
-%     %regression:
-%     trace = RemoveDuplicateXValues(trace);
 
     %Default initial # of points per trace is 2 (the minimum and most
     %accurate)
