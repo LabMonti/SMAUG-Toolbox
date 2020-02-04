@@ -1,6 +1,13 @@
-%11May18 NDB: Given an array of xy-data, find a value for y at a target
-%x-value not in the original array using linear interpolation
 function new_y = LinearInterpolation(data, target_x)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Given an array of xy-data, find a value for y 
+    %at a target x-value not in the original array using linear 
+    %interpolation
+    %
     %~~~INPUTS~~~:
     %
     %data: a two-column array with x-values in ascending order in the first

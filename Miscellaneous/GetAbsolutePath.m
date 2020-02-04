@@ -1,7 +1,21 @@
 function new_path = GetAbsolutePath(dir_name, optional_parent_name)
-
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: 
+    %
+    %~~~INPUTS~~~:
+    %
+    %
+    %######################################################################
+    %
+    %~~~OUTPUTS~~~:
+    %    
+    
     %The name of the top-level directory for this package
-    main_dir_name = 'SingleMoleculeDataAnalysisToolBox';
+    main_dir_name = 'SMAUG-Toolbox';
 
     %Get all the pieces of the current path
     path_parts = split(pwd,filesep);

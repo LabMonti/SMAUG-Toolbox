@@ -1,4 +1,17 @@
 function date_time_tag = GetDateTimeTag()
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: get the curent time and date as a nicely
+    %formatted string
+    %
+    %######################################################################
+    %
+    %~~~OUTPUTS~~~:
+    %    
+    %date_time_tage: a nicely-formatted string containing the date and time
 
     %Get current time and date as nice string
     t = clock();

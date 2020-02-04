@@ -1,12 +1,53 @@
-%NDB 09Oct19: Program to fit arbitrary xy data with N gaussians
 function [yHat, peak_centers, peak_center_errors, hwhm] = fit_xyData_nGaussians(...
     xData, yData, n_Gaussians, ToPlot)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: given x- and y-data, fits the data with an
+    %integer number of Gaussian peaks
+    %
+    %~~~INPUTS~~~:
+    %
+    %xData: a vector of the x-data
+    %
+    %yData: a vector of the y-data
+    %
+    %n_Gaussians: the # of Gaussians that should be fit to the data
+    %
+    %ToPlot: logical variable; if true, data and fit will be plotted
+    %
+    %######################################################################
+    %
+    %~~~OUTPUTS~~~:
+    %    
+    %yHat: if mulitiple peaks were fit, yHat is an n+1 column matrix in
+    %   which the first n columns contain the values of the fitted peaks at
+    %   each value of xData and the last column contains the total fit; if
+    %   only one peak was fit then yHat is just a single column containing
+    %   the fit at each xData value.  
+    %
+    %peak_centers: the center of each fitted peak
+    %
+    %peak_center_errors: the error (from fitting) of each fitted peak
+    %
+    %hwhm: the half width at half maximum of each fitted peak
+    
     
     if nargin < 4
         ToPlot = false;
     end
     if nargin < 3
         n_Gaussians = 1;
+    end
+    
+    %Make sure xData and yData are in column vector form
+    if size(xData,1) < size(xData,2)
+        xData = xData';
+    end
+    if size(yData,1) < size(yData,2)
+        yData = yData';
     end
     
     peak_centers = zeros(n_Gaussians, 1);
@@ -83,6 +124,5 @@ function [yHat, peak_centers, peak_center_errors, hwhm] = fit_xyData_nGaussians(
         hwhm(i) = c*sqrt(log(2));
         
     end
-
 
 end

@@ -1,8 +1,26 @@
-%NDB 05Feb2019: Given some x and y data representing histogram centers and
-%heights, respectively, generate the x and y data that will make a plot
-%with a stair-steppy pattern instead of a normal plot
 function [xOut, yOut] = convert_to_histogram_endpoints(xdata, ydata)
-
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Given some x and y data representing histogram 
+    %centers and heights, respectively, generate the x and y data that 
+    %will make a plot with a stair-steppy pattern instead of a normal plot
+    %
+    %~~~INPUTS~~~:
+    %
+    %xdata: vector containing center of each histogram bin
+    %
+    %ydata: vector containing the height of each histogram bin
+    %
+    %######################################################################
+    %
+    %~~~OUTPUTS~~~:
+    %    
+    %xOut/yOut: vector containing x/y-data to make stair-step style plot
+    
+    
     N = length(xdata);
     step = (xdata(2) - xdata(1))/2;
     
