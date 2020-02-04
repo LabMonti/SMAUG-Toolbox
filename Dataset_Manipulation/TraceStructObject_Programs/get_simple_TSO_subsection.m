@@ -43,8 +43,8 @@ function SubSection = get_simple_TSO_subsection(TSO,StartTrace,EndTrace)
 
     %Update each per_traceField to only include relevant values (if it
     %exists in the first place):
-    for i = 1:length(ComboTSO.per_traceFields)
-        name_of_field = ComboTSO.per_traceFields{i};
+    for i = 1:length(TSO.per_traceFields)
+        name_of_field = TSO.per_traceFields{i};
         if ~isempty(TraceStruct.(name_of_field))
             SubSection.(name_of_field) = TraceStruct.(name_of_field)(StartTrace:EndTrace);
         end
