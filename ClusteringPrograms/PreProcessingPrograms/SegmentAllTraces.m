@@ -1,7 +1,13 @@
-%11May18 NDB: segments all traces in a dataset using my "optimal"
-%segmenatation algorithm
 function [AllSegments,AllBounds,nSegments,TraceIDs,TracesUsed] = ...
     SegmentAllTraces(TraceStruct,EvalType,left_chop,cond_ceil,ToPlot,pool)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: segments all traces in a dataset using my 
+    %"optimal" segmenatation algorithm
+    %
     %~~~INPUTS~~~:
     %
     %TraceStruct: a trace structure containing all the traces in a dataset
