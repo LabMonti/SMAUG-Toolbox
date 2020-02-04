@@ -1,8 +1,15 @@
+%Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+%licensed under the Creative Commons Attribution-NonCommercial 4.0 
+%International License. To view a copy of this license, visit 
+%http://creativecommons.org/licenses/by-nc/4.0/.  
+%
+%Class of a "UpdateablePriorityQueue" for use in efficiently managing the
+%seeds list for OPTICS
+%
 %This version (05Jun17) validated as working correctly
-
+%
 %Updated in July2017 to fix rare bug that occurs when an object tries to
 %sink beyond the end of the array
-
 classdef UpdateablePriorityQueue < handle
     
     properties (Access=private)

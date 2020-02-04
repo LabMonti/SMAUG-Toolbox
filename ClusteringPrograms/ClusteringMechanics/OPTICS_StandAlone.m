@@ -1,7 +1,42 @@
-%30May18 NDB: Split off from the version used in SOPTICS, minor changes
-%made so that this runs the 'regular' optics algorithm
-function [RD, CD, order] = OPTICS_StandAlone(points, minpts, geneps, metric)
-
+function [RD, CD, order] = OPTICS_StandAlone(points, minPts, geneps, metric)
+    %Copyright 2020 LabMonti.  Written by Ben Wu and Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Runs the regular OPTICS algorithm (i.e., without
+    %the speed-ups of SOPTICS)
+    %
+    %~~~INPUTS~~~:
+    %
+    %points: and N by d array in which each row contains the coordinates of
+    %   a points in d dimenions.  This is the set of points that will be
+    %   clustered.  
+    %
+    %minPts: the minPts parameter used in the OPTICS algorithm
+    %
+    %geneps: the geneps parameter used in the OPTICS algorithm
+    %
+    %metric: the name of the distance metrix to be used for calculation
+    %   distances between different points
+    %
+    %######################################################################
+    %
+    %~~~OUTPUTS~~~:
+    %      
+    %RD: a vector containing the reachability distance for each point, 
+    %   listed in the order of the cluster order
+    %
+    %CD: a vector containing the core distance for each point, 
+    %   listed in the order of the cluster order
+    %
+    %order: a vector containing the cluster order.  So, if order(i) = j,
+    %   that means that the jth point in the original data matrix appears
+    %   in the ith position in the cluster order (and so RD(i) and CD(i)
+    %   are the reachability and core distances, respectively, for the jth
+    %   point in the original data matrix).  
+    
+    
     disp('Begin OPTICS stand-alone ordering...');
 
     M = size(points,1);
@@ -32,12 +67,12 @@ function [RD, CD, order] = OPTICS_StandAlone(points, minpts, geneps, metric)
             OP(ii) = true;
 
             %Find Core distance
-            if length(nbhd) < minpts
+            if length(nbhd) < minPts
                 CD(k) = 0;
             else
                 dist = dist(nbhd);
                 sortd = sort(dist);  
-                CD(k) = sortd(minpts);
+                CD(k) = sortd(minPts);
             end
 
             % Establishing reachability distance
@@ -68,12 +103,12 @@ function [RD, CD, order] = OPTICS_StandAlone(points, minpts, geneps, metric)
                     dist = pdist2(points(currentp,:),points,metric);
                     nbhd = find(dist < geneps);
 
-                    if length(nbhd) < minpts
+                    if length(nbhd) < minPts
                         CD(k) = 0;
                     else
                         dist = dist(nbhd);
                         sortd = sort(dist);
-                        CD(k) = sortd(minpts);
+                        CD(k) = sortd(minPts);
                     end
 
                     OP(currentp) = true; % current object is processed

@@ -1,3 +1,10 @@
+%Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+%licensed under the Creative Commons Attribution-NonCommercial 4.0 
+%International License. To view a copy of this license, visit 
+%http://creativecommons.org/licenses/by-nc/4.0/.  
+%
+%Class of a "TimingSave" object to flexibly store the amount of time that
+%different clustering steps take
 classdef TimingSave < handle
     
     properties (Access=private)
@@ -35,10 +42,7 @@ classdef TimingSave < handle
                 obj.section_names);           
             
         end
-        
-        
-        
-        
+
     end
     
 end

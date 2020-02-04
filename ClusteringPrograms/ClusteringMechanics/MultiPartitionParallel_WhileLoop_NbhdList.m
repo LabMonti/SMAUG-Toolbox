@@ -1,6 +1,59 @@
 function [RD,CD,order,TSaver] = ...
     MultiPartitionParallel_WhileLoop_NbhdList(points,minPts,minSize,cL,...
     cP,TSaver,pool,metric)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: The guts of the SOPTICS program!  Performs
+    %random projections, performs multipartition to determine neighborhoods
+    %for each point, and then performs the OPTICS algorithm to put points
+    %in a cluster order.  In order to reduce memory usage, sub-functions
+    %are defined within this file so that large arrays do not have to be
+    %duplicated for transport.  
+    %
+    %~~~INPUTS~~~:
+    %
+    %points: and N by d array in which each row contains the coordinates of
+    %   a points in d dimenions.  This is the set of points that will be
+    %   clustered.  
+    %
+    %minPts: the minPts parameter used in the OPTICS algorithm
+    %
+    %minSize: the minSize parameter used in multiparition
+    %
+    %cL: the cL parameter used for projections
+    %
+    %cP: the cP parameter used for projections
+    %
+    %TSaver: a TSaver object used to record how long each step takes
+    %
+    %pool: a parallel pool to speed up the projection step; can be set to
+    %   an empty vector if parallelization is not being used
+    %
+    %metric: the name of the distance metrix to be used for calculation
+    %   distances between different points
+    %
+    %######################################################################
+    %
+    %~~~OUTPUTS~~~:
+    %    
+    %RD: a vector containing the reachability distance for each point, 
+    %   listed in the order of the cluster order
+    %
+    %CD: a vector containing the core distance for each point, 
+    %   listed in the order of the cluster order
+    %
+    %order: a vector containing the cluster order.  So, if order(i) = j,
+    %   that means that the jth point in the original data matrix appears
+    %   in the ith position in the cluster order (and so RD(i) and CD(i)
+    %   are the reachability and core distances, respectively, for the jth
+    %   point in the original data matrix).  
+    %
+    %TSaver: the same TSaver object that was passed in, now updated with
+    %   the times for the steps carried out by this function
+    
 
     %Data dimension, number of points
     d = length(points(1, :));
