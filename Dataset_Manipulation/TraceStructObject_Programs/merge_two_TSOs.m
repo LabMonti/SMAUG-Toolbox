@@ -1,6 +1,12 @@
-%20Aug2018 NDB: Takes in a trace struct object (TSO), and merges on a
-%second TSO to the end of it (both TSOs must be non-combos)
 function merge_two_TSOs(TSO, TSO_addon)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Takes in a trace struct object (TSO), and 
+    %merges on a second TSO to the end of it (both TSOs must be non-combos)
+    %
     %~~~INPUTS~~~:
     %
     %TSO: A TSO which is NOT a combination of multiple data blocks.  This

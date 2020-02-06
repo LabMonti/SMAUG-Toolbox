@@ -1,7 +1,14 @@
-%05Oct18 NDB: Pull one or more subsections from a trace struct object
-%(TSO), and return a TSO of the combination of those subsections.  Original
-%TSO can be any type of combo!
 function NewTSO = get_TSO_subsections(TSO, SectionsBounds)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Pulls one or more subsections from a trace 
+    %struct object (TSO), and returns a TSO of the combination of those
+    %subsections.  Original TSO can be any type of combo! Not intended for
+    %direct call by user.  
+    %
     %~~~INPUTS~~~:
     %
     %TSO: the input trace structure object (which can be a combo or

@@ -1,7 +1,26 @@
-%04Oct18 NDB: Takes a trace structure that was "loaded" to create an
-%object, and reverses the process to get back the trace structure
 function TraceStruct = UnLoadTraceStruct(TraceStructObject)
-
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Takes a trace structure that was "loaded" to 
+    %create an object, and reverses the process to get back the trace 
+    %structure
+    %
+    %~~~INPUTS~~~:
+    %
+    %TraceStructObject: a trace structure object containing a "loaded"
+    %   dataset
+    %
+    %######################################################################
+    %
+    %~~~OUTPUTS~~~:
+    %   
+    %TraceStruct: a structure containing all of the information from the
+    %   inputted TSO, but no longer in object form
+    
+    
     %If the variable passed in is already a trace structure that should be
     %OK, just pass it back:
     if isstruct(TraceStructObject)

@@ -1,9 +1,13 @@
-%10Sep2018 NDB: A class of object that can "load in" a TraceStruct, store
+%Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+%licensed under the Creative Commons Attribution-NonCommercial 4.0 
+%International License. To view a copy of this license, visit 
+%http://creativecommons.org/licenses/by-nc/4.0/.  
+
+%A class of object that can "load in" a TraceStruct, store
 %its information, and supply that information upon request.  The advantages
 %of using an object for this instead of just the original TraceStruct is
 %that I can now change default values and/or add new options in a single
 %place instead of throughout my programs
-
 classdef LoadTraceStruct < handle
     
     properties (SetAccess = public, GetAccess = public)

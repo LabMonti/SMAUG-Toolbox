@@ -1,7 +1,13 @@
-%05Oct18 NDB: takes a combination Trace struct object (TSO) and splits it 
-%up into separate TSOs for each individual block of data that was
-%originally merged together
 function TSOList = get_TSO_combo_components(ComboTSO)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: takes a combination Trace struct object (TSO) 
+    %and splits it up into separate TSOs for each individual block of data
+    %that was originally merged together
+    %
     %~~~INPUTS~~~:
     %
     %ComboStruct: a combination trace struct object consisting of two of 

@@ -1,10 +1,16 @@
-%18Aug2018 NDB: When you want to take subsections from a combination
-%structure, this function splits the subsection bounds whenever they
-%overlap a merge-bound from the combo so that each final subsection does
-%not span more than one section from the combo. Not intended for direct
-%call by user.  
 function [ComponentBounds,NTotSubSections] = split_subsection_bounds(SectionsBounds, ...
     Ntraces_components)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: When you want to take subsections from a 
+    %combination structure, this function splits the subsection bounds 
+    %whenever they overlap a merge-bound from the combo so that each final
+    %subsection does not span more than one section from the combo. Not 
+    %intended for direct call by user.  
+    %
     %~~~INPUTS~~~:
     %
     %SectionsBounds: a two-column array in which each row contains the

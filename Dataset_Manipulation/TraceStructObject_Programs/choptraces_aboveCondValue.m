@@ -1,8 +1,14 @@
-%12Sep18 NDB: Chop all traces before the last time they cross below the
-%conductance value G_ChopValue (assumed to be in the same units at the
-%conductance values in the traces)
 function Traces = choptraces_aboveCondValue(Traces, G_ChopValue,ToPlot)
-    %~~~INPUTS~~~:
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Chop all traces before the last time they cross
+    %below the conductance value G_ChopValue (assumed to be in the same 
+    %units as the conductance values in the traces)
+    %
+    %~~~INPUTS~~~: 
     %
     %Traces: a 1D cell array containing one trace (2D array) per cell
     %
@@ -12,7 +18,15 @@ function Traces = choptraces_aboveCondValue(Traces, G_ChopValue,ToPlot)
     %
     %ToPlot: logical variable, whether or not to make a plot showing the
     %   percentage of points removed from each trace
-
+    %
+    %######################################################################
+    %
+    %~~~OUTPUTS~~~:
+    %    
+    %Traces: same as the input cell-array "Traces", but with the points up
+    %   until the last time each trace crossed below G_ChopValue removed
+    
+    
     if nargin < 3
         ToPlot = false;
     end

@@ -1,6 +1,12 @@
-%05Oct18 NDB: append a non-combo trace structure object (TSO) to a 
-%combination TSO  
 function append_TSO(ComboTSO, TSO_addon)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: appends a non-combo trace structure object (TSO)
+    %to a combination TSO
+    %
     %~~~INPUTS~~~:
     %
     %ComboTSO: A combo trace structure object which will have TSO_addon

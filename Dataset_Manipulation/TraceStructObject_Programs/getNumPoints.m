@@ -1,6 +1,12 @@
-%NDB 16Aug18: Finds the total # of data points in a trace structure by
-%adding up the # of points in each trace
 function NumTotalPoints = getNumPoints(TraceStruct)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Finds the total # of data points in a trace 
+    %structure by adding up the # of points in each trace
+    %
     %~~~INPUTS~~~:
     %
     %TraceStruct: a trace structure containing all the traces in a dataset

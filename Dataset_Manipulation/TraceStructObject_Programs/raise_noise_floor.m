@@ -1,7 +1,20 @@
-%NDB 09Aug19: A program to INCREASE the noise floor of a trace struct
-%object, consistent with whatever chop method is currently in use
 function raise_noise_floor(TSO, new_floor)
-
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: A program to INCREASE the noise floor of a 
+    %trace struct object, consistent with whatever chop method is 
+    %currently in use
+    %
+    %~~~INPUTS~~~:
+    %
+    %TSO: the trace structure object whose noise floor will be increased
+    %
+    %new_floor: the level of the new noise floor (NOT in log space)
+    
+    
     old_floor = TSO.NoiseFloor;
     if new_floor < old_floor
         error('Cannot decrease noise floor after initial processing');

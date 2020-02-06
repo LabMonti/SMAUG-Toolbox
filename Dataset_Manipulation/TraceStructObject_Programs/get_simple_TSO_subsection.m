@@ -1,6 +1,12 @@
-%05Oct18 NDB: Pull a subsection of traces out of a TraceStruct object (TSO)
-%to make a new TSO
 function SubSection = get_simple_TSO_subsection(TSO,StartTrace,EndTrace)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Pulls a subsection of traces out of a 
+    %TraceStruct object (TSO) to make a new TSO
+    %
     %~~~INPUTS~~~:
     %
     %TSO: a trace structure object that is NOT a combo

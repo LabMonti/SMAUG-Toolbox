@@ -1,10 +1,22 @@
-%05Oct18 NDB: Chop each trace the FIRST time it passes below the noise
-%floor
 function chop_TSO_first_cross(TSO)
-
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Chops each trace the FIRST time it passes below
+    %the noise floor
+    %
+    %~~~INPUTS~~~:
+    %
+    %TSO: the trace structure object whose traces will be chopped at their
+    %   first noise cross
+    
+    
     if strcmp(TSO.ChopMethod, 'ChopFirstCross')
         disp('Chop Method is already "ChopFirstCross", no need to alter it');
-    elseif strcmp(TSO.ChopMethod, 'FloorBelowNoiseFloor') || strcmp(TSO.ChopMethod, 'ExcludeTrailingNoise')
+    elseif strcmp(TSO.ChopMethod, 'FloorBelowNoiseFloor') || ...
+            strcmp(TSO.ChopMethod, 'ExcludeTrailingNoise')
 
         if TSO.y_Log
             nf = log10(TSO.NoiseFloor);

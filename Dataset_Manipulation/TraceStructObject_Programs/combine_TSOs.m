@@ -1,8 +1,27 @@
-%05Oct18 NDB: Make a combination trace struct object (TSO) out of a list of
-%TSOs each of which may or may not already be a combo.  Not intended for
-%direct call by user.  
 function ComboTSO = combine_TSOs(TSOList, ComboName)
-
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Makes a combination trace struct object (TSO)
+    %out of a list of TSOs each of which may or may not already be a combo.
+    %Not intended for direct call by user.  
+    %
+    %~~~INPUTS~~~:
+    %
+    %TSOList: a 1D cell-array containing the list of TSOs to be combined
+    %
+    %ComboName: the name that will be given to the new trace structure
+    %
+    %######################################################################
+    %
+    %~~~OUTPUTS~~~:
+    %    
+    %ComboTSO: the new trace structure created by combining the input
+    %   structures (still in object form)
+    
+    
     %Determine total number of different sections in all input structures
     %(so, determine # of components in combos)
     Nsections = 0;

@@ -1,5 +1,22 @@
 function remove_incomplete_traces(TSO, conductance)
-
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: remove traces that never reached at least as low
+    %as a given conductance value (NOT in log space).  Useful for seeing if
+    %the finite length of the piezo introduced any bias into a dataset.  
+    %
+    %~~~INPUTS~~~:
+    %
+    %TSO: the trace structure object whose traces will be processed by this
+    %   function
+    %
+    %conductance: the conductance value that we want all traces to have
+    %   reached, or else we will remove them (NOT in log space)
+    
+    
     NT = TSO.Ntraces;
     KeepTraces = false(NT, 1);
     NPoints = 0;
