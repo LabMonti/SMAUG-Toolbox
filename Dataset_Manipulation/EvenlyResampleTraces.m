@@ -1,7 +1,30 @@
-%NDB 18Dec19: Function to re-sample all traces in a dataset at evenly space
-%points along the distance axis
 function TraceStruct = EvenlyResampleTraces(TraceStruct, new_deltaX)
-
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: re-samples all traces in a dataset at evenly 
+    %spaced points along the distance axis (using linear interpolation)
+    %
+    %~~~INPUTS~~~:
+    %
+    %TraceStruct: a trace structure containing a set of traces and all
+    %   associated information
+    %
+    %new_deltaX: the interval along the inter-electrode distance axis that
+    %   will separate each point in the newly re-sampled traces.  Should be
+    %   in the same units as the trace distance values are in (typically
+    %   nm)
+    %
+    %######################################################################
+    %
+    %~~~OUTPUTS~~~:
+    %    
+    %TraceStruct: output trace structure in which each trace has been
+    %   re-sampled at evenly spaced points
+    
+    
     TraceStruct = LoadTraceStruct(TraceStruct);
     Ntraces = TraceStruct.Ntraces;
     

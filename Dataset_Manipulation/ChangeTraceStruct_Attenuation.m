@@ -1,16 +1,21 @@
-%22Feb2018 NDB: This program reads in a trace structure and outputs the
-%same trace structure file just with the attenuation changed to some
-%different value.  Can be used to take a trace structure in interelectrode
-%distance back to piezo distance by using 1/1000 as the new attenuation.  
 function TraceStruct = ChangeTraceStruct_Attenuation(TraceStruct, NewAttenuation)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Reads in a trace structure and outputs the
+    %same trace structure file just with the attenuation changed to a
+    %different value.  
+    %
     %~~~INPUTS~~~:
     %
     %TraceStruct: a trace structure containing all the traces in a dataset
     %   and associated information
     %
     %NewAttenuation: the new attenuation that the TraceStruct should be
-    %   converted using, in units of nm/um (so an attenuation of 1/1000
-    %   converts the TraceStruct back to Piezo distance)
+    %   converted using (should be a unitless ratio of inter-electrode
+    %   distance to piezo distance)
     %
     %######################################################################
     %

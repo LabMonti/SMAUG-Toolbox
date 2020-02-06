@@ -1,10 +1,14 @@
-%NDB 16Aug18: Combine any number of TraceStructs (which may or may not
-%already be combos) into a single combined TraceStruct
-%NDB 05Oct18: Updated to convert to trace struct objects, combine, then
-%convert back.  This has the advantage of ensuring all fields are filled
-%in with default values if values are unspecified
 function ComboStruct = Combine_TraceStructures(TraceStructCellArray, ...
     ComboName, AttenuationOverrideList)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Combine any number of TraceStructs (which may 
+    %or may not already be combos) into a single combined TraceStruct.  
+    %All fields will be filled in with default values if left unspecified.
+    %
     %~~~INPUTS~~~:
     %
     %TraceStructCellArray: a 1D cell array containing all the TraceStructs

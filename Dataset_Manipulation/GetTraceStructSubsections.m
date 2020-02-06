@@ -1,12 +1,14 @@
-%22Feb2018 NDB: The purpose of this function is to extract a subsection of
-%traces from a Trace Structure file and make a new trace structure for just
-%that subsection
-%21Jun2018 NDB: New version that is able to pull out multiple subsections
-%16Aug2018 NDB: Updated to be cleaner and take advantage of new combo
-%programs.  Can even take subsections of combos!
-%05Oct2018 NDB: Load and unload structs to make sure all empty fields get
-%filled with default values
 function NewTraceStruct = GetTraceStructSubsections(TraceStruct, SectionsBounds)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: extracts one or more sub-sections from a trace
+    %structure, and creates a new trace structure in which those
+    %sub-section(s) are concatenated into a single block.  All fields will
+    %be set to their default values if unspecified.  
+    %
     %~~~INPUTS~~~:
     %
     %TraceStruct: the input trace structure (which can be a combo or
