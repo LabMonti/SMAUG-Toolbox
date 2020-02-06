@@ -178,7 +178,7 @@ function OutputStruct = runClustering(ClusteringInputParameters,...
 
             %Get parameters for segments
             [Xraw, NormInfo] = ParametrizeSegments(AllSegments,AllBounds,TraceIDs,...
-                TracesUsed,true,w);
+                TracesUsed,true);
             OutputStruct.NormInfo = NormInfo;
 
             %Extra work to do if we want to weight segments by duplicating them
@@ -229,7 +229,7 @@ function OutputStruct = runClustering(ClusteringInputParameters,...
             
             %Get parameters for segments
             [Xraw, NormInfo] = ParametrizeSegments(AllSegments,AllBounds,TraceIDs,...
-                TracesUsed,true,w);   
+                TracesUsed,true);   
             OutputStruct.NormInfo = NormInfo;
             
             %Extra work to do if we want to weight segments by duplicating them

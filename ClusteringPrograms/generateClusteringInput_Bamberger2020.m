@@ -24,7 +24,6 @@ function [ClusteringInputParams, minPtsList] = ...
     ClusteringInputParams.cL = 30; %coefficient for how many projection lines to use in SOPTICS
     ClusteringInputParams.cP = 30; %coefficient for how may partitions to calculate in SOPTICS
     ClusteringInputParams.minSize = 120; %used to determine how finely to partition data in SOPTICS algorithm
-    ClusteringInputParams.w = 1; %Weight applied to conductance axis
     ClusteringInputParams.length_weighting = true; %Whether to duplicate segments in proportion to their length to increase density around long segments
     ClusteringInputParams.CondCeiling = 2.5; %Conductances above this value will be removed prior to segmentation (units of G_0, NOT logged)
     ClusteringInputParams.length_per_duplicate = 0.05; %each segment is duplicated once per this length (in nm)

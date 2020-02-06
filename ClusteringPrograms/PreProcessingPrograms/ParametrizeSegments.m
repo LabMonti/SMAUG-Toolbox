@@ -1,5 +1,5 @@
 function [SegmentParameters, NormInfo] = ParametrizeSegments(AllSegments,AllBounds,...
-    TraceIDs,TracesUsed,Normalize,w)
+    TraceIDs,TracesUsed,Normalize)
     %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
     %licensed under the Creative Commons Attribution-NonCommercial 4.0 
     %International License. To view a copy of this license, visit 
@@ -28,8 +28,6 @@ function [SegmentParameters, NormInfo] = ParametrizeSegments(AllSegments,AllBoun
     %   each parameter across all traces to put the different parameters on
     %   an equivalent scale as each other
     %
-    %w: weighting factor for the conductance dimension
-    %
     %######################################################################
     %
     %~~~OUTPUTS~~~:
@@ -41,10 +39,7 @@ function [SegmentParameters, NormInfo] = ParametrizeSegments(AllSegments,AllBoun
     %   to normalize the x- and y-data in the first two rows and the
     %   Log(length) data in the third row
     
-    
-    if nargin < 6
-        w = 1;
-    end
+
     if nargin < 5
         Normalize = true;
     end
@@ -147,9 +142,6 @@ function [SegmentParameters, NormInfo] = ParametrizeSegments(AllSegments,AllBoun
         %-90 to +90 and we used the 10th to 90th percentile range above, 
         %just divide by 0.8*180
         SegmentParameters(:,4) = SegmentParameters(:,4)./(0.8*180);
-    end
-    
-    %Weigth the conductance axis:
-    SegmentParameters(:,2) = w * SegmentParameters(:,2);    
+    end 
 
 end

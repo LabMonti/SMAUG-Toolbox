@@ -63,7 +63,6 @@ function OutputStruct = StartClustering_wInput(optional_input_struct)
         I.distStep = 'median'; %Distance between re-sampling points; can be set to 'median' to be data-based
         I.maxDist = Inf; %Maximum distance to extend traces to; set to "Inf" to extend to end of longest trace
     elseif any(strcmp(I.clustering_mode,{'Segments','Segments_PreSegmented'}))
-        I.w = 1; %Weight applied to conductance axis
         I.length_weighting = true; %Whether to duplicate segments in proportion to their length 
                                    %to increase density around long segments
         I.CondCeiling = 2.5; %Conductances above this value will be removed prior to segmentation (units of G_0, NOT logged)
