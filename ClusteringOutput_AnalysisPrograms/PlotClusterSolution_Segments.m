@@ -60,17 +60,7 @@ function PlotClusterSolution_Segments(OutputStruct, Y, T, eps, PlotNoise)
     
     %Make the plot
     figure();
-    set(gca,'ColorOrder',plotting_colors,'NextPlot','replacechildren');
-    AllSegments = AllSegments';
-    AllSegments(3:4,:) = 10.^AllSegments(3:4,:);
-    line(AllSegments(1:2,:),AllSegments(3:4,:));
-    
-%     figure();
-%     hold on;
-%     for i = 1:nSegments
-%         line(AllSegments(i,1:2),10.^AllSegments(i,3:4),'Color',cluster_colors(Y(i)+offset,:));
-%     end
-%     hold off;
+    add_linearsegments_to_plot(AllSegments,plotting_colors);
     set(gca,'YScale','log');
     xlabel('Inter-Electrode Distance (nm)');
     ylabel('Conductance/G_0');
