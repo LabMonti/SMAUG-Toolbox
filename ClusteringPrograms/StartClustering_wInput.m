@@ -7,10 +7,10 @@ function OutputStruct = StartClustering_wInput(optional_input_struct)
     I = struct();
 
     %Inputs and Outputs:
-    I.input_file_name = 'Fig5_TestSet1_TrStr.mat'; %input file must be in the 'DataSets' directory
+    I.input_file_name = 'Example_OPV3-2BT-F_Dataset.mat'; %input file must be in the 'DataSets' directory
     I.output_tag = 'default'; %tag used to label output files; set to "default" to 
                          %use current directory name as the output tag
-    I.save_output = 0; %whether or not to save the output structure to a file
+    I.save_output = 1; %whether or not to save the output structure to a file
     [~,I.running_folder,~] = fileparts(pwd); %Get running folder
 
     %Define the clustering mode.  Options are below:
@@ -34,15 +34,15 @@ function OutputStruct = StartClustering_wInput(optional_input_struct)
 
     %Parameters that apply to all clustering modes:
     I.clustering_algorithm = 'SOPTICS'; %possibilities are 'SOPTICS' or 'OPTICS'
-    I.minPts = 50; %used to determine core distances in OPTICS algorithm
+    I.minPts = 85; %used to determine core distances in OPTICS algorithm
     I.nCores = 1; %# of cores to use; if >1, projection will be parallelized
-    I.random_seed = 3141; %seed to use for generating random #s
+    I.random_seed = 'use_time'; %seed to use for generating random #s
     I.left_chop = -Inf; %minimum distance value to be used for clustering (can be set to -Inf to include all points)
 
     %SOPTICS-specific parameters:
     if strcmp(I.clustering_algorithm,'SOPTICS')
-        I.cL = 20; %coefficient for how many projection lines to use in SOPTICS
-        I.cP = 20; %coefficient for how may partitions to calculate in SOPTICS
+        I.cL = 30; %coefficient for how many projection lines to use in SOPTICS
+        I.cP = 30; %coefficient for how may partitions to calculate in SOPTICS
         I.minSize = 50; %used to determine how finely to partition data in SOPTICS algorithm
     %OPTICS-specific parameters:
     elseif strcmp(I.clustering_algorithm,'OPTICS')
@@ -63,10 +63,10 @@ function OutputStruct = StartClustering_wInput(optional_input_struct)
         I.distStep = 'median'; %Distance between re-sampling points; can be set to 'median' to be data-based
         I.maxDist = Inf; %Maximum distance to extend traces to; set to "Inf" to extend to end of longest trace
     elseif any(strcmp(I.clustering_mode,{'Segments','Segments_PreSegmented'}))
-        I.w = 1.8; %Weight applied to conductance axis
+        I.w = 1; %Weight applied to conductance axis
         I.length_weighting = true; %Whether to duplicate segments in proportion to their length 
                                    %to increase density around long segments
-        I.CondCeiling = 2.85; %Conductances above this value will be removed prior to segmentation (units of G_0, NOT logged)
+        I.CondCeiling = 2.5; %Conductances above this value will be removed prior to segmentation (units of G_0, NOT logged)
         if I.length_weighting
             I.length_per_duplicate = 0.05; %each segment is duplicated once per this length (in nm)
         end
