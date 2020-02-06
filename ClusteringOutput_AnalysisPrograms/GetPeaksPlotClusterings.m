@@ -1,8 +1,14 @@
-%10May18 NDB: Find all peaks in the reachability plot that separate valleys
-%of sufficient size, extract the clustering solution at each such peak, and
-%plot that solution in an appropriate manner
 function SizeTables = GetPeaksPlotClusterings(OutputStruct, ...
     cutoff_fraction, PlotNoise, PlotStyle)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Find all peaks in the reachability plot that 
+    %separate valleys of sufficient size, extract the clustering solution 
+    %at each such peak, and plot that solution in an appropriate manner.  
+    %
     %~~~INPUTS~~~:
     %
     %OutputStruct: structure containing clustering output
@@ -32,13 +38,13 @@ function SizeTables = GetPeaksPlotClusterings(OutputStruct, ...
     
     %Default inputs
     if nargin < 4
-        PlotStyle = 'TraceSegments';
+        PlotStyle = 'LinearSegments';
     end
     if nargin < 3
         PlotNoise = false;
     end
     if nargin < 2
-        cutoff_fraction = 0.02;
+        cutoff_fraction = 0.01;
     end
     
     disp('---Finding Peaks...---');
@@ -81,7 +87,7 @@ function SizeTables = GetPeaksPlotClusterings(OutputStruct, ...
     
     %For this clustering display style, we need the segment to be
     %resampled.  To save time, only do this once, now, and put the output
-    %insdie the OutputStruct
+    %inside the OutputStruct
     if strcmp(PlotStyle,'AverageTraceSegments')
         OutputStruct = GetResampledSegments(OutputStruct);
     end
