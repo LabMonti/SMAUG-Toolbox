@@ -42,7 +42,7 @@ function PlotClusterSolution_DataPoints_MixedHeatMaps(data, order, Y, T, eps, nb
     %Get colors for all non-noise clusters
     nClust = max(Y);
     labels = (0:nClust);
-    cluster_colors = distinguishable_colors(nClust,{'w','k'});    
+    cluster_colors = distinguishable_colors(nClust);    
     
     %Either remove noise points or add a gray color to represent them
     if PlotNoise
