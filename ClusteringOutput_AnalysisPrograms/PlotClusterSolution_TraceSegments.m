@@ -1,7 +1,7 @@
 %10May2018 NDB: Plot a specific clustering solution based on the "Segment"
 %format of clustering, but for the actual plotting, get the original trace
 %segments that each segment was fit to and plot those trace segments
-function T = PlotClusterSolution_TraceSegments(OutputStruct, Y, T, eps, PlotNoise)
+function PlotClusterSolution_TraceSegments(OutputStruct, Y, T, eps, PlotNoise)
     %~~~INPUTS~~~:
     %
     %OutputStruct: structure containing clustering output
@@ -33,18 +33,7 @@ function T = PlotClusterSolution_TraceSegments(OutputStruct, Y, T, eps, PlotNois
     %Re-order data arrays to correspond to ordering of points in Y
     AllBounds = AllBounds(order,:);
     SegmentTraceIDs = SegmentTraceIDs(order,:);
-    nSegs = size(AllBounds,1);
-
-    %Re-calcualte cluster populations using data points rather than
-    %segments as the unit being counted
-    T(:,2:3) = 0;
-    for i = 1:nSegs
-        T(Y(i)+1,2) = T(Y(i)+1,2) + AllBounds(i,2) - AllBounds(i,1) + 1;
-    end
-    nPoints = sum(T(:,2));
-    for i = 1:size(T,1)
-        T(i,3) = T(i,2)/nPoints;
-    end    
+    nSegs = size(AllBounds,1); 
     
     %Make cell array to hold all trace segments
     TraceSegments = cell(nSegs, 1);

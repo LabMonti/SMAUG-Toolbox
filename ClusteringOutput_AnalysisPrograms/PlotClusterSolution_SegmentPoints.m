@@ -1,7 +1,7 @@
 %09May2018 NDB: Plot a specific clustering solution based on the "Segment"
 %format of clustering, but for the actual plotting, get the original trace
 %points that each segment was fit to and plot those
-function newT = PlotClusterSolution_SegmentPoints(OutputStruct, Y, T, ...
+function PlotClusterSolution_SegmentPoints(OutputStruct, Y, T, ...
     eps, ExSegs2Plot, PlotNoise)
     %~~~INPUTS~~~:
     %
@@ -22,13 +22,6 @@ function newT = PlotClusterSolution_SegmentPoints(OutputStruct, Y, T, ...
     %
     %PlotNoise: logical variable, whether to visibly plot the noise cluster
     %   or not
-    %
-    %######################################################################
-    %
-    %~~~OUTPUTS~~~:
-    %
-    %T: array of cluster sizes, modified to count data points instead of 
-    %   trace segments    
     
     
     if nargin < 6
@@ -65,11 +58,6 @@ function newT = PlotClusterSolution_SegmentPoints(OutputStruct, Y, T, ...
     DataPoints = zeros(NumTotalPoints, 2);
     newY = zeros(NumTotalPoints, 1);
     
-    %Make a new T (table of cluster populations) and zero it out since
-    %we'll have to recalculate the cluster populations
-    newT = T;
-    newT(:,2:3) = 0;
-    
     %Loop over each segment, and add its points and their cluster
     %assignment to the appropriate arrays
     counter = 0;
@@ -83,10 +71,6 @@ function newT = PlotClusterSolution_SegmentPoints(OutputStruct, Y, T, ...
         segPoints = trace(AllBounds(i,1):AllBounds(i,2),:);
         n = size(segPoints,1);
         
-        %Add number of points to total number of points assigned to this
-        %cluster
-        newT(Y(i)+1,2) = newT(Y(i)+1,2) + n;
-        
         %Add segment points to array of all points
         DataPoints(counter+1:counter+n,:) = segPoints;
         
@@ -97,17 +81,12 @@ function newT = PlotClusterSolution_SegmentPoints(OutputStruct, Y, T, ...
         counter = counter + n;
     end
     
-    %Recalculate third column of T (percent of total points in cluster)
-    for i = 1:size(T,1)
-        newT(i,3) = newT(i,2) / NumTotalPoints;
-    end
-    
     %Now we have equivalent results as if we had clustered raw 2D data
     %points, so use the program to plot the cluster output of that format!
-    PlotClusterSolution_DataPoints(DataPoints,newOrder,newY,newT,eps,'MixedHeatMaps',PlotNoise);    
+    PlotClusterSolution_DataPoints(DataPoints,newOrder,newY,T,eps,'MixedHeatMaps',PlotNoise);    
     
     if ExSegs2Plot > 0
-        OverlayExampleSegments(Y, T, PlotNoise, AllBounds, SegmentTraceIDs, ...
+        OverlayExampleSegments(Y, PlotNoise, AllBounds, SegmentTraceIDs, ...
             OutputStruct.TracesUsed,ExSegs2Plot)
     end
 

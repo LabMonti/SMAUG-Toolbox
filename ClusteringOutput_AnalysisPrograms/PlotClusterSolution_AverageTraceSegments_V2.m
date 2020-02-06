@@ -1,7 +1,7 @@
 %10May2018 NDB: Plot a specific clustering solution based on the "Segment"
 %format of clustering, but for the actual plotting, get the original trace
 %segments that each segment was fit to and plot those trace segments
-function T = PlotClusterSolution_AverageTraceSegments_V2(OutputStruct, Y, ...
+function PlotClusterSolution_AverageTraceSegments_V2(OutputStruct, Y, ...
     T, eps, PlotNoise, CentralPercents)
     %~~~INPUTS~~~:
     %
@@ -19,13 +19,6 @@ function T = PlotClusterSolution_AverageTraceSegments_V2(OutputStruct, Y, ...
     %
     %PlotNoise: logical variable, whether to visibly plot the noise cluster
     %   or not
-    %
-    %######################################################################
-    %
-    %~~~OUTPUTS~~~:
-    %
-    %T: array of cluster sizes, modified to count data points instead of 
-    %   trace segments
     
     if nargin < 6
         CentralPercents = [50 75 90];
@@ -57,20 +50,6 @@ function T = PlotClusterSolution_AverageTraceSegments_V2(OutputStruct, Y, ...
     else
         offset = 1;
     end
-    
-    %Re-calcualte cluster populations using data points rather than
-    %segments as the unit being counted
-    T_seg = T;
-    newT = T;
-    newT(:,2:3) = 0;
-    for i = 1:nSegs
-        newT(Y(i)+1,2) = newT(Y(i)+1,2) + AllBounds(i,2) - AllBounds(i,1) + 1;
-    end
-    nPoints = sum(newT(:,2));
-    for i = 1:size(T,1)
-        newT(i,3) = newT(i,2)/nPoints;
-    end
-    T = newT;
     
     %Sort the aligned segments to group segments from the same cluster
     [sortedY, sortI] = sort(Y);

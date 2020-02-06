@@ -1,7 +1,14 @@
-%10May18 NDB: Use a given epsilon value to extract a clustering solution
-%from the reachability plot, then plot that solution in a new figure
 function Size_Table = ExtractAndPlotClustering(OutputStruct, eps, ...
     cutoff_fraction, PlotNoise, PlotStyle)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Use a given epsilon value to extract a 
+    %clustering solution from the reachability plot, then plot that 
+    %solution in a new figure
+    %
     %~~~INPUTS~~~:
     %
     %OutputStruct: structure containing clustering output
@@ -40,7 +47,7 @@ function Size_Table = ExtractAndPlotClustering(OutputStruct, eps, ...
         PlotNoise = false;
     end
     if nargin < 3
-        cutoff_fraction = 0.02;
+        cutoff_fraction = 0.01;
     end
     
     %If there are duplicates that haven't been removed yet, remove them now
@@ -68,7 +75,7 @@ function Size_Table = ExtractAndPlotClustering(OutputStruct, eps, ...
         [Y, SizeArray] = excludeLowIntensityPoints(OutputStruct.Xraw,...
             OutputStruct.order, Y);
         Size_Table =  array2table(SizeArray,'VariableNames',...
-        {'Cluster_ID','Points_in_Cluster','Fraction_Points_in_Cluster'});
+            {'Cluster_ID','Points_in_Cluster','Fraction_Points_in_Cluster'});
         
         PlotClusterSolution_Histogram(OutputStruct, Y, SizeArray, eps, PlotNoise);
         
@@ -88,10 +95,11 @@ function Size_Table = ExtractAndPlotClustering(OutputStruct, eps, ...
     elseif strcmp(data_format,'Segments') || strcmp(data_format,'Segments_LengthWeighting')
         
         %Remove duplicates before plotting, in the case that there are
-        %duplicates
+        %duplicates.  However, calculate the cluster sizes FIRST so that
+        %the length weighting is reflected in them.  
+        [SizeArray, Size_Table] = GetPopulationTables(Y); 
         if strcmp(data_format,'Segments_LengthWeighting')
-            Y = RemoveDuplicateSegmentsFromY(Y, OutputStruct);
-            [SizeArray, Size_Table] = GetPopulationTables(Y);        
+            Y = RemoveDuplicateSegmentsFromY(Y, OutputStruct);       
         end
         
         %There are multiple styles for plotting segments:
@@ -99,20 +107,14 @@ function Size_Table = ExtractAndPlotClustering(OutputStruct, eps, ...
             PlotClusterSolution_Segments(OutputStruct, Y, SizeArray, eps, ...
                 PlotNoise);
         elseif strcmp(PlotStyle,'SegmentPoints')
-            T = PlotClusterSolution_SegmentPoints(OutputStruct, Y, SizeArray, ...
-                eps, 5, PlotNoise);
-            Size_Table = array2table(T,'VariableNames',{'Cluster_ID',...
-                'Points_in_Cluster','Fraction_Points_in_Cluster'});            
+            PlotClusterSolution_SegmentPoints(OutputStruct, Y, SizeArray, ...
+                eps, 5, PlotNoise);         
         elseif strcmp(PlotStyle,'TraceSegments')
-            T = PlotClusterSolution_TraceSegments(OutputStruct, Y, SizeArray, ...
-                eps, PlotNoise);
-            Size_Table = array2table(T,'VariableNames',{'Cluster_ID',...
-                'Points_in_Cluster','Fraction_Points_in_Cluster'});              
+            PlotClusterSolution_TraceSegments(OutputStruct, Y, SizeArray, ...
+                eps, PlotNoise);              
         elseif strcmp(PlotStyle,'AverageTraceSegments')
-            T = PlotClusterSolution_AverageTraceSegments_V2(OutputStruct, Y, ...
+            PlotClusterSolution_AverageTraceSegments_V2(OutputStruct, Y, ...
                 SizeArray, eps, PlotNoise);
-            Size_Table = array2table(T,'VariableNames',{'Cluster_ID',...
-                'Points_in_Cluster','Fraction_Points_in_Cluster'});
         else
             disp('Unrecognized plotting style; allowed styles are:');
             disp({'LinearSegments'; 'SegmentPoints'; 'TraceSegments'; ...

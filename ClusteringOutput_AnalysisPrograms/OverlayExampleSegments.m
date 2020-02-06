@@ -1,6 +1,10 @@
-function OverlayExampleSegments(Y, T, PlotNoise, AllBounds, ...
+function OverlayExampleSegments(Y, PlotNoise, AllBounds, ...
     SegmentTraceIDs, TracesUsed,ExSegs2Plot)
         
+    %For the purposes of this function, re-calculate T so that, if there
+    %were duplicates in Y that have since been removed, T matches the new Y
+    [T,~] = GetPopulationTables(Y); 
+
     nClust = max(Y);
 
     %Sort bounds and segment trace IDs by cluster ID
