@@ -78,6 +78,12 @@ classdef LoadTraceStruct < handle
             %Otherwise, load in trace structure
             else
             
+                %User can pass a file name or a library ID number instead
+                %of the TraceStruct itself
+                if ~isstruct(TraceStruct)
+                    TraceStruct = import_dataset(TraceStruct);
+                end
+                
                 %Save traces:
                 if isfield(TraceStruct,'Traces')
                     obj.Traces = TraceStruct.Traces;
