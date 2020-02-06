@@ -33,21 +33,6 @@ function PlotClusterSolution_TraceSegments(OutputStruct, Y, T, eps, PlotNoise)
     %Re-order data arrays to correspond to ordering of points in Y
     AllBounds = AllBounds(order,:);
     SegmentTraceIDs = SegmentTraceIDs(order,:);
-    nSegs = size(AllBounds,1); 
-    
-    %Make cell array to hold all trace segments
-    TraceSegments = cell(nSegs, 1);
-    
-    for i = 1:nSegs
-        %Find the trace that the current segment belongs to
-        TraceID = SegmentTraceIDs(i);
-        %%%trace = OutputStruct.TracesUsed.(strcat('Trace',num2str(TraceID)));
-        trace = OutputStruct.TracesUsed{TraceID};
-        
-        %Get all points in region this segment was fit to
-        segment = trace(AllBounds(i,1):AllBounds(i,2),:);
-        TraceSegments{i} = segment;
-    end
 
     disp('Plotting cluster solution...');
     
@@ -60,7 +45,8 @@ function PlotClusterSolution_TraceSegments(OutputStruct, Y, T, eps, PlotNoise)
         cluster_colors = [0.5 0.5 0.5; cluster_colors];
         offset = 1;
     else
-        TraceSegments = TraceSegments(Y > 0);
+        AllBounds = AllBounds(Y > 0, :);
+        SegmentTraceIDs = SegmentTraceIDs(Y > 0);
         Y = Y(Y > 0);
         offset = 0;
     end
@@ -73,20 +59,10 @@ function PlotClusterSolution_TraceSegments(OutputStruct, Y, T, eps, PlotNoise)
         TrCols(i, :) = cluster_colors(Y(i)+offset, :);
     end
     
+    %Make the plot
     figure();
-    set(gca, 'ColorOrder', TrCols, 'NextPlot', 'replacechildren');
-    
-    hold on;
-    for i = 1:length(TraceSegments)
-        trace = TraceSegments{i};
-        xdata = trace(:,1);
-        ydata = trace(:,2);
-        
-        p = plot(xdata, 10.^ydata,'LineWidth',0.1);
-        p.Color(4) = 0.1;
-    end
-    hold off;
-    
+    add_tracesegments_to_plot(OutputStruct.TracesUsed,SegmentTraceIDs,...
+        AllBounds,TrCols);   
     set(gca,'yscale','log');
     
     %If noise is not being plotted, add a white section on the color bar to
