@@ -340,6 +340,9 @@ classdef LoadTraceStruct < handle
                     disp(strcat(num2str(sum(do_not_reach)), ...
                         ' traces removed for starting after left-chop'));
                 end
+                
+                %Re-calculate total # of datapoints
+                obj.NumTotalPoints = getNumPoints(obj);
             end
         end
         
