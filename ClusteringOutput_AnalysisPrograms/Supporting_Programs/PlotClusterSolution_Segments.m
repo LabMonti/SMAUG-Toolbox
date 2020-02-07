@@ -1,6 +1,15 @@
 %10May18 NDB: Plots the clustering solution in the case that trace segments
 %were the data that was clustered.  Plots the linear segments themselves. 
 function PlotClusterSolution_Segments(OutputStruct, Y, T, eps, PlotNoise)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Plots the clustering solution in the case that
+    %trace segments were the data that was clustered.  Plots the linear
+    %segments themselves. 
+    %
     %~~~INPUTS~~~:
     %
     %OutputStruct: structure containing clustering output

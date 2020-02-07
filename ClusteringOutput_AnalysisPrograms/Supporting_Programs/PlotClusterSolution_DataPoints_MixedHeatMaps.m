@@ -1,5 +1,17 @@
 function PlotClusterSolution_DataPoints_MixedHeatMaps(data, order, Y, T, eps, nbinsX1, ...
     nbinsX2, PlotNoise)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Plots the clustering solution in the case that
+    %2d data points (distance, log(G/G_0)) were the data that was clustered
+    %In order to plot lots of 2D data points, a 2D histogram is actually
+    %plotted, with the color of each bin representing a weighted average 
+    %of the cluster IDs of all the raw data points inside that bin
+    %(weighting depends on ABSOLUTE number of points in each cluster)
+    %
     %~~~INPUTS~~~:
     %
     %data: array of raw data, with 1st column being distance and 2nd column

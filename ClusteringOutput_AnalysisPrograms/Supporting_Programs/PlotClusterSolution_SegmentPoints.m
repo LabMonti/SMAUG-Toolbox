@@ -1,8 +1,14 @@
-%09May2018 NDB: Plot a specific clustering solution based on the "Segment"
-%format of clustering, but for the actual plotting, get the original trace
-%points that each segment was fit to and plot those
 function PlotClusterSolution_SegmentPoints(OutputStruct, Y, T, ...
     eps, ExSegs2Plot, PlotNoise)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Plot a specific clustering solution based on 
+    %the "Segment" format of clustering, but for the actual plotting, get
+    %the original trace POINTS that each segment was fit to and plot those
+    %
     %~~~INPUTS~~~:
     %
     %OutputStruct: structure containing clustering output

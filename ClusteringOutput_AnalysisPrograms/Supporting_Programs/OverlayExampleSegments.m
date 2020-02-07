@@ -1,6 +1,33 @@
 function OverlayExampleSegments(Y, PlotNoise, AllBounds, ...
-    SegmentTraceIDs, TracesUsed,ExSegs2Plot)
-        
+    SegmentTraceIDs, TracesUsed, ExSegs2Plot)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: plot example segments on top of an already
+    %   existing clustering solution
+    %
+    %~~~INPUTS~~~:
+    %
+    %Y: vector of cluster assignments for each point (in order of cluster
+    %   order)
+    %
+    %PlotNoise: logical variable; whether or not to include the noise
+    %   cluster as a plotted cluster
+    %
+    %AllBounds: list of index bounds for each trace segment vis-a-vis the
+    %   trace it comes from
+    %
+    %SegmentTraceIDs: for each segment, the ID# of the trace that it came
+    %   from
+    %
+    %TracesUsed: cell array containing all of the traces that the segments
+    %   came from
+    %
+    %ExSegs2Plot: # of example segments to plot for each cluster
+    
+    
     %For the purposes of this function, re-calculate T so that, if there
     %were duplicates in Y that have since been removed, T matches the new Y
     [T,~] = GetPopulationTables(Y); 

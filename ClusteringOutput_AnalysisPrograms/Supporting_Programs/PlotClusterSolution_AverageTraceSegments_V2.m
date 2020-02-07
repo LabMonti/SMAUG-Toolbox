@@ -1,8 +1,17 @@
-%10May2018 NDB: Plot a specific clustering solution based on the "Segment"
-%format of clustering, but for the actual plotting, get the original trace
-%segments that each segment was fit to and plot those trace segments
 function PlotClusterSolution_AverageTraceSegments_V2(OutputStruct, Y, ...
     T, eps, PlotNoise, CentralPercents)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Plot a specific clustering solution based on the
+    %"Segment" format of clustering, but for the actual plotting, get the
+    %original trace segments that each segment was fit and average (well,
+    %median) them together at each distance point to get "median segments",
+    %as well as regions containing the central X% of segments at each
+    %distance
+    %
     %~~~INPUTS~~~:
     %
     %OutputStruct: structure containing clustering output
@@ -19,6 +28,11 @@ function PlotClusterSolution_AverageTraceSegments_V2(OutputStruct, Y, ...
     %
     %PlotNoise: logical variable, whether to visibly plot the noise cluster
     %   or not
+    %
+    %CentralPercents: list of middle percentages that shading will be
+    %   plotted around.  So, for example, including a value of 50 in this
+    %   list will cause the inter-quartile range of all segments in each
+    %   cluster to be included in the plot.  
     
     if nargin < 6
         CentralPercents = [50 75 90];

@@ -1,8 +1,14 @@
-%28May18 NDB: In accordance with Ben's paper, for histogram clustering
-%results this program finds clusters in which ALL the data points
-%correspond to bins with counts less than or equal to 5, and re-assigns
-%these clusters to the noise cluster
 function [Y, T] = excludeLowIntensityPoints(X, order, Y)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: In accordance with Ben's paper, for histogram
+    %clustering results this program finds clusters in which ALL the data
+    %points correspond to bins with counts less than or equal to 5, and
+    %re-assigns these clusters to the noise cluster
+    %
     %~~~INPUTS~~~:
     %
     %X: data points being clustered as a 3-column array; distance in 1st

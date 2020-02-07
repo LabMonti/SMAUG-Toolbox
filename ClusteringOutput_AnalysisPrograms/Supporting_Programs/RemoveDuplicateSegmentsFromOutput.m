@@ -1,5 +1,26 @@
 function OutputStruct = RemoveDuplicateSegmentsFromOutput(OutputStruct)
-
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: when clustering was performed using the Segment
+    %   clustering mode with length weighting, then each segment got
+    %   duplicated in proportion to its length.  This function removes
+    %   those duplicates to speed up plotting.  
+    %
+    %~~~INPUTS~~~:
+    %
+    %OutputStruct: the clustering output structure
+    %
+    %######################################################################
+    %
+    %~~~OUTPUTS~~~:
+    %   
+    %OutputStruct: the same as the input, but with the duplicate values
+    %   removed
+    
+    
     %Get logical vector indicating which points are originals and which are
     %duplicates
     OGvsDup = OutputStruct.original_vs_duplicate;
