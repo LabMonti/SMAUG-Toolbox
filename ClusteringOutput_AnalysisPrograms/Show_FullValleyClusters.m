@@ -81,7 +81,9 @@ function [soln_nums, clust_nums] = Show_FullValleyClusters(OutputStruct, ...
         Xdist = OutputStruct.Xdist;
         data = OutputStruct.Xraw(order, :);
     elseif strcmp(PlotStyle,'TraceHists')
-        TraceCellArray = OutputStruct.OG_Traces(order);      
+        TraceCellArray = OutputStruct.OG_Traces(order); 
+    elseif strcmp(PlotStyle,'DataPoints') || strcmp(PlotStyle,'TraceEnhancedDataPoints')
+        data = OutputStruct.Xraw(:,1:2);
     end
 
     %Make a separate plot for each full-valley cluster:
@@ -189,6 +191,23 @@ function [soln_nums, clust_nums] = Show_FullValleyClusters(OutputStruct, ...
             traces = TraceCellArray(valley_bounds(i,1):valley_bounds(i,2));
             traces = traces(keep);
             add_traces_to_plot(traces,clust_colors(i,:));
+        elseif strcmp(PlotStyle,'DataPoints') || strcmp(PlotStyle,'TraceEnhancedDataPoints')
+            col_data = data(valley_bounds(i,1):valley_bounds(i,2),:);
+            col_data = col_data(keep,:);
+            
+            %Get histogram data
+            hist_columns = data2d_to_histcolumns(col_data,100,40);
+            
+            %Make the color of each bin proportional to its count 
+            %(normalized to the highest count bin)
+            MaxCount = max(hist_columns(:,3));
+            cols = repmat(clust_colors(i,:),size(hist_columns,1),1);
+            for j = 1:size(hist_columns,1)
+                cols(j,:) = cols(j,:) * hist_columns(j,3)/MaxCount + ...
+                    [1 1 1] * (1 - hist_columns(j,3)/MaxCount);
+            end
+            
+            add_histcolumndata_to_plot(hist_columns,cols);            
         else
             error(strcat('Unrecognized plotting style: ',PlotStyle));
         end       
