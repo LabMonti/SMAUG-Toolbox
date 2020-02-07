@@ -302,7 +302,9 @@ classdef LoadTraceStruct < handle
                 obj.removeTraces(removeIDs);
                 disp(strcat(num2str(counter),' traces removed due to top chop'));
             end
-                
+            
+            %Re-calculate # of total points
+            obj.NumTotalPoints = getNumPoints(obj);                
         end
         
         %Remove portion of each trace before (left of) a given distance
