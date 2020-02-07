@@ -14,9 +14,14 @@ function add_linearsegments_to_plot(segment_endpoints, color_vector)
     %   the second two columns containing the starting and ending y-values
     %
     %color_vector: three-column matrix containing the color that each
-    %   segment should be plotted in
+    %   segment should be plotted in (can also be a just a single color
+    %   triple if all segments should be the same color)
 
-    hold on;
+    
+    if size(color_vector,1) == 1
+        color_vector = repmat(color_vector,size(segment_endpoints,1),1);
+    end        
+    
     for i = 1:size(segment_endpoints,1)
         line(segment_endpoints(i,1:2),10.^segment_endpoints(i,3:4),'Color',...
             color_vector(i,:));
