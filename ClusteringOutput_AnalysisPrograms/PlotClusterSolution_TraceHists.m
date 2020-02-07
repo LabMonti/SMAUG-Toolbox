@@ -25,13 +25,7 @@ function PlotClusterSolution_TraceHists(OutputStruct,Y,T,eps,PlotNoise)
     end    
 
     %First, make a cell array of all the traces:
-    %%%AllTraces = OutputStruct.OG_Traces;
     TraceCellArray = OutputStruct.OG_Traces;
-%    Ntraces = length(fieldnames(AllTraces));
-%    TraceCellArray = cell(Ntraces, 1);
-%     for i = 1:Ntraces
-%         TraceCellArray{i} = AllTraces.(strcat('Trace',num2str(i)));
-%     end
     
     %get colors for each non-noise cluster
     nNonNoiseClusts = size(T,1) - 1;
@@ -59,20 +53,10 @@ function PlotClusterSolution_TraceHists(OutputStruct,Y,T,eps,PlotNoise)
         TrCols(i, :) = cluster_colors(Y(i)+offset, :);
     end
     
-    figure();
-    set(gca, 'ColorOrder', TrCols, 'NextPlot', 'replacechildren');
-    
+    figure();   
     hold on;
-    for i = 1:length(data)
-        trace = data{i};
-        xdata = trace(:,1);
-        ydata = trace(:,2);
-        
-        p = plot(xdata, 10.^ydata,'LineWidth',0.1);
-        p.Color(4) = 0.1;
-    end
-    hold off;
-    
+    add_traces_to_plot(data,TrCols);
+    hold off;   
     set(gca,'yscale','log');
     
     %Append cluster percentages to each cluster:
