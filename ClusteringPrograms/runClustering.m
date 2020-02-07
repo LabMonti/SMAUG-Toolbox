@@ -67,7 +67,7 @@ function OutputStruct = runClustering(ClusteringInputParameters,...
 
             %Process trace data into histogram data
             Xraw = MakeHistogramDataFile_FromTraceStructure(data, bins_per_x, ...
-                bins_per_y, left_chop);        
+                bins_per_y, left_chop, CondCeiling);        
 
             %Save histogram data
             OutputStruct.Xraw = Xraw; 

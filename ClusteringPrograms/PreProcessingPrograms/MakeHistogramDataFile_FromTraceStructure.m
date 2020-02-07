@@ -1,5 +1,5 @@
 function DataMatrix = MakeHistogramDataFile_FromTraceStructure(TraceStruct, ...
-    binsper_x, binsper_y, left_chop_nm, ToPlot)
+    binsper_x, binsper_y, left_chop, top_chop, ToPlot)
     %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
     %licensed under the Creative Commons Attribution-NonCommercial 4.0 
     %International License. To view a copy of this license, visit 
@@ -22,9 +22,12 @@ function DataMatrix = MakeHistogramDataFile_FromTraceStructure(TraceStruct, ...
     %
     %binsper_y: the # of bins to use per unit in the y-dimension (logG)
     %
-    %left_chop_nm: the minimum distance value to use; traces will be
+    %left_chop: the minimum distance value to use; traces will be
     %   chopped at this value and any distance points less than it will be
     %   discarded
+    %
+    %top_chop: the maximum conductance value to use; traces will be chopped
+    %   after the last time they dip below this value
     %
     %ToPlot: logical variable, if true the histogram will be plotted
     %
@@ -38,11 +41,14 @@ function DataMatrix = MakeHistogramDataFile_FromTraceStructure(TraceStruct, ...
 
     
     %Default inputs
-    if nargin < 5
+    if nargin < 6
         ToPlot = false;
     end
+    if nargin < 5
+        top_chop = Inf;
+    end
     if nargin < 4
-        left_chop_nm = -0.1;
+        left_chop = -0.1;
     end
     if nargin < 3
         binsper_y = 30;
@@ -54,6 +60,10 @@ function DataMatrix = MakeHistogramDataFile_FromTraceStructure(TraceStruct, ...
     TraceStruct = LoadTraceStruct(TraceStruct);
     Ntraces = TraceStruct.Ntraces;
     TotalPoints = TraceStruct.NumTotalPoints;
+        
+    %Apply left and top chops
+    TraceStruct.apply_LeftChop(left_chop);
+    TraceStruct.chopAtConductanceCeiling(top_chop);    
     
     points = zeros(TotalPoints, 2);
     
@@ -73,9 +83,6 @@ function DataMatrix = MakeHistogramDataFile_FromTraceStructure(TraceStruct, ...
         nf = log10(TraceStruct.NoiseFloor);
         points = points(points(:,2) > nf, :);
     end
-    
-    %Chop at left bound
-    points = points(points(:,1) > left_chop_nm, :);
     
     %Get total # of bins
     Xbins = round(range(points(:,1)) * binsper_x);
