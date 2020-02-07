@@ -76,6 +76,8 @@ function [soln_nums, clust_nums] = Show_FullValleyClusters(OutputStruct, ...
     elseif strcmp(PlotStyle,'ExtendedTraces')
         Xdist = OutputStruct.Xdist;
         data = OutputStruct.Xraw(order, :);
+    elseif strcmp(PlotStyle,'TraceHists')
+        TraceCellArray = OutputStruct.OG_Traces(order);
     end
 
     %Make a separate plot for each full-valley cluster:
@@ -165,6 +167,10 @@ function [soln_nums, clust_nums] = Show_FullValleyClusters(OutputStruct, ...
             traces = data(valley_bounds(i,1):valley_bounds(i,2),:);
             traces = traces(keep,:);
             add_extendedtraces_to_plot(Xdist,traces,clust_colors(i,:));
+        elseif strcmp(PlotStyle,'TraceHists')
+            traces = TraceCellArray(valley_bounds(i,1):valley_bounds(i,2));
+            traces = traces(keep);
+            add_traces_to_plot(traces,clust_colors(i,:));
         else
             error(strcat('Unrecognized plotting style: ',PlotStyle));
         end       
