@@ -71,13 +71,17 @@ function [soln_nums, clust_nums] = Show_FullValleyClusters(OutputStruct, ...
         SegmentTraceIDs = OutputStruct.SegmentTraceIDs(order);
     elseif strcmp(PlotStyle,'AverageTraceSegments')
         OutputStruct = GetResampledSegments(OutputStruct);
+        AlignedSegments = OutputStruct.AlignedSegments(order,:);
+        ActiveRegions = OutputStruct.ActiveRegions(order,:);  
+        CentralPercents = [50 75 90];
+        Xdist = OutputStruct.Xdist;
     elseif strcmp(PlotStyle,'Histogram')
         data = OutputStruct.Xraw(order,:);
     elseif strcmp(PlotStyle,'ExtendedTraces')
         Xdist = OutputStruct.Xdist;
         data = OutputStruct.Xraw(order, :);
     elseif strcmp(PlotStyle,'TraceHists')
-        TraceCellArray = OutputStruct.OG_Traces(order);
+        TraceCellArray = OutputStruct.OG_Traces(order);      
     end
 
     %Make a separate plot for each full-valley cluster:
@@ -158,7 +162,21 @@ function [soln_nums, clust_nums] = Show_FullValleyClusters(OutputStruct, ...
             
             add_histcolumndata_to_plot(hist_columns,cols);
         elseif strcmp(PlotStyle,'AverageTraceSegments')
-            add_histcolumndata_to_plot(data,clust_colors(i,:));
+            aligned = AlignedSegments(valley_bounds(i,1):valley_bounds(i,2),:);
+            active = ActiveRegions(valley_bounds(i,1):valley_bounds(i,2),:);
+            aligned = aligned(keep,:);
+            active = active(keep,:);
+                      
+            [ActiveBounds, MedianSegment, PercentileRegions] = ...
+                prepare_AverageSegments(aligned, active, 1, ...
+                CentralPercents, ones(size(aligned,1),1));    
+            
+            hold on;
+            add_averagesegment_to_plot(Xdist, MedianSegment,...
+                PercentileRegions(:,1,:,:),squeeze(ActiveBounds(:,1,:)),...
+                clust_colors(i,:));
+            hold off;
+                      
         elseif strcmp(PlotStyle,'Histogram')
             bins = data(valley_bounds(i,1):valley_bounds(i,2),:);
             bins = bins(keep,:);

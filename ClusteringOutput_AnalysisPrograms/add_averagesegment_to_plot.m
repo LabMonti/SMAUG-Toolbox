@@ -32,7 +32,7 @@ function add_averagesegment_to_plot(Xdist, MedianSegment, ...
     %Plot the median as a single black line:
     xdata = Xdist(ActiveBounds(1,1):ActiveBounds(1,2));
     ydata = MedianSegment(ActiveBounds(1,1):ActiveBounds(1,2));
-    line(xdata,ydata,'Color',[0 0 0],'LineWidth',1.5);
+    line(xdata,10.^ydata,'Color',[0 0 0],'LineWidth',1.5);
 
     for j = 1:size(PercentileRegions,3)
         %If there were never enough points, ActiveBounds will be empty
@@ -47,7 +47,7 @@ function add_averagesegment_to_plot(Xdist, MedianSegment, ...
             Xperim = [xdata; flipud(xdata)];
             Yperim = [y_top; flipud(y_bottom)];
 
-            fill(Xperim,Yperim,cluster_color,'FaceAlpha',0.4,'LineStyle','none');
+            fill(Xperim,10.^Yperim,cluster_color,'FaceAlpha',0.4,'LineStyle','none');
         end
     end
 
