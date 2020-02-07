@@ -5,17 +5,37 @@ function [valley_bounds, valley_tops] = NestedFullValleyClusters(...
     %International License. To view a copy of this license, visit 
     %http://creativecommons.org/licenses/by-nc/4.0/.  
     %
-    %Function Description: 
+    %Function Description: Dispay a reachability plot with each full-valley
+    %cluster filled in with a different color (and nested so that
+    %sub-valeys are on top of valleys)
     %
     %~~~INPUTS~~~:
     %
+    %OutputStruct: structure containing clustering output
     %
+    %cutoff_fraction: the minimum size a valley in the reachability plot
+    %   must be to be considered a true cluster, as a fraction of the total
+    %   # of data points (so 0.02 means clusters must contain at least 2%
+    %   of all data points). Points in valleys with fewer than this # of
+    %   data points are re-assigned to the noise cluster
+    %
+    %optional_save_name: optional file name; if included, plot will not be
+    %   visibly made but will instead be saved to variations of save_name
+    %   (plus an extension). To plot figures visibly, leave this input out
+    %   or set it to an empty vector
     %
     %######################################################################
     %
     %~~~OUTPUTS~~~:
-    %    
+    %      
+    %valley_bounds: a two-column matrix indicating the starting and ending
+    %   indices for each valley in the cluster order
+    %
+    %valley_tops: the extraction level that aligns with the very top of
+    %   each valley, which can be used to extrat each "maximum valley
+    %   cluster"
 
+    
     if nargin < 3
         optional_save_name = [];
     end

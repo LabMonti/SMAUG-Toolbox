@@ -1,8 +1,45 @@
-%NDB 21May19: Given a segment clustering solution, get all data points
-%corresponding to a particular cluster in a particular clustering solution
 function [peak, error, halfwidth] = SegmentCluster_to_1DHist(OutputStruct, epsilon, ...
     cutoff_frac, cluster_num, ToPlot)
-
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Given a segment clustering solution with one 
+    %cluster specified, get all data points corresponding to that cluster,
+    %make a 1D histogram from those data, and fit that histogram with a
+    %single unrestricted Gaussian function
+    %
+    %~~~INPUTS~~~:
+    %
+    %OutputStruct: structure containing clustering output
+    %
+    %epsilon: the value of epsilon at which extraction takes place; 
+    %   clusters will be valleys that exist below this cut-off value in the
+    %   reachability plot
+    %
+    %cutoff_fraction: the minimum size a valley in the reachability plot
+    %   must be to be considered a true cluster, as a fraction of the total
+    %   # of data points (so 0.02 means clusters must contain at least 2%
+    %   of all data points). Points in valleys with fewer than this # of
+    %   data points are re-assigned to the noise cluster
+    %
+    %cluster_num: the # of the specific cluster in the cluster solution
+    %   (which valley it corresponds to, counting left to right)
+    %
+    %ToPlot: logical variable; whether to make a visible plot or not
+    %
+    %######################################################################
+    %
+    %~~~OUTPUTS~~~:
+    %
+    %peak: peak of the fitted Gaussian
+    %
+    %error: error in the peak of the fitted Gaussian
+    %
+    %halfwidth: half width at half maximum of the fitted Gaussian
+    
+    
     if nargin < 5
         ToPlot = false;
     end

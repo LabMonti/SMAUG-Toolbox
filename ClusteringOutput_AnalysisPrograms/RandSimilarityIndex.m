@@ -1,10 +1,27 @@
-%Finds c, the similarity between two clustering solutions Y1 and Y2.  c
-%ranges from 0 (completely different) to 1 (completely the same).
-%Source: "Objective Criteria for the Evaluation of Clustering Methods" by
-%William M. Rand, 1971.  
-
 function c = RandSimilarityIndex(Y1, Y2)
-
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Finds c, the similarity between two clustering 
+    %solutions Y1 and Y2.  c ranges from 0 (completely different) to 1 
+    %(completely the same). Source: "Objective Criteria for the Evaluation
+    %of Clustering Methods" by William M. Rand, 1971.  
+    %
+    %~~~INPUTS~~~:
+    %
+    %Y1: list of cluster ID assignments for first cluster solution
+    %
+    %Y2: list of cluster ID assignments for second cluster soluiton
+    %
+    %######################################################################
+    %
+    %~~~OUTPUTS~~~:
+    %    
+    %c: Rand index for the two clustering solutions
+    
+    
     IDs_1 = unique(Y1);
     IDs_2 = unique(Y2);
     N = length(Y1);
