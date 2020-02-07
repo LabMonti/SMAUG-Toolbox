@@ -1,8 +1,36 @@
-%NDB 24Jun19: Finds all valleys in reachability plot that exceed the
-%specified fraction of all data points
 function [valley_bounds, valley_tops] = Find_ReachabilityValleys(RD, ...
     cutoff_fraction)
-
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Finds all valleys in reachability plot that 
+    %exceed the specified fraction of all data points
+    %
+    %~~~INPUTS~~~:
+    %
+    %RD: column vector of reachability distances for each data point (in
+    %   the order of the cluster order)
+    %
+    %cutoff_fraction: the minimum size a valley in the reachability plot
+    %   must be to be considered a true cluster, as a fraction of the total
+    %   # of data points (so 0.02 means clusters must contain at least 2%
+    %   of all data points). Points in valleys with fewer than this # of
+    %   data points are re-assigned to the noise cluster
+    %
+    %######################################################################
+    %
+    %~~~OUTPUTS~~~:
+    %    
+    %valley_bounds: a two-column matrix indicating the starting and ending
+    %   indices for each valley in the cluster order
+    %
+    %valley_tops: the extraction level that aligns with the very top of
+    %   each valley, which can be used to extrat each "maximum valley
+    %   cluster"
+    
+    
     N = length(RD);
     min_valley_length = ceil(N*cutoff_fraction);
 

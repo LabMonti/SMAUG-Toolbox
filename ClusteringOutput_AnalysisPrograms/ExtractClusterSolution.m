@@ -1,8 +1,15 @@
-%10May18 NDB: extract a specific cluster solution from the reachability
-%plot; in other words, for a given epsilon value assign each point to a
-%cluster and output those cluster assignments and the cluster populations
 function [ClusterAssignments, ClusterSizeArray, ClusterSizeTable] = ...
     ExtractClusterSolution(RD, CD, eps, cutoff_fraction)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: extract a specific cluster solution from the 
+    %reachability plot; in other words, for a given epsilon value assign 
+    %each point to a cluster and output those cluster assignments and the
+    %cluster populations
+    %
     %~~~INPUTS~~~:
     %
     %RD: column vector of reachability distances for each data point (in

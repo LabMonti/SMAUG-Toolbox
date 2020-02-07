@@ -1,7 +1,35 @@
 function [peak_indices, peak_values] = FindReachabilityPeaks(RD, cutoff_fraction)
-
-    tic;
-
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: finds all peaks in a reachability plot that
+    %separate valeys representing at least cutoff_fraction of the total
+    %number of data points
+    %
+    %~~~INPUTS~~~:
+    %
+    %RD: column vector of reachability distances for each data point (in
+    %   the order of the cluster order)
+    %
+    %cutoff_fraction: the minimum size a valley in the reachability plot
+    %   must be to be considered a true cluster, as a fraction of the total
+    %   # of data points (so 0.02 means clusters must contain at least 2%
+    %   of all data points). Points in valleys with fewer than this # of
+    %   data points are re-assigned to the noise cluster
+    %
+    %######################################################################
+    %
+    %~~~OUTPUTS~~~:
+    %    
+    %peak_indices: the index in the cluster order of each of the identified
+    %   peaks
+    %
+    %peak_values: the extraction level corresponding to each peak (i.e.,
+    %   the reachability distance at the peak)
+    
+    
     N = length(RD);
     min_valley_length = ceil(N*cutoff_fraction);
 

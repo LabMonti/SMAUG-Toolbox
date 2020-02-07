@@ -1,6 +1,3 @@
-%NDB 29Jul19: Find all clusters corresponding to maximum valleys of at
-%least a certain size, and plot the reachability plot showing those valleys
-%as well as the clusters themselves
 function [soln_nums, clust_nums] = Show_FullValleyClusters(OutputStruct, ...
     cutoff_frac, PlotStyle, save_name)
     %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
@@ -8,16 +5,40 @@ function [soln_nums, clust_nums] = Show_FullValleyClusters(OutputStruct, ...
     %International License. To view a copy of this license, visit 
     %http://creativecommons.org/licenses/by-nc/4.0/.  
     %
-    %Function Description: 
+    %Function Description: Find all clusters corresponding to maximum 
+    %valleys of at least a certain size, and plot the reachability plot 
+    %showing those valleys as well as the clusters themselves
     %
     %~~~INPUTS~~~:
     %
+    %OutputStruct: structure containing clustering output
     %
+    %cutoff_fraction: the minimum size a valley in the reachability plot
+    %   must be to be considered a true cluster, as a fraction of the total
+    %   # of data points (so 0.02 means clusters must contain at least 2%
+    %   of all data points). Points in valleys with fewer than this # of
+    %   data points are re-assigned to the noise cluster
+    %
+    %PlotStyle: for some types of clustering output (currently just segment
+    %   clustering), their are multiple options for how to display the
+    %   clustering solutions; PlotStyle is a string identifying which of
+    %   those options to choose. 
+    %
+    %save_name: optional file name; if included, plots will not be visibly
+    %   made but will instead be saved to variations of save_name.  To plot
+    %   figures visibly, leave this input out or set it to an empty vector
     %
     %######################################################################
     %
     %~~~OUTPUTS~~~:
     %    
+    %soln_nums: a vector containing the "solution #" of each full-valley
+    %   cluster.  These solution numbers count up from lowest to highest
+    %   the valey "top" levels
+    %
+    %clust_nums: a vector containing the cluster number of each full-valley
+    %   cluster, i.e. at each valey's extraction level, how many valleys
+    %   need to be counted over from the left to reach the given valley
     
     
     if nargin < 4
@@ -63,6 +84,8 @@ function [soln_nums, clust_nums] = Show_FullValleyClusters(OutputStruct, ...
  
     order = OutputStruct.order;
     
+    %Extract information from output structure needed for each different
+    %plotting mode
     if strcmp(PlotStyle,'LinearSegments')
         AllSegments = OutputStruct.AllSegments(order,:);
     elseif strcmp(PlotStyle,'TraceSegments') || ...
