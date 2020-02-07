@@ -2,10 +2,16 @@
 %least a certain size, and plot the reachability plot showing those valleys
 %as well as the clusters themselves
 function [soln_nums, clust_nums] = Show_FullValleyClusters(OutputStruct, ...
-    cutoff_frac, save_name)
+    cutoff_frac, PlotStyle, save_name)
 
-    if nargin < 3
+    if nargin < 4
         save_name = [];
+    end
+    if nargin < 3
+        PlotStyle = 'LinearSegments';
+    end
+    if nargin < 2
+        cutoff_frac = 0.01;
     end
 
     %Find all the valleys
@@ -13,21 +19,6 @@ function [soln_nums, clust_nums] = Show_FullValleyClusters(OutputStruct, ...
     CD = OutputStruct.CD;
     [valley_bounds, valley_tops] = Find_ReachabilityValleys(RD, ...
         cutoff_frac);    
-    
-%     %Figure out how many times each valley is nested (i.e., how many larger
-%     %valleys it belongs to)
-%     nVal = length(valley_tops);
-%     nested = zeros(nVal,1);
-%     for i = 1:nVal
-%         for j = 1:nVal
-%             %If valley i is contained within valley j
-%             if valley_bounds(i,1) > valley_bounds(j,1) && ...
-%                     valley_bounds(i,2) < valley_bounds(j,2)
-%                 nested(i) = nested(i) + 1;
-%             end
-%         end
-%     end
-%     adjustment = max(valley_tops) * 0.01;
     
     Nclust = size(valley_bounds,1);
     clust_colors = distinguishable_colors(Nclust);
@@ -82,29 +73,6 @@ function [soln_nums, clust_nums] = Show_FullValleyClusters(OutputStruct, ...
     AllSegments = OutputStruct.AllSegments;
     order = OutputStruct.order;
     AllSegments = AllSegments(order,:);
-
-%     %Plot the segments of each cluster
-%     figure();
-%     hold on;
-%     for i = 1:Nclust
-%         
-%         valley_segments = AllSegments(valley_bounds(i,1):valley_bounds(i,2),:);
-%         
-%         %Remove duplicate segments if necessary
-%         if strcmp(OutputStruct.Format,'Segments_LengthWeighting')
-%             keep = OutputStruct.original_vs_duplicate;
-%             keep = keep(order);
-%             keep = keep(valley_bounds(i,1):valley_bounds(i,2));
-%             valley_segments = valley_segments(keep,:);
-%         end
-%         
-%         valley_segments = valley_segments';
-%         valley_segments(3:4,:) = 10.^valley_segments(3:4,:);
-%         line(valley_segments(1:2,:),valley_segments(3:4,:),'Color',clust_colors(i,:));
-% 
-%     end
-%     set(gca,'YScale','log');
-%     hold off;
 
     %Get data to make 2D histogram of data:
     nT = length(OutputStruct.TracesUsed);
@@ -162,25 +130,18 @@ function [soln_nums, clust_nums] = Show_FullValleyClusters(OutputStruct, ...
         plot(PlotData(:,1),PlotData(:,2),'o','Color',[0.5 0.5 0.5],...
             'MarkerFaceColor',[0.5 0.5 0.5]);        
 
-%         for j = 1:counter
-%             plot(PlotData(j,1),PlotData(j,2),'o','Color',PlotData(j,3)/...
-%                 top_threshold*[0.5 0.5 0.5],'MarkerFaceColor',PlotData(j,3)/...
-%                 top_threshold*[0.5 0.5 0.5]);
-%         end
-
-        valley_segments = AllSegments(valley_bounds(i,1):valley_bounds(i,2),:);
-
         %Remove duplicate segments if necessary
+        keep = true(length(order),1);
         if strcmp(OutputStruct.Format,'Segments_LengthWeighting')
             keep = OutputStruct.original_vs_duplicate;
             keep = keep(order);
             keep = keep(valley_bounds(i,1):valley_bounds(i,2));
-            valley_segments = valley_segments(keep,:);
         end
-
-        valley_segments = valley_segments';
-        valley_segments(3:4,:) = 10.^valley_segments(3:4,:);
-        line(valley_segments(1:2,:),valley_segments(3:4,:),'Color',clust_colors(i,:));        
+        
+        valley_segments = AllSegments(valley_bounds(i,1):valley_bounds(i,2),:);
+        valley_segments = valley_segments(keep,:);
+        
+        add_linearsegments_to_plot(valley_segments,clust_colors(i,:));       
 
         set(gca,'YScale','log');
         xlabel('Inter-Electrode Distance (nm)');
