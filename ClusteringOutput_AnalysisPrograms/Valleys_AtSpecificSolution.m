@@ -1,7 +1,34 @@
 %NDB 22May19: Makes a reachability plot with the valleys filled in in
 %colors to show where the different clusters are
-function ShowClusterValleys(RD, CD, eps, cutoff_frac)
-
+function Valleys_AtSpecificSolution(RD, CD, eps, cutoff_frac)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Makes a reachability plot with the valleys 
+    %filled in in colors to show where the different clusters are for a
+    %specific clusteirng solution (extraction level)
+    %
+    %~~~INPUTS~~~:
+    %
+    %RD: column vector of reachability distances for each data point (in
+    %   the order of the cluster order)
+    %
+    %CD: column vector of core distances for each data point (in the order
+    %   of the cluster order)
+    %
+    %eps: the value of epsilon at which extraction takes place; clusters
+    %   will be valleys that exist below this cut-off value in the
+    %   reachability plot
+    %
+    %cutoff_fraction: the minimum size a valley in the reachability plot
+    %   must be to be considered a true cluster, as a fraction of the total
+    %   # of data points (so 0.02 means clusters must contain at least 2%
+    %   of all data points). Points in valleys with fewer than this # of
+    %   data points are re-assigned to the noise cluster 
+    
+    
     %Assign each point to a cluster
     [Y,T,~] = ExtractClusterSolution(RD,CD,eps,cutoff_frac);
     
