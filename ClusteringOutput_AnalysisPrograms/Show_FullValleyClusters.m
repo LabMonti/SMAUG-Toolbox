@@ -63,7 +63,8 @@ function [soln_nums, clust_nums] = Show_FullValleyClusters(OutputStruct, ...
     
     if strcmp(PlotStyle,'LinearSegments')
         AllSegments = OutputStruct.AllSegments(order,:);
-    elseif strcmp(PlotStyle,'TraceSegments')  
+    elseif strcmp(PlotStyle,'TraceSegments') || ...
+            strcmp(PlotStyle,'SegmentPoints')
         AllBounds = OutputStruct.AllBounds(order,:);
         SegmentTraceIDs = OutputStruct.SegmentTraceIDs(order);
     else
@@ -101,14 +102,7 @@ function [soln_nums, clust_nums] = Show_FullValleyClusters(OutputStruct, ...
             valley_segments = AllSegments(valley_bounds(i,1):valley_bounds(i,2),:);
             valley_segments = valley_segments(keep,:);
 
-            add_linearsegments_to_plot(valley_segments,clust_colors(i,:));       
-
-            set(gca,'YScale','log');
-            xlabel('Inter-Electrode Distance (nm)');
-            ylabel('Conductance/G_0');
-
-            xlim([-0.2 2]);
-            ylim([1E-6 10]);                
+            add_linearsegments_to_plot(valley_segments,clust_colors(i,:));                      
         
         elseif strcmp(PlotStyle,'TraceSegments')
             
@@ -119,17 +113,49 @@ function [soln_nums, clust_nums] = Show_FullValleyClusters(OutputStruct, ...
             
             add_tracesegments_to_plot(OutputStruct.TracesUsed,IDs,bounds,...
                 clust_colors(i,:));
-            
-            set(gca,'YScale','log');
-            xlabel('Inter-Electrode Distance (nm)');
-            ylabel('Conductance/G_0');
         
-        elseif strcmp(PlotStyle,'AverageTraceSegments')
+        elseif strcmp(PlotStyle,'SegmentPoints')
+            %Find bounds and trace IDs for segments in cluster
+            bounds = AllBounds(valley_bounds(i,1):valley_bounds(i,2),:);
+            bounds = bounds(keep,:);
+            IDs = SegmentTraceIDs(valley_bounds(i,1):valley_bounds(i,2));
+            IDs = IDs(keep);
             
+            %Collect data points from all segments in specified cluster
+            data = zeros(length(OutputStruct.TracesUsed)*10000,2);
+            counter = 0;
+            for j = 1:length(IDs)
+                n = bounds(j,2) - bounds(j,1) + 1;
+                data(counter+1:counter+n,:) = OutputStruct.TracesUsed{...
+                    IDs(j)}(bounds(j,1):bounds(j,2),:);
+                counter = counter + n;
+            end
+            data = data(1:counter,:);
+            
+            %Get histogram data and use it to make the color of each bin
+            %proportional to its count (normalized to the highest count
+            %bin)
+            hist_columns = data2d_to_histcolumns(data,100,40);
+            MaxCount = max(hist_columns(:,3));
+            cols = repmat(clust_colors(i,:),size(hist_columns,1),1);
+            for j = 1:size(hist_columns,1)
+                cols(j,:) = cols(j,:) * hist_columns(j,3)/MaxCount + ...
+                    [1 1 1] * (1 - hist_columns(j,3)/MaxCount);
+            end
+            
+            add_histcolumndata_to_plot(hist_columns,cols);
         else
             error(strcat('Unrecognized plotting style: ',PlotStyle));
         end       
 
+        set(gca,'YScale','log');
+        xlabel('Inter-Electrode Distance (nm)');
+        ylabel('Conductance/G_0'); 
+        
+        %May want to take this out depending on your data!
+        xlim([-0.2 2]);
+        ylim([1E-6 10]); 
+        
         title(strcat('Solution #',num2str(soln_nums(i)),', Cluster #',...
             num2str(clust_nums(i)), ' (', num2str(valley_sizes(i)),'%)'));
         

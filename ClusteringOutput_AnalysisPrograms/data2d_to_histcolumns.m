@@ -1,4 +1,4 @@
-function HistColumns = traces_to_histcolumns(Traces, bins_per_x, ...
+function HistColumns = data2d_to_histcolumns(data, bins_per_x, ...
     bins_per_y)
     %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
     %licensed under the Creative Commons Attribution-NonCommercial 4.0 
@@ -11,9 +11,8 @@ function HistColumns = traces_to_histcolumns(Traces, bins_per_x, ...
     %
     %~~~INPUTS~~~:
     %
-    %Traces: a cell array of traces, with each trace represented as a
-    %   two-column matrix with distance in the first column and conductance
-    %   (or Log(conductance)) in the second column
+    %data: a two-column matrix with distance in the first column and 
+    %   conductance (or Log(conductance)) in the second column
     %
     %bins_per_x/bins_per_y: number of bins to use per unit on the x- and y-
     %   axes, respectively
@@ -26,19 +25,27 @@ function HistColumns = traces_to_histcolumns(Traces, bins_per_x, ...
     %   histogram bin in the first two columns and the bin count in the
     %   third column
 
-    %Get data to make 2D histogram of data:
-    nT = length(Traces);
-    ColumnData = zeros(nT*10000,2);
+
+    %Get 2D histogram counts and centers
+    Nbins = [round(range(data(:,1))*bins_per_x),round(range(...
+        data(:,2))*bins_per_y)];
+    [counts, centers] = hist3(data, Nbins);
+
+    %Put data into a 3-column matrix for easy plotting with scatter
+    nX = length(centers{1});
+    nY = length(centers{2});
+    HistColumns = zeros(nX*nY,3);
     counter = 0;
-    for i = 1:nT
-        tr = Traces{i};
-        n = size(tr,1);
-
-        ColumnData(counter+1:counter+n,:) = tr;
-        counter = counter + n;
+    for i = 1:nX
+        for j = 1:nY
+            if counts(i,j) > 0
+                counter = counter + 1;
+                HistColumns(counter,1) = centers{1}(i);
+                HistColumns(counter,2) = centers{2}(j);
+                HistColumns(counter,3) = counts(i,j);
+            end
+        end
     end
-    ColumnData = ColumnData(1:counter,:);
-
-    HistColumns = data2d_to_histcolumns(ColumnData,bins_per_x,bins_per_y);
+    HistColumns = HistColumns(1:counter,:);
     
 end
