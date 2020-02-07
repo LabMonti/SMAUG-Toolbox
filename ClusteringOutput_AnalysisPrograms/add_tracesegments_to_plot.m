@@ -21,11 +21,15 @@ function add_tracesegments_to_plot(traces_used, seg_trace_IDs, ...
     %   points for each segment within the trace it comes from
     %
     %color_vector: a 3-column matrix indicating what color each trace
-    %   segment should be plotted in
+    %   segment should be plotted in (can also be a single color if all
+    %   traces should be the same color)
 
     
-    hold on;
-    Nsegs = length(seg_trace_IDs);
+    Nsegs = length(seg_trace_IDs);    
+    if size(color_vector,1) == 1
+        color_vector = repmat(color_vector,Nsegs,1);
+    end    
+
     for i = 1:Nsegs
         %Find the trace this segment belongs to
         TraceID = seg_trace_IDs(i);

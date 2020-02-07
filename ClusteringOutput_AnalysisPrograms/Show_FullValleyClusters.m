@@ -32,7 +32,7 @@ function [soln_nums, clust_nums] = Show_FullValleyClusters(OutputStruct, ...
     
     %Set plot style for non-segment clustering modes:
     if ~strcmp(OutputStruct.Format,'Segments') && ... 
-        ~strcmp(OutputStruct.Format,'Segments_LengthWeighted')
+        ~strcmp(OutputStruct.Format,'Segments_LengthWeighting')
         PlotStyle = OutputStruct.Format;
     end
     
@@ -61,10 +61,14 @@ function [soln_nums, clust_nums] = Show_FullValleyClusters(OutputStruct, ...
  
     order = OutputStruct.order;
     
-    %Get all segments and put the list in the same order as the cluster
-    %order
-    AllSegments = OutputStruct.AllSegments;
-    AllSegments = AllSegments(order,:);
+    if strcmp(PlotStyle,'LinearSegments')
+        AllSegments = OutputStruct.AllSegments(order,:);
+    elseif strcmp(PlotStyle,'TraceSegments')  
+        AllBounds = OutputStruct.AllBounds(order,:);
+        SegmentTraceIDs = OutputStruct.SegmentTraceIDs(order);
+    else
+        error(strcat('Unrecognized plotting style: ',PlotStyle));
+    end
 
     %Make a separate plot for each full-valley cluster:
     for i = 1:Nclust
@@ -107,6 +111,20 @@ function [soln_nums, clust_nums] = Show_FullValleyClusters(OutputStruct, ...
             ylim([1E-6 10]);                
         
         elseif strcmp(PlotStyle,'TraceSegments')
+            
+            bounds = AllBounds(valley_bounds(i,1):valley_bounds(i,2),:);
+            bounds = bounds(keep,:);
+            IDs = SegmentTraceIDs(valley_bounds(i,1):valley_bounds(i,2));
+            IDs = IDs(keep);
+            
+            add_tracesegments_to_plot(OutputStruct.TracesUsed,IDs,bounds,...
+                clust_colors(i,:));
+            
+            set(gca,'YScale','log');
+            xlabel('Inter-Electrode Distance (nm)');
+            ylabel('Conductance/G_0');
+        
+        elseif strcmp(PlotStyle,'AverageTraceSegments')
             
         else
             error(strcat('Unrecognized plotting style: ',PlotStyle));
