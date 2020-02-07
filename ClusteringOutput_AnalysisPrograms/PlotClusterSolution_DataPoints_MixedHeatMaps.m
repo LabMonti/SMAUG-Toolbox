@@ -162,7 +162,8 @@ function PlotClusterSolution_DataPoints_MixedHeatMaps(data, order, Y, T, eps, nb
     end
     
     figure();
-    scatter(PlottingColumns(:,1), 10.^PlottingColumns(:,2), 100, PlottingColumns(:,3:5), 'filled', 's');
+    hold on;
+    add_histcolumndata_to_plot(PlottingColumns(:,1:2),PlottingColumns(:,3:5));
     set(gca,'YScale','log');
     title(strcat('For eps =',{' '},num2str(eps)));
     colormap(cluster_colors);

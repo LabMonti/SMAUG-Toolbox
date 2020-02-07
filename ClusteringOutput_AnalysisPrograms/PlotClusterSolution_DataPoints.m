@@ -34,10 +34,4 @@ function PlotClusterSolution_DataPoints(data, order, Y, T, eps, ...
         error('INVALID NORMALIZATION STYLE; options are "ColorMix" or "MixedHeatMaps"');
     end
 
-
-
-
-
-
-
 end

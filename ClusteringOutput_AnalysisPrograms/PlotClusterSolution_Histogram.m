@@ -84,7 +84,8 @@ function PlotClusterSolution_Histogram(OutputStruct, Y, T, eps, PlotNoise)
     end
     
     figure();
-    scatter(data(:,1), 10.^(data(:,2)), 100, point_colors, 'filled', 's');
+    hold on;
+    add_histcolumndata_to_plot(data,point_colors);
     set(gca,'YScale','log');
     title(strcat('For eps =',{' '},num2str(eps)));
     colormap(cluster_colors);
