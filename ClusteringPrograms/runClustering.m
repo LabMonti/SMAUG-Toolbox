@@ -88,7 +88,7 @@ function OutputStruct = runClustering(ClusteringInputParameters,...
             OutputStruct.Format = 'DataPoints';
 
             %Get raw data by unpacking traces
-            Xraw = UnpackTracesIntoRawData(data, left_chop);
+            Xraw = UnpackTracesIntoRawData(data, left_chop, CondCeiling);
             OutputStruct.Xraw = Xraw;
 
             %Standardize data:
@@ -156,7 +156,8 @@ function OutputStruct = runClustering(ClusteringInputParameters,...
         case 'Hybrid'
             OutputStruct.Format = 'TraceEnhancedDataPoints';
 
-            Xraw = getTraceEnhancedRawData(data, slope_window, left_chop);
+            Xraw = getTraceEnhancedRawData(data, slope_window, left_chop, ...
+                CondCeiling);
 
             %Store raw data
             OutputStruct.Xraw = Xraw;

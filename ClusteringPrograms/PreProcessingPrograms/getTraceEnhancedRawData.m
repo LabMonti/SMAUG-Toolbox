@@ -1,5 +1,5 @@
 function Xdata = getTraceEnhancedRawData(TraceStruct, slope_window, ...
-    left_chop)
+    left_chop, top_chop)
     %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
     %licensed under the Creative Commons Attribution-NonCommercial 4.0 
     %International License. To view a copy of this license, visit 
@@ -23,6 +23,9 @@ function Xdata = getTraceEnhancedRawData(TraceStruct, slope_window, ...
     %   chopped at this value and any distance points less than it will be
     %   discarded
     %
+    %top_chop: the maximum conductance value to use; traces will be chopped
+    %   after the last time they dip below this value
+    %
     %######################################################################
     %
     %~~~OUTPUTS~~~:
@@ -35,6 +38,10 @@ function Xdata = getTraceEnhancedRawData(TraceStruct, slope_window, ...
     
     window_half_width = floor(slope_window / 2);
     Ntraces = TraceStruct.Ntraces;
+    
+    %Apply left and top chops
+    TraceStruct.apply_LeftChop(left_chop);
+    TraceStruct.chopAtConductanceCeiling(top_chop);
     
     %Find total # of data points
     N = TraceStruct.NumTotalPoints;
@@ -62,9 +69,6 @@ function Xdata = getTraceEnhancedRawData(TraceStruct, slope_window, ...
     end
     clear tr temp_data temp_covar
     Xdata = Xdata(1:counter, :);
-
-    %Cut off data with distances less than left_chop
-    Xdata = Xdata(Xdata(:,1) > left_chop, :);
 
     %Remove points below noise floor
     if isfield(TraceStruct,'NoiseFloor')

@@ -1,4 +1,4 @@
-function Xdata = UnpackTracesIntoRawData(TraceStruct, left_chop)
+function Xdata = UnpackTracesIntoRawData(TraceStruct, left_chop, top_chop)
     %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
     %licensed under the Creative Commons Attribution-NonCommercial 4.0 
     %International License. To view a copy of this license, visit 
@@ -14,9 +14,12 @@ function Xdata = UnpackTracesIntoRawData(TraceStruct, left_chop)
     %TraceStruct: a matlab structure containing log(G/G_0) vs. distance
     %   traces and associated information
     %
-    %left_chop_nm: the minimum distance value to use; traces will be
+    %left_chop: the minimum distance value to use; traces will be
     %   chopped at this value and any distance points less than it will be
     %   discarded
+    %
+    %top_chop: the maximum conductance value to use; traces will be chopped
+    %   after the last time they dip below this value
     %
     %######################################################################
     %
@@ -28,6 +31,10 @@ function Xdata = UnpackTracesIntoRawData(TraceStruct, left_chop)
     
     TraceStruct = LoadTraceStruct(TraceStruct);
     Ntraces = TraceStruct.Ntraces;
+    
+    %Apply left and top chops
+    TraceStruct.apply_LeftChop(left_chop);
+    TraceStruct.chopAtConductanceCeiling(top_chop);
 
     %Get total # of data points
     NumTotalPoints = TraceStruct.NumTotalPoints;
@@ -48,8 +55,5 @@ function Xdata = UnpackTracesIntoRawData(TraceStruct, left_chop)
         nf = log10(TraceStruct.NoiseFloor);
         Xdata = Xdata(Xdata(:,2) > nf, :);
     end
-    
-    %Chop distance values less than left_chop
-    Xdata = Xdata(Xdata(:,1) > left_chop, :); 
 
 end

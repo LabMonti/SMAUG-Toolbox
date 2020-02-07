@@ -40,6 +40,7 @@ function [OG_Traces, trace_1dhist_matrix, bin_centers] = ...
     %First, lets collect all the original traces to store in the
     %output structure (so that they can be displayed in the clustering
     %solutions easily)
+    TraceStruct = LoadTraceStruct(TraceStruct);
     Ntraces = TraceStruct.Ntraces;
     OG_Traces = TraceStruct.Traces;
 
