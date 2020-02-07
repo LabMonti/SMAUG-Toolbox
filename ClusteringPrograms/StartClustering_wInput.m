@@ -38,6 +38,7 @@ function OutputStruct = StartClustering_wInput(optional_input_struct)
     I.nCores = 1; %# of cores to use; if >1, projection will be parallelized
     I.random_seed = 'use_time'; %seed to use for generating random #s
     I.left_chop = -Inf; %minimum distance value to be used for clustering (can be set to -Inf to include all points)
+    I.CondCeiling = 2.5; %Conductances above this value will be removed prior to segmentation (units of G_0, NOT logged)
 
     %SOPTICS-specific parameters:
     if strcmp(I.clustering_algorithm,'SOPTICS')
@@ -65,7 +66,6 @@ function OutputStruct = StartClustering_wInput(optional_input_struct)
     elseif any(strcmp(I.clustering_mode,{'Segments','Segments_PreSegmented'}))
         I.length_weighting = true; %Whether to duplicate segments in proportion to their length 
                                    %to increase density around long segments
-        I.CondCeiling = 2.5; %Conductances above this value will be removed prior to segmentation (units of G_0, NOT logged)
         if I.length_weighting
             I.length_per_duplicate = 0.05; %each segment is duplicated once per this length (in nm)
         end
