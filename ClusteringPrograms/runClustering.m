@@ -126,6 +126,7 @@ function OutputStruct = runClustering(ClusteringInputParameters,...
             OutputStruct.CondFloor = CondFloor;
 
             %Re-sample and extend traces:
+            data = LoadTraceStruct(data);
             [Xdist, Xraw, og_tr_ends] = GetExtendedTraceMatrix(data, left_chop, CondFloor,...
                 distStep, maxDist);
 
