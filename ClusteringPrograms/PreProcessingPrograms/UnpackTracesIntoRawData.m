@@ -26,6 +26,7 @@ function Xdata = UnpackTracesIntoRawData(TraceStruct, left_chop)
     %with distance in the first column and log(G/G_0) in the second
 
     
+    TraceStruct = LoadTraceStruct(TraceStruct);
     Ntraces = TraceStruct.Ntraces;
 
     %Get total # of data points
