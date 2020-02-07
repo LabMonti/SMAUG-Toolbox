@@ -48,16 +48,11 @@ function PlotClusterSolution_Traces(OutputStruct,Y,T,eps,PlotNoise)
         TrCols(i, :) = cluster_colors(Y(i)+offset, :);
     end
 
-    figure();
-    set(gca, 'ColorOrder', TrCols, 'NextPlot', 'replacechildren');
-    
-    Xdist = OutputStruct.Xdist;
-    
+    %Make the plot
+    figure();   
     hold on;
-    for i = 1:size(data,1)
-        p = plot(Xdist, 10.^data(i,:),'LineWidth',0.1);
-        p.Color(4) = 0.1;
-    end
+    Xdist = OutputStruct.Xdist;   
+    add_extendedtraces_to_plot(Xdist,data,TrCols);
     hold off;
     
     set(gca,'yscale','log');

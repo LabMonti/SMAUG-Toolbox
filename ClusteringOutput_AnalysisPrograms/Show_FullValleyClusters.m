@@ -73,6 +73,9 @@ function [soln_nums, clust_nums] = Show_FullValleyClusters(OutputStruct, ...
         OutputStruct = GetResampledSegments(OutputStruct);
     elseif strcmp(PlotStyle,'Histogram')
         data = OutputStruct.Xraw(order,:);
+    elseif strcmp(PlotStyle,'ExtendedTraces')
+        Xdist = OutputStruct.Xdist;
+        data = OutputStruct.Xraw(order, :);
     end
 
     %Make a separate plot for each full-valley cluster:
@@ -158,6 +161,10 @@ function [soln_nums, clust_nums] = Show_FullValleyClusters(OutputStruct, ...
             bins = data(valley_bounds(i,1):valley_bounds(i,2),:);
             bins = bins(keep,:);
             add_histcolumndata_to_plot(bins,clust_colors(i,:));
+        elseif strcmp(PlotStyle,'ExtendedTraces')
+            traces = data(valley_bounds(i,1):valley_bounds(i,2),:);
+            traces = traces(keep,:);
+            
         else
             error(strcat('Unrecognized plotting style: ',PlotStyle));
         end       
