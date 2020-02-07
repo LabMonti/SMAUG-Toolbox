@@ -187,37 +187,41 @@ function PlotClusterSolution_AverageTraceSegments_V2(OutputStruct, Y, ...
     
     figure();
     hold on;
-    
-    for i = 1:nClust
-        
-        %Plot the median as a single black line:
-        xdata = Xdist(ActiveBounds(1,i,1):ActiveBounds(1,i,2));
-        ydata = MedianSegments(ActiveBounds(1,i,1):ActiveBounds(1,i,2),i);
-        line(xdata,ydata,'Color',[0 0 0],'LineWidth',1.5);
-        
-        for j = 1:length(CentralPercents)
-            %If there were never enough points, ActiveBounds will be empty
-            %for given percentile, in which case don't plot
-            if ActiveBounds(j+1,i,1) > 0 && ActiveBounds(j+1,i,2) > 0
-
-                xdata = Xdist(ActiveBounds(j+1,i,1):ActiveBounds(j+1,i,2));
-
-                y_top = PercentileRegions(ActiveBounds(j+1,i,1):ActiveBounds(j+1,i,2),i,j,2);
-                y_bottom = PercentileRegions(ActiveBounds(j+1,i,1):ActiveBounds(j+1,i,2),i,j,1);
-
-                Xperim = [xdata; flipud(xdata)];
-                Yperim = [y_top; flipud(y_bottom)];
-
-                fill(Xperim,Yperim,cluster_colors(i,:),'FaceAlpha',0.4,'LineStyle','none');
-
-    %             if j == 1
-    %                 fill(Xperim,Yperim,cluster_colors(i,:),'FaceAlpha',0.4,'LineStyle','none');
-    %             else
-    %                 fill(Xperim,Yperim,cluster_colors(i,:),'FaceColor','none','EdgeColor',cluster_colors(i,:));
-    %             end
-            end
-        end
-    end
+    for i = 1:nClust        
+        add_averagesegment_to_plot(Xdist,MedianSegments(:,i),...
+            PercentileRegions(:,i,:,:),squeeze(ActiveBounds(:,i,:)),...
+            cluster_colors(i,:));
+    end    
+%     for i = 1:nClust
+%         
+%         %Plot the median as a single black line:
+%         xdata = Xdist(ActiveBounds(1,i,1):ActiveBounds(1,i,2));
+%         ydata = MedianSegments(ActiveBounds(1,i,1):ActiveBounds(1,i,2),i);
+%         line(xdata,ydata,'Color',[0 0 0],'LineWidth',1.5);
+%         
+%         for j = 1:length(CentralPercents)
+%             %If there were never enough points, ActiveBounds will be empty
+%             %for given percentile, in which case don't plot
+%             if ActiveBounds(j+1,i,1) > 0 && ActiveBounds(j+1,i,2) > 0
+% 
+%                 xdata = Xdist(ActiveBounds(j+1,i,1):ActiveBounds(j+1,i,2));
+% 
+%                 y_top = PercentileRegions(ActiveBounds(j+1,i,1):ActiveBounds(j+1,i,2),i,j,2);
+%                 y_bottom = PercentileRegions(ActiveBounds(j+1,i,1):ActiveBounds(j+1,i,2),i,j,1);
+% 
+%                 Xperim = [xdata; flipud(xdata)];
+%                 Yperim = [y_top; flipud(y_bottom)];
+% 
+%                 fill(Xperim,Yperim,cluster_colors(i,:),'FaceAlpha',0.4,'LineStyle','none');
+% 
+%     %             if j == 1
+%     %                 fill(Xperim,Yperim,cluster_colors(i,:),'FaceAlpha',0.4,'LineStyle','none');
+%     %             else
+%     %                 fill(Xperim,Yperim,cluster_colors(i,:),'FaceColor','none','EdgeColor',cluster_colors(i,:));
+%     %             end
+%             end
+%         end
+%     end
     hold off;
     
     %Account for the fact that the noise cluster may be empty
