@@ -51,6 +51,7 @@ function DataMatrix = MakeHistogramDataFile_FromTraceStructure(TraceStruct, ...
         binsper_x = 30;
     end
 
+    TraceStruct = LoadTraceStruct(TraceStruct);
     Ntraces = TraceStruct.Ntraces;
     TotalPoints = TraceStruct.NumTotalPoints;
     

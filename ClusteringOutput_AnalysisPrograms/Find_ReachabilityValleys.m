@@ -55,11 +55,14 @@ function [valley_bounds, valley_tops] = Find_ReachabilityValleys(RD, ...
         j = j + 1;
         valley_size = 1;
         
-        %Keep going forwards until we exceed the altitude of the peak; no
-        %equal to here because a peak at the END of a valley does not
-        %belong to it
-        while RD(j) < alt
+        %Keep going forwards until we exceed the altitude of the peak OR
+        %reach the end; no equal to here because a peak at the END of a 
+        %valley does not belong to it
+        while RD(j) < alt && j < N
             valley_size = valley_size + 1;
+            j = j + 1;
+        end
+        if j == N
             j = j + 1;
         end
         

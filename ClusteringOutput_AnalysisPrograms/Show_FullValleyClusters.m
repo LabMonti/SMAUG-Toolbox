@@ -39,7 +39,7 @@ function [soln_nums, clust_nums] = Show_FullValleyClusters(OutputStruct, ...
     %Get valleys and make the plot showing them:
     RD = OutputStruct.RD;
     CD = OutputStruct.CD;
-    [valley_bounds, valley_tops] = NestedFullValleyClusters(RD,...
+    [valley_bounds, valley_tops] = NestedFullValleyClusters(OutputStruct,...
         cutoff_frac,save_name);  
     
     Nclust = size(valley_bounds,1);
@@ -53,11 +53,13 @@ function [soln_nums, clust_nums] = Show_FullValleyClusters(OutputStruct, ...
 
     %Get data to make background 2D histogram (only include bins in the top
     %60% of counts to make the main structure clear)
-    PlotData = traces_to_histcolumns(OutputStruct.TracesUsed,100,40);
-    prctile_bound = 40;
-    threshold = prctile(PlotData(:,3),prctile_bound);
-    PlotData = PlotData(PlotData(:,3) > threshold,:);
-    PlotData(:,2) = 10.^PlotData(:,2);    
+    if strcmp(PlotStyle,'LinearSegments') || strcmp(PlotStyle,'TraceSegments')
+        PlotData = traces_to_histcolumns(OutputStruct.TracesUsed,100,40);
+        prctile_bound = 40;
+        threshold = prctile(PlotData(:,3),prctile_bound);
+        PlotData = PlotData(PlotData(:,3) > threshold,:);
+        PlotData(:,2) = 10.^PlotData(:,2);    
+    end
  
     order = OutputStruct.order;
     
@@ -67,8 +69,10 @@ function [soln_nums, clust_nums] = Show_FullValleyClusters(OutputStruct, ...
             strcmp(PlotStyle,'SegmentPoints')
         AllBounds = OutputStruct.AllBounds(order,:);
         SegmentTraceIDs = OutputStruct.SegmentTraceIDs(order);
-    else
-        error(strcat('Unrecognized plotting style: ',PlotStyle));
+    elseif strcmp(PlotStyle,'AverageTraceSegments')
+        OutputStruct = GetResampledSegments(OutputStruct);
+    elseif strcmp(PlotStyle,'Histogram')
+        data = OutputStruct.Xraw(order,:);
     end
 
     %Make a separate plot for each full-valley cluster:
@@ -86,16 +90,17 @@ function [soln_nums, clust_nums] = Show_FullValleyClusters(OutputStruct, ...
         hold on;
         
         %Remove duplicate segments if necessary
-        keep = true(length(order),1);
         if strcmp(OutputStruct.Format,'Segments_LengthWeighting')
             keep = OutputStruct.original_vs_duplicate;
             keep = keep(order);
             keep = keep(valley_bounds(i,1):valley_bounds(i,2));
-        end
-        
+        else
+            keep = true(valley_bounds(i,2)-valley_bounds(i,1) + 1, 1);
+        end       
         
         if strcmp(PlotStyle,'LinearSegments')
                
+            %Plot 2D histogram shape in the background
             plot(PlotData(:,1),PlotData(:,2),'o','Color',[0.5 0.5 0.5],...
                 'MarkerFaceColor',[0.5 0.5 0.5]); 
 
@@ -104,12 +109,15 @@ function [soln_nums, clust_nums] = Show_FullValleyClusters(OutputStruct, ...
 
             add_linearsegments_to_plot(valley_segments,clust_colors(i,:));                      
         
-        elseif strcmp(PlotStyle,'TraceSegments')
-            
+        elseif strcmp(PlotStyle,'TraceSegments')            
             bounds = AllBounds(valley_bounds(i,1):valley_bounds(i,2),:);
             bounds = bounds(keep,:);
             IDs = SegmentTraceIDs(valley_bounds(i,1):valley_bounds(i,2));
             IDs = IDs(keep);
+            
+            %Plot 2D histogram shape in the background
+            plot(PlotData(:,1),PlotData(:,2),'o','Color',[0.5 0.5 0.5],...
+                'MarkerFaceColor',[0.5 0.5 0.5]); 
             
             add_tracesegments_to_plot(OutputStruct.TracesUsed,IDs,bounds,...
                 clust_colors(i,:));
@@ -144,6 +152,12 @@ function [soln_nums, clust_nums] = Show_FullValleyClusters(OutputStruct, ...
             end
             
             add_histcolumndata_to_plot(hist_columns,cols);
+        elseif strcmp(PlotStyle,'AverageTraceSegments')
+            add_histcolumndata_to_plot(data,clust_colors(i,:));
+        elseif strcmp(PlotStyle,'Histogram')
+            bins = data(valley_bounds(i,1):valley_bounds(i,2),:);
+            bins = bins(keep,:);
+            add_histcolumndata_to_plot(bins,clust_colors(i,:));
         else
             error(strcat('Unrecognized plotting style: ',PlotStyle));
         end       

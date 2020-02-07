@@ -1,5 +1,5 @@
-function [valley_bounds, valley_tops] = NestedFullValleyClusters(RD,...
-    cutoff_frac,optional_save_name)
+function [valley_bounds, valley_tops] = NestedFullValleyClusters(...
+    OutputStruct, cutoff_frac, optional_save_name)
     %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
     %licensed under the Creative Commons Attribution-NonCommercial 4.0 
     %International License. To view a copy of this license, visit 
@@ -24,16 +24,25 @@ function [valley_bounds, valley_tops] = NestedFullValleyClusters(RD,...
     end
     
     %Find all the valleys
+    RD = OutputStruct.RD;
     [valley_bounds, valley_tops] = Find_ReachabilityValleys(RD, ...
         cutoff_frac);    
-    
-    Nclust = size(valley_bounds,1);
-    clust_colors = distinguishable_colors(Nclust);
     
     %Sort valleys in decreasing order of their tops
     [valley_tops, sortI] = sort(valley_tops,'descend');
     valley_bounds = valley_bounds(sortI,:);
-
+    
+    %Exclude low-intensity valleys if using the Wu clustering method
+    if strcmp(OutputStruct.Format,'Histogram')
+        counts = OutputStruct.Xraw(:,3);
+        counts = counts(OutputStruct.order);
+        [valley_bounds,valley_tops] = excludeLowIntensityValleys(counts,...
+            valley_bounds,valley_tops);
+    end
+    
+    Nclust = size(valley_bounds,1);
+    clust_colors = distinguishable_colors(Nclust);
+    
     %Make the reachability plot figure
     if isempty(optional_save_name)
         figure();
