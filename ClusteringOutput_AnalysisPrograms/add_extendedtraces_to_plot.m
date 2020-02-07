@@ -20,7 +20,7 @@ function add_extendedtraces_to_plot(Xdist, TraceMatrix, color_vector)
 
     
     if size(color_vector,1) == 1
-        color_vector = repmat(color_vector,size(segment_endpoints,1),1);
+        color_vector = repmat(color_vector,size(TraceMatrix,1),1);
     end        
     
     for i = 1:size(TraceMatrix,1)

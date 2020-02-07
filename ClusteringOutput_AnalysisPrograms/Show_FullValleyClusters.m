@@ -164,7 +164,7 @@ function [soln_nums, clust_nums] = Show_FullValleyClusters(OutputStruct, ...
         elseif strcmp(PlotStyle,'ExtendedTraces')
             traces = data(valley_bounds(i,1):valley_bounds(i,2),:);
             traces = traces(keep,:);
-            
+            add_extendedtraces_to_plot(Xdist,traces,clust_colors(i,:));
         else
             error(strcat('Unrecognized plotting style: ',PlotStyle));
         end       
