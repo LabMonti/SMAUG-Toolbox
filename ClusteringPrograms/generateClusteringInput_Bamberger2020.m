@@ -2,7 +2,34 @@
 %used for clustering in the (expected) paper Bamberger et al. 2020
 function [ClusteringInputParams, minPtsList] = ...
     generateClusteringInput_Bamberger2020(name, onHPC)
-
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Generates the "standard" set of clustering input
+    %paramters used for segment clustering in the paper Bamberger et al.
+    %2020
+    %
+    %~~~INPUTS~~~:
+    %
+    %name: either the file name of the dataset to cluster, or just a name
+    %   to identify the dataset to be clustered
+    %
+    %onHPC: logical variable; if true, parameters are set to include
+    %   parallelization for the HPC at Arizona
+    %
+    %######################################################################
+    %
+    %~~~OUTPUTS~~~:
+    %    
+    %ClusteringInputParameters: structure containing all input parameters
+    %   for a clustering run
+    %
+    %minPtsList: list of minPts values if multiple clustering runs are to
+    %   be performed
+    
+    
     if nargin < 2
         onHPC = false;
     end

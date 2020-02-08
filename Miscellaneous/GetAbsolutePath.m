@@ -4,15 +4,21 @@ function new_path = GetAbsolutePath(dir_name, optional_parent_name)
     %International License. To view a copy of this license, visit 
     %http://creativecommons.org/licenses/by-nc/4.0/.  
     %
-    %Function Description: 
+    %Function Description: find the full file path to a specific locaiton
+    %inside the SMAUG directory structure, and maybe a sub-folder within it
     %
     %~~~INPUTS~~~:
     %
+    %dir_name: the name of the directory that we are searching for
+    %
+    %optional_parent_name: the name of a folder inside dir_name
     %
     %######################################################################
     %
     %~~~OUTPUTS~~~:
-    %    
+    %  
+    %new_path: the full absolute path to the specified location
+    
     
     %The name of the top-level directory for this package
     main_dir_name = 'SMAUG-Toolbox';
