@@ -2,7 +2,7 @@
 %tag, creates a new directory with that name in the ClusteringOutput
 %folder, and puts a copy of the input file in the new output directory
 function [Output_Location, output_tag] = SetUpOutputDirectory(output_tag,...
-    running_folder, input_file_directory, input_file_name)
+    running_folder, input_file_path)
 
     %In default case, use running folder as output_tag
     if strcmp(output_tag, 'default')
@@ -17,7 +17,7 @@ function [Output_Location, output_tag] = SetUpOutputDirectory(output_tag,...
     Output_Location = CreateClusterOutputFolder(output_tag);
     
     %Copy the input file into the new output directory:
-    copyfile(fullfile(input_file_directory,strcat(input_file_name,'.m')),...
-        fullfile(Output_Location,strcat('InputUsed_', output_tag,'.m')));
+    copyfile(strcat(input_file_path,'.m'), fullfile(Output_Location,...
+        strcat('InputUsed_', output_tag,'.m')));
 
 end

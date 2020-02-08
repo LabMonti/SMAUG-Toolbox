@@ -1,15 +1,35 @@
-%IMPORTANT: "RUN_ME.m" must be run before using this program
-
-%29Jun18 NDB: This function defines all the input parameters for
-%clustering, then starts the clustering itself
+%Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+%licensed under the Creative Commons Attribution-NonCommercial 4.0 
+%International License. To view a copy of this license, visit 
+%http://creativecommons.org/licenses/by-nc/4.0/. 
+%
+%USE THIS FUNCTION TO CHANGE CLUSTERING PARAMETERS FOR CUSTOM CLUSTERING
+%RUNS
 function OutputStruct = StartClustering_wInput(optional_input_struct)
+    %~~~INPUTS~~~:
+    %
+    %optional_input_struct: this function can be passed an input trace
+    %   structure (or the name of a file containing such a structure, or
+    %   its ID# if the dataset library); if left blank, than a filename
+    %   must be specified below
+    %
+    %######################################################################
+    %
+    %~~~OUTPUTS~~~:
+    %   
+    %OutputStruct: an structure containing the clustering output
+    %   information; depending on settings below this will also be saved to
+    %   the ClusteringOutputData directory
+    
+    
     %Make structure to store all input parameters:
     I = struct();
 
     %Inputs and Outputs:
-    I.input_file_name = 'Example_OPV3-2BT-F_Dataset.mat'; %input file must be in the 'DataSets' directory
-    I.output_tag = 'default'; %tag used to label output files; set to "default" to 
-                         %use current directory name as the output tag
+    I.input_file_name = 'Example_OPV3-2BT-F_Dataset.mat'; %input file must be in the 'DataSets' directory;
+                                                          %unused if a trace structure is passed as an input
+    I.output_tag = 'TestClustering'; %tag used to label output files; set to "default" to 
+                              %use current folder name as the output tag
     I.save_output = 1; %whether or not to save the output structure to a file
     [~,I.running_folder,~] = fileparts(pwd); %Get running folder
 
@@ -51,7 +71,13 @@ function OutputStruct = StartClustering_wInput(optional_input_struct)
     end
 
     %Parameters specific to certain clustering modes:
-    if strcmp(I.clustering_mode,'Histogram')
+    if any(strcmp(I.clustering_mode,{'Segments','Segments_PreSegmented'}))
+        I.length_weighting = true; %Whether to duplicate segments in proportion to their length 
+                                   %to increase density around long segments
+        if I.length_weighting
+            I.length_per_duplicate = 0.05; %each segment is duplicated once per this length (in nm)
+        end
+    elseif strcmp(I.clustering_mode,'Histogram')
         I.w = 1.5; %Weight applied to conductance axis 
         I.bins_per_x = 150;
         I.bins_per_y = 37.5;
@@ -63,12 +89,6 @@ function OutputStruct = StartClustering_wInput(optional_input_struct)
     elseif strcmp(I.clustering_mode,'ExtendedTraces')
         I.distStep = 'median'; %Distance between re-sampling points; can be set to 'median' to be data-based
         I.maxDist = Inf; %Maximum distance to extend traces to; set to "Inf" to extend to end of longest trace
-    elseif any(strcmp(I.clustering_mode,{'Segments','Segments_PreSegmented'}))
-        I.length_weighting = true; %Whether to duplicate segments in proportion to their length 
-                                   %to increase density around long segments
-        if I.length_weighting
-            I.length_per_duplicate = 0.05; %each segment is duplicated once per this length (in nm)
-        end
     end
     
     %If an input structure was supplied, no need to go open up an input
@@ -76,7 +96,7 @@ function OutputStruct = StartClustering_wInput(optional_input_struct)
     if nargin == 0
         optional_input_struct = [];
     else
-        I.input_file_name = '[run from command line, not input file]';
+        I.input_file_name = '[run from command line]';
     end
 
     %Run the clustering
@@ -85,7 +105,7 @@ function OutputStruct = StartClustering_wInput(optional_input_struct)
     %Save the clustering output if requested:
     if I.save_output > 0
         [Output_Location, output_tag] = SetUpOutputDirectory(I.output_tag,...
-            I.running_folder,pwd,mfilename());
+            I.running_folder,mfilename('fullpath'));
         SaveClusteringOutput(OutputStruct, Output_Location, output_tag);
     end
 end
