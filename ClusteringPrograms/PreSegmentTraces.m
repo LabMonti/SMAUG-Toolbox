@@ -5,6 +5,18 @@
 %many times without having to re-segment).  
 function PreSegmentedTraceStruct = PreSegmentTraces(TraceStruct,EvalType,...
     left_chop, cond_ceil, nCores)
+    %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+    %licensed under the Creative Commons Attribution-NonCommercial 4.0 
+    %International License. To view a copy of this license, visit 
+    %http://creativecommons.org/licenses/by-nc/4.0/.  
+    %
+    %Function Description: Segment all traces in a data set and store the
+    %relevant information in a structure that can be input into the
+    %clustering program (the point of this shortcut is to save time so
+    %that a single data set can be segmented just once, because
+    %segmentation is slow, and then clustered many times without having
+    %to re-segment).  
+    %
     %~~~INPUTS~~~:
     %
     %TraceStruct: a trace structure containing all the traces in a dataset
