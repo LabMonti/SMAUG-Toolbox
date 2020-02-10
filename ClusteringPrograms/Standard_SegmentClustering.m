@@ -44,6 +44,6 @@ function Standard_SegmentClustering(TraceStruct, name, onHPC)
 
     %Save reachability plot and "maximum valley clusters" for reference
     %clustering output
-    Show_FullValleyClusters(OO,cutoff_frac,name);
+    Show_FullValleyClusters(OO,cutoff_frac,'LinearSegments',name);
 
 end

@@ -40,7 +40,7 @@ for i = 1:n2
         
         %Make clustering plots for a single iteration
         if j == seedID && i == cID
-            Show_FullValleyClusters(OO,cutoff_frac,name);  
+            Show_FullValleyClusters(OO,cutoff_frac,'LinearSegments',name);  
         end
         
         %We'll only save out TracesUsed a single time to save on space
