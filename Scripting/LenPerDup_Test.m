@@ -20,17 +20,13 @@ cutoff_frac = 0.01;
 LenPerDup_ID_ToPlot = 5;
 RefID = 6;
 
-%Pre-segment traces, so that we only have to do this ONCE even though
-%we are going to cluster multiple times with different minPts values
-SegStr = PreSegmentTraces(TraceStruct,'ErrorGain',I.left_chop,...
-    I.CondCeiling,I.nCores);
-
 for i = 1:n
     %Change LenPerDup
     I.length_per_duplicate = LenPerDupList(i);
     
     %Cluster at each value of minPts
-    [OO_List,TracesUsed] = StartClustering_Range_minPoints(SegStr,I,minPtsList);
+    [OO_List,TracesUsed] = StartClustering_Range_minPoints(TraceStruct,...
+        I,minPtsList);
     
     %Only save TracesUsed once
     if i == 1

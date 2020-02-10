@@ -9,6 +9,7 @@ name = create_name_for_library_entry(lib, dataset_ID);
 
 onHPC = true;
 [I, minPtsList] = generateClusteringInput_Bamberger2020(name, onHPC);
+I.clustering_mode = 'Segments_PreSegmented';
 
 CondCeiling_List = [1.5; 1.75; 2.0; 2.25; 2.5; 2.75; 3.0; 3.25; 3.5];
 n = length(CondCeiling_List);

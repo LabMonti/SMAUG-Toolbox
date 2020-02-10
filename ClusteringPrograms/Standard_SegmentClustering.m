@@ -30,14 +30,10 @@ function Standard_SegmentClustering(TraceStruct, name, onHPC)
     %Parameters for plotting of clustering solutions
     cutoff_frac = 0.01;
     minPts_ID_toPlot = 6;
-   
-    %Pre-segment traces, so that we only have to do this ONCE even though
-    %we are going to cluster multiple times with different minPts values
-    SegStr = PreSegmentTraces(TraceStruct,'ErrorGain',I.left_chop,...
-        I.CondCeiling,I.nCores);
     
     %Cluster at each value of minPts
-    [OO_List,TracesUsed] = StartClustering_Range_minPoints(SegStr,I,minPtsList);
+    [OO_List,TracesUsed] = StartClustering_Range_minPoints(TraceStruct,...
+        I,minPtsList);
     
     %Save output (to local directory)
     save(strcat(name,'_ClustOut.mat'),'OO_List','TracesUsed');

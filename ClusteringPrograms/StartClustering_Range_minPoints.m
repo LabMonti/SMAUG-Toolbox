@@ -34,6 +34,14 @@ function [OutputList, TracesUsed] = StartClustering_Range_minPoints(data, ...
     N = length(minPtsRange);
     OutputList = cell(N,1);
     
+    %If Segment clustering is being used, pre-segment all traces ONCE here
+    %instead of doing it for each minPts value (since it will be the same
+    %every time!)
+    if strcmp(ClustInputParams.clustering_mode,'Segments')
+        data = PreSegmentTraces(data,'ErrorGain',ClustInputParams.left_chop,...
+            ClustInputParams.CondCeiling,ClustInputParams.nCores);
+    end
+    
     %This output is only needed for segment clustering
     if ~strcmp(ClustInputParams.clustering_mode, 'Segments_PreSegmented') && ...
         ~strcmp(ClustInputParams.clustering_mode, 'Segments')

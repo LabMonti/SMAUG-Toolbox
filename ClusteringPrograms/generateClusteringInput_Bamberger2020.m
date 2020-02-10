@@ -39,7 +39,7 @@ function [ClusteringInputParams, minPtsList] = ...
     ClusteringInputParams.output_tag = 'default'; 
     ClusteringInputParams.save_output = 0; %whether or not to save the output structure to a file
     [~,ClusteringInputParams.running_folder,~] = fileparts(pwd); %Get running folder
-    ClusteringInputParams.clustering_mode = 'Segments_PreSegmented';
+    ClusteringInputParams.clustering_mode = 'Segments';
     ClusteringInputParams.clustering_algorithm = 'SOPTICS'; %possibilities are 'SOPTICS' or 'OPTICS'
     if onHPC
         ClusteringInputParams.nCores = 28;
