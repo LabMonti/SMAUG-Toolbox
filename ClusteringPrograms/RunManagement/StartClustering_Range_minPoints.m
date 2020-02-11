@@ -40,6 +40,7 @@ function [OutputList, TracesUsed] = StartClustering_Range_minPoints(data, ...
     if strcmp(ClustInputParams.clustering_mode,'Segments')
         data = PreSegmentTraces(data,'ErrorGain',ClustInputParams.left_chop,...
             ClustInputParams.CondCeiling,ClustInputParams.nCores);
+        ClustInputParams.clustering_mode = 'Segments_PreSegmented';
     end
     
     %This output is only needed for segment clustering
