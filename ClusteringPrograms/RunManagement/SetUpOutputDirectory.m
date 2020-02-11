@@ -1,6 +1,3 @@
-%NDB 29Jun18: This function appends the date and time to the given output
-%tag, creates a new directory with that name in the ClusteringOutput
-%folder, and puts a copy of the input file in the new output directory
 function [Output_Location, output_tag] = SetUpOutputDirectory(output_tag,...
     running_folder, input_file_path)
     %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
