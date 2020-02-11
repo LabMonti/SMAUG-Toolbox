@@ -76,5 +76,7 @@ function [peak, error, halfwidth] = SegmentCluster_to_1DHist(OutputStruct, epsil
     AllCondData = AllCondData(1:counter);
     
     [peak, error, halfwidth] = fit_histogram_peak(AllCondData,1,'algorithm',ToPlot);
+    xlabel('Log(Conductance/G_0)');
+    ylabel('Count');
 
 end
