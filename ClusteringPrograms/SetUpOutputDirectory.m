@@ -33,6 +33,13 @@ function [Output_Location, output_tag] = SetUpOutputDirectory(output_tag,...
     %output_tag: that output tag that was used
     
     
+    if nargin < 3
+        input_file_path = '';
+    end
+    if nargin < 2
+        running_folder = 'not specified';
+    end
+    
     %In default case, use running folder as output_tag
     if strcmp(output_tag, 'default')
        output_tag = running_folder;
@@ -46,7 +53,9 @@ function [Output_Location, output_tag] = SetUpOutputDirectory(output_tag,...
     Output_Location = CreateClusterOutputFolder(output_tag);
     
     %Copy the input file into the new output directory:
-    copyfile(strcat(input_file_path,'.m'), fullfile(Output_Location,...
-        strcat('InputUsed_', output_tag,'.m')));
+    if ~isempty(input_file_path)
+        copyfile(strcat(input_file_path,'.m'), fullfile(Output_Location,...
+            strcat('InputUsed_', output_tag,'.m')));
+    end
 
 end
