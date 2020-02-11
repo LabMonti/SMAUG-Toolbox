@@ -1,5 +1,3 @@
-%NDB 12Nov19: Generates the "standard" set of clustering input paramters
-%used for clustering in the (expected) paper Bamberger et al. 2020
 function [ClusteringInputParams, minPtsList] = ...
     generateClusteringInput_Bamberger2020(name, onHPC)
     %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
@@ -50,6 +48,7 @@ function [ClusteringInputParams, minPtsList] = ...
     ClusteringInputParams.left_chop = -Inf; %minimum distance value to be used for clustering (can be set to -Inf to include all points)
     ClusteringInputParams.cL = 30; %coefficient for how many projection lines to use in SOPTICS
     ClusteringInputParams.cP = 30; %coefficient for how may partitions to calculate in SOPTICS
+    ClusteringInputParams.minPts = 85; %used to determine core distances in OPTICS algorithm
     ClusteringInputParams.minSize = 120; %used to determine how finely to partition data in SOPTICS algorithm
     ClusteringInputParams.length_weighting = true; %Whether to duplicate segments in proportion to their length to increase density around long segments
     ClusteringInputParams.CondCeiling = 2.5; %Conductances above this value will be removed prior to segmentation (units of G_0, NOT logged)
