@@ -1,5 +1,5 @@
-function [soln_nums, clust_nums] = Show_FullValleyClusters(OutputStruct, ...
-    cutoff_frac, PlotStyle, save_name)
+function [valley_tops, soln_nums, clust_nums] = Show_FullValleyClusters(...
+    OutputStruct, cutoff_frac, PlotStyle, save_name)
     %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
     %licensed under the Creative Commons Attribution-NonCommercial 4.0 
     %International License. To view a copy of this license, visit 
@@ -32,6 +32,10 @@ function [soln_nums, clust_nums] = Show_FullValleyClusters(OutputStruct, ...
     %
     %~~~OUTPUTS~~~:
     %    
+    %valley_tops: a vector containing the reachability distance
+    %   corresponding to the "top" of each valley, or in other words the
+    %   extraction level for each maximum valley cluster
+    %
     %soln_nums: a vector containing the "solution #" of each full-valley
     %   cluster.  These solution numbers count up from lowest to highest
     %   the valey "top" levels
