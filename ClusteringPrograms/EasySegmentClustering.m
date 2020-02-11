@@ -68,7 +68,7 @@ function ClustOutput = EasySegmentClustering(TraceStruct, output_name, ...
     if ~isempty(output_name)
         [output_location, ~] = SetUpOutputDirectory(output_name);
         path = GetAbsolutePath('ClusteringOutputData',output_location);
-        save(fullfile(path,strcat(output_name,'_ClustOutput.mat')),'ClustOutput');
+        SaveClusteringOutput(ClustOutput,path,output_name);
     end
 
 end
