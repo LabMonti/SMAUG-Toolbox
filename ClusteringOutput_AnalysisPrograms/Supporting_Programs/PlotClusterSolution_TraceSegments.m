@@ -68,9 +68,11 @@ function PlotClusterSolution_TraceSegments(OutputStruct, Y, T, eps, PlotNoise)
     
     %Make the plot
     figure();
+    hold on;
     add_tracesegments_to_plot(OutputStruct.TracesUsed,SegmentTraceIDs,...
         AllBounds,TrCols);   
     set(gca,'yscale','log');
+    hold off;
     
     %If noise is not being plotted, add a white section on the color bar to
     %represent the noise (Needs to happend AFTER the plotting of segments
