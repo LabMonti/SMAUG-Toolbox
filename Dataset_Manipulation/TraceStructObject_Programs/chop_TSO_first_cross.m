@@ -16,7 +16,8 @@ function chop_TSO_first_cross(TSO)
     if strcmp(TSO.ChopMethod, 'ChopFirstCross')
         disp('Chop Method is already "ChopFirstCross", no need to alter it');
     elseif strcmp(TSO.ChopMethod, 'FloorBelowNoiseFloor') || ...
-            strcmp(TSO.ChopMethod, 'ExcludeTrailingNoise')
+            strcmp(TSO.ChopMethod, 'ExcludeTrailingNoise') || ...
+            strcmp(TSO.ChopMethod, 'NoChop')
 
         if TSO.y_Log
             nf = log10(TSO.NoiseFloor);

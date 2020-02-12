@@ -24,7 +24,7 @@ classdef LoadTraceStruct < handle
         %These fields should really be included, but if not they can be set
         %to default values
         Format = 'ConductanceTraces';
-        ChopMethod = 'unknown';
+        ChopMethod = 'NoChop';
         date_made = 'unkonwn';
         attenuation_ratio = NaN;
         file_made_by = 'unknown';
