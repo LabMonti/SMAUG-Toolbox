@@ -34,7 +34,7 @@ function Conductance1DHist_OverTime(TraceStruct, TracesPerChunk, binsper_x, ...
     if nargin < 7
         NormByTrace = true;
     end
-    if nargin < 6
+    if nargin < 6 || strcmp(EndTrace,'max')
         EndTrace = Ntraces;
     end
     if nargin < 5
