@@ -26,7 +26,10 @@ function TraceStruct = AlignAllTraces(TraceStruct,GAlign)
     %   re-aligned
     
     
+    %Load then unload to fill in any missing fields (but make sure to
+    %unload so that original structure is not modified too)
     TraceStruct = LoadTraceStruct(TraceStruct);
+    TraceStruct = UnLoadTraceStruct(TraceStruct);
     Ntraces = TraceStruct.Ntraces;
     
     if TraceStruct.y_Log
