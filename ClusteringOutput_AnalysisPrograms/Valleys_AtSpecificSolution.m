@@ -1,5 +1,3 @@
-%NDB 22May19: Makes a reachability plot with the valleys filled in in
-%colors to show where the different clusters are
 function Valleys_AtSpecificSolution(RD, CD, eps, cutoff_frac)
     %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
     %licensed under the Creative Commons Attribution-NonCommercial 4.0 
