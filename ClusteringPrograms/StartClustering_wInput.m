@@ -35,22 +35,22 @@ function OutputStruct = StartClustering_wInput(optional_input_struct)
 
     %Define the clustering mode.  Options are below:
     I.clustering_mode = 'Segments';
-    %  1.  Points (basic clustering of n-dimensional points; in this case only,
-    %       the input file should just contain a single array)
-    %  2.  Histogram (bin trace data into a 2D histogram then cluster; see Wu
+    %  1.  Segments (break each trace into linear segments and cluster the
+    %       segments)
+    %  2.  Segments_PreSegmented (same as "Segments" mode, except that the
+    %       input file will contain pre-segmented traces to save time)
+    %  3.  Histogram (bin trace data into a 2D histogram then cluster; see Wu
     %       el al. 2016)
-    %  3.  PointsFromTraces (cluster the raw data points from all traces)
     %  4.  ExtendedTraces (cluster traces that are chopped on the LEFT to have 
     %       the same length, but on the right are extended along the noise 
     %       floor to have the same length (all traces also re-sampled)
     %  5.  TraceHists (transform each trace into a 1D histogram and cluster
     %       these histograms)
-    %  6.  Hybrid (cluster raw data points but add a third dimension
+    %  6.  PointsFromTraces (cluster the raw data points from all traces)
+    %  7.  Hybrid (cluster raw data points but add a third dimension
     %       representing the local trace slope)
-    %  7.  Segments (break each trace into linear segments and cluster the
-    %       segments)
-    %  8.  Segments_PreSegmented (same as "Segments" mode, except that the
-    %       input file will contain pre-segmented traces to save time)
+    %  8.  Points (basic clustering of n-dimensional points; in this case only,
+    %       the input file should just contain a single array)
 
     %Parameters that apply to all clustering modes:
     I.clustering_algorithm = 'SOPTICS'; %possibilities are 'SOPTICS' or 'OPTICS'
