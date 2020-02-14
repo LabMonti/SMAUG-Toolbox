@@ -10,9 +10,9 @@ function [yHat, peak_centers, peak_center_errors, hwhm] = fit_xyData_nGaussians(
     %
     %~~~INPUTS~~~:
     %
-    %xData: a vector of the x-data
+    %xData: a vector of the x-data (i.e. bin centers)
     %
-    %yData: a vector of the y-data
+    %yData: a vector of the y-data (i.e. bin heights)
     %
     %n_Gaussians: the # of Gaussians that should be fit to the data
     %
