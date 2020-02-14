@@ -1,0 +1,11 @@
+#PBS -N Run###
+#PBS -W group_list=monti
+#PBS -q standard
+#PBS -l select=1:ncpus=28:mem=168gb:pcmem=6gb
+#PBS -l walltime=000:10:00
+
+date
+cd $PBS_O_WORKDIR
+module load matlab
+matlab -nodisplay -nosplash -r 'p = pwd; cd ~/SMAUG-Toolbox; RUN_ME; cd(p); start_on_computational_cluster; exit;' > output.txt
+date
