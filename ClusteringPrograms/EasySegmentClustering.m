@@ -1,5 +1,5 @@
 function ClustOutput = EasySegmentClustering(TraceStruct, output_name, ...
-    vary_minPts)
+    vary_minPts, nCores_to_use)
     %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
     %licensed under the Creative Commons Attribution-NonCommercial 4.0 
     %International License. To view a copy of this license, visit 
@@ -23,6 +23,12 @@ function ClustOutput = EasySegmentClustering(TraceStruct, output_name, ...
     %   with minPts = 85; if true, clustering is performed for 12 different
     %   values of minPts
     %
+    %nCores_to_use: if set to an integer greater than 1, a parallelization
+    %   pool will be set up with this many workers and used to speed up the
+    %   segmentation and projection steps of Segment Clustering.  This is
+    %   especially useful if this program is being run on a cluster with,
+    %   e.g., >= 10 cores available on a single node.  
+    %
     %######################################################################
     %
     %~~~OUTPUTS~~~:
@@ -36,6 +42,9 @@ function ClustOutput = EasySegmentClustering(TraceStruct, output_name, ...
     %   to save space).  
 
 
+    if nargin < 4
+        nCores_to_use = 1;
+    end
     if nargin < 3
         vary_minPts = false;
     end
@@ -50,6 +59,12 @@ function ClustOutput = EasySegmentClustering(TraceStruct, output_name, ...
     %Obtain standard clustering parameters
     [ClustParams, minPtsList] = generateClusteringInput_Bamberger2020(...
         output_name,onHPC);
+    
+    %If multiple cores requested, update parameters to enable
+    %parallelization
+    if nCores_to_use > 1
+        ClustParams.nCores = nCores_to_use;
+    end
     
     %Perform clustering
     ClustOutput = struct();
