@@ -1,5 +1,3 @@
-%14Sep2018 NDB: A single function to find the 1D distance histograms for
-%multiple data sets and plot them overlaid on top of each other
 function Plot_Overlaid_1DDistanceHistograms(TraceStructList,linesper_y,...
     binsper_x, UpperCondChop, NormalizeCounts, LegendOverride)
     %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
