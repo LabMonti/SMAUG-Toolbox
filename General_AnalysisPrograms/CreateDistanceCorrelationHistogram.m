@@ -142,7 +142,7 @@ function CreateDistanceCorrelationHistogram(TraceStruct, binsper_x, ...
     end
     
     figure();
-    scatter(CorrelationMatrix(:,1),CorrelationMatrix(:,2),20,CorrelationMatrix(:,3),'filled');
+    scatter(CorrelationMatrix(:,1),CorrelationMatrix(:,2),20,CorrelationMatrix(:,3),'filled','sq');
     if SignedCorr
         cmap = importdata('correlation_cmap.mat');
         colormap(cmap);
