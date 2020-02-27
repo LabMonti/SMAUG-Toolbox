@@ -1,6 +1,6 @@
 function [peaks, peak_errors, peak_halfwidths] = ...
     Standard_ProcessSegClust_Peaks(OO_List, TracesUsed, cutoff_frac, ...
-    ref_outputID, ref_solID, ref_clustID, ToPlot)
+    ref_outputID, ref_solID, ref_clustID, ToPlot, nPeaksPerPlot)
     %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
     %licensed under the Creative Commons Attribution-NonCommercial 4.0 
     %International License. To view a copy of this license, visit 
@@ -39,25 +39,33 @@ function [peaks, peak_errors, peak_halfwidths] = ...
     %   a 1D histogram is made for the cluster from each output that got
     %   matched to the reference cluster
     %
+    %nPeaksPerPlot: the number of Gaussian peaks that will be used to fit
+    %   the 1D conductance histogram for each identified cluster (default
+    %   is 1)
+    %
     %######################################################################
     %
     %~~~OUTPUTS~~~:
     %    
-    %peak: peaks of the fitted Gaussian to each cluster
+    %peak: peaks of the fitted Gaussian(s) for each cluster
     %
-    %error: errors in the peaks of the fitted Gaussians
+    %error: errors in the peaks of the fitted Gaussian(s) for each cluster
     %
-    %halfwidth: half width at half maximums of the fitted Gaussians
+    %halfwidth: half width at half maximums of the fitted Gaussian(s) for
+    %   each cluster
     
     
     if nargin < 7
         ToPlot = false;
     end
+    if nargin < 8
+        nPeaksPerPlot = 1;
+    end
 
     Nout = length(OO_List);
-    peaks = zeros(Nout,1);
-    peak_errors = zeros(Nout,1);
-    peak_halfwidths = zeros(Nout,1);    
+    peaks = zeros(Nout,nPeaksPerPlot);
+    peak_errors = zeros(Nout,nPeaksPerPlot);
+    peak_halfwidths = zeros(Nout,nPeaksPerPlot);    
     
     %Find the peaks at which to extract each clustering output, and which 
     %of the clusters matched the best:
@@ -79,8 +87,8 @@ function [peaks, peak_errors, peak_halfwidths] = ...
         %Make 1D histogram for chosen cluster
         OO = OO_List{i};
         OO.TracesUsed = TracesUsed;
-        [peaks(i),peak_errors(i),peak_halfwidths(i)] = SegmentCluster_to_1DHist(...
-            OO,extraction_eps(i),cutoff_frac,clust_nums(i),plot_now);   
+        [peaks(i,:),peak_errors(i,:),peak_halfwidths(i,:)] = SegmentCluster_to_1DHist(...
+            OO,extraction_eps(i),cutoff_frac,clust_nums(i),plot_now,nPeaksPerPlot);   
     end
 
 end

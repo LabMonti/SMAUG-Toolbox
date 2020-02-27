@@ -1,5 +1,5 @@
 function [peak, error, halfwidth] = SegmentCluster_to_1DHist(OutputStruct, epsilon, ...
-    cutoff_frac, cluster_num, ToPlot)
+    cutoff_frac, cluster_num, ToPlot, nPeaksToFit)
     %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
     %licensed under the Creative Commons Attribution-NonCommercial 4.0 
     %International License. To view a copy of this license, visit 
@@ -29,19 +29,25 @@ function [peak, error, halfwidth] = SegmentCluster_to_1DHist(OutputStruct, epsil
     %
     %ToPlot: logical variable; whether to make a visible plot or not
     %
+    %nPeaksToFit: the number of Gaussian peaks to use for fitting the 1D
+    %   conductance distribution
+    %
     %######################################################################
     %
     %~~~OUTPUTS~~~:
     %
-    %peak: peak of the fitted Gaussian
+    %peak: peak(s) of the fitted Gaussian(s)
     %
-    %error: error in the peak of the fitted Gaussian
+    %error: error in the peak(s) of the fitted Gaussian(s)
     %
-    %halfwidth: half width at half maximum of the fitted Gaussian
+    %halfwidth: half width at half maximum of the fitted Gaussian(s)
     
     
     if nargin < 5
         ToPlot = false;
+    end
+    if nargin < 6
+        nPeaksToFit = 1;
     end
 
     [Y,~,~] = ExtractClusterSolution(OutputStruct.RD,OutputStruct.CD,epsilon,...
@@ -75,7 +81,9 @@ function [peak, error, halfwidth] = SegmentCluster_to_1DHist(OutputStruct, epsil
     end
     AllCondData = AllCondData(1:counter);
     
-    [peak, error, halfwidth] = fit_histogram_peak(AllCondData,1,'algorithm',ToPlot);
+    [peak, error, halfwidth] = fit_histogram_peak(AllCondData,...
+        nPeaksToFit,'algorithm',ToPlot);
+    
     if ToPlot
         xlabel('Log(Conductance/G_0)');
         ylabel('Count');
