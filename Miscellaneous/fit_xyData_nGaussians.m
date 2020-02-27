@@ -73,15 +73,32 @@ function [yHat, peak_centers, peak_center_errors, hwhm] = fit_xyData_nGaussians(
         yHat = zeros(length(xData), 1);
     end
     
-    %Fill in fits:
+    %Fill in fits, and find peaks, errors, and half-widths
+    ci = confint(peak_fit);
     for i = 1:n_Gaussians
         a = peak_fit.(strcat('a',num2str(i)));
         b = peak_fit.(strcat('b',num2str(i)));
-        c = peak_fit.(strcat('c',num2str(i)));      
+        c = peak_fit.(strcat('c',num2str(i)));  
+
+        %Bounds
+        lb = ci(1,3*(i-1) + 2);
+        ub = ci(2,3*(i-1) + 2);
+        err = (ub - lb) / 2;
+        
+        peak_centers(i) = b;
+        peak_center_errors(i) = err;
+        hwhm(i) = c*sqrt(log(2));        
         
         yHat(:,i) = a*exp(-((xData - b)./c).^2);
     end
     if n_Gaussians > 1
+        
+        %Sort by order of peaks:
+        [peak_centers, sortI] = sort(peak_centers,'descend');
+        peak_center_errors = peak_center_errors(sortI);
+        hwhm = hwhm(sortI);
+        yHat(:,1:n_Gaussians) = yHat(:,sortI);
+        
         yHat(:,n_Gaussians+1) = sum(yHat(:,1:n_Gaussians),2);
     end
     
@@ -103,26 +120,11 @@ function [yHat, peak_centers, peak_center_errors, hwhm] = fit_xyData_nGaussians(
     end
     
     %Print out peak centers with 95% confidence bound error:
-    ci = confint(peak_fit);
-    for i = 1:n_Gaussians
-        b = peak_fit.(strcat('b',num2str(i)));
-        c = peak_fit.(strcat('c',num2str(i)));
-        
-        %Bounds
-        lb = ci(1,3*(i-1) + 2);
-        ub = ci(2,3*(i-1) + 2);
-        err = (ub - lb) / 2;
-        
-        if ToPlot
-            disp(strcat('Peak position:', {' '}, num2str(b), ' +/-',{' '}, ...
-                num2str(err)));
+    if ToPlot
+        for i = 1:n_Gaussians
+            disp(strcat('Peak position:', {' '}, num2str(peak_centers(i)),...
+                ' +/-',{' '}, num2str(peak_center_errors(i))));
         end
-        
-        peak_centers(i) = b;
-        peak_center_errors(i) = err;
-        
-        hwhm(i) = c*sqrt(log(2));
-        
     end
 
 end
