@@ -57,7 +57,7 @@ function Size_Table = ExtractAndPlotClustering(OutputStruct, eps, ...
     end  
     
     %If traces need to be resampled but haven't been yet, resample them now
-    if strcmp(PlotStyle,'AverageTraceSegments') && ~isfield(OutputStruct, 'AlignedSegments')
+    if strcmp(PlotStyle,'MedianTraceSegments') && ~isfield(OutputStruct, 'AlignedSegments')
         OutputStruct = GetResampledSegments(OutputStruct);
     end
 
@@ -112,13 +112,13 @@ function Size_Table = ExtractAndPlotClustering(OutputStruct, eps, ...
         elseif strcmp(PlotStyle,'TraceSegments')
             PlotClusterSolution_TraceSegments(OutputStruct, Y, SizeArray, ...
                 eps, PlotNoise);              
-        elseif strcmp(PlotStyle,'AverageTraceSegments')
+        elseif strcmp(PlotStyle,'MedianTraceSegments')
             PlotClusterSolution_MedianTraceSegments(OutputStruct, Y, ...
                 SizeArray, eps, PlotNoise);
         else
             disp('Unrecognized plotting style; allowed styles are:');
             disp({'LinearSegments'; 'SegmentPoints'; 'TraceSegments'; ...
-                'AverageTraceSegments'});
+                'MedianTraceSegments'});
             error('STOPPING');
         end
         

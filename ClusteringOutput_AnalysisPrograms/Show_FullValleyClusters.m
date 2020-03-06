@@ -96,7 +96,7 @@ function [valley_tops, soln_nums, clust_nums] = Show_FullValleyClusters(...
             strcmp(PlotStyle,'SegmentPoints')
         AllBounds = OutputStruct.AllBounds(order,:);
         SegmentTraceIDs = OutputStruct.SegmentTraceIDs(order);
-    elseif strcmp(PlotStyle,'AverageTraceSegments')
+    elseif strcmp(PlotStyle,'MedianTraceSegments')
         OutputStruct = GetResampledSegments(OutputStruct);
         AlignedSegments = OutputStruct.AlignedSegments(order,:);
         ActiveRegions = OutputStruct.ActiveRegions(order,:);  
@@ -190,7 +190,7 @@ function [valley_tops, soln_nums, clust_nums] = Show_FullValleyClusters(...
             end
             
             add_histcolumndata_to_plot(hist_columns,cols);
-        elseif strcmp(PlotStyle,'AverageTraceSegments')
+        elseif strcmp(PlotStyle,'MedianTraceSegments')
             aligned = AlignedSegments(valley_bounds(i,1):valley_bounds(i,2),:);
             active = ActiveRegions(valley_bounds(i,1):valley_bounds(i,2),:);
             aligned = aligned(keep,:);

@@ -88,7 +88,7 @@ function SizeTables = GetPeaksPlotClusterings(OutputStruct, ...
     %For this clustering display style, we need the segment to be
     %resampled.  To save time, only do this once, now, and put the output
     %inside the OutputStruct
-    if strcmp(PlotStyle,'AverageTraceSegments')
+    if strcmp(PlotStyle,'MedianTraceSegments')
         OutputStruct = GetResampledSegments(OutputStruct);
     end
     
