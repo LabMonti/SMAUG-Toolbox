@@ -1,3 +1,10 @@
+%Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+%licensed under the Creative Commons Attribution-NonCommercial 4.0 
+%International License. To view a copy of this license, visit 
+%http://creativecommons.org/licenses/by-nc/4.0/.  
+
+%Script for analyzing the resutls of clustering the same dataset using 
+%several different random seeds AND different cL = cP parameter values
 function ResultStruct = Analyze_RandSeed_Test(OO_List, TracesUsed, ...
     cutoff_frac, refOutputID, refSolnID, refClustID)    
 

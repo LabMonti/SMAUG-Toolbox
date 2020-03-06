@@ -1,5 +1,10 @@
-%Script for testing the effects of different random seeds and different cL
-%and cP values on our clustering results for a given dataset
+%Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+%licensed under the Creative Commons Attribution-NonCommercial 4.0 
+%International License. To view a copy of this license, visit 
+%http://creativecommons.org/licenses/by-nc/4.0/.  
+
+%Script for clustering the same dataset using several different random
+%seeds AND different cL = cP parameter values
 
 %Get trace structure that we are going to use:
 lib = build_library();

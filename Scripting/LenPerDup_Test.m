@@ -1,6 +1,11 @@
-%Script for testing the effects of different LenPerDup values on the
-%clustering of a given dataset, and how those changes correlate with
-%changes in minPts
+%Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+%licensed under the Creative Commons Attribution-NonCommercial 4.0 
+%International License. To view a copy of this license, visit 
+%http://creativecommons.org/licenses/by-nc/4.0/.  
+
+%Script for running the clusterings to test the effects of different 
+%LenPerDup values on the clustering of a given dataset, and how those 
+%changes correlate with changes in minPts
 
 %Get trace structure that we are going to use:
 lib = build_library();

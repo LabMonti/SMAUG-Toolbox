@@ -1,5 +1,10 @@
-%NDB 18Jun19: Script to perform my new "standard" method of segment
-%clustering on an indicated dataset (or datasets)
+%Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+%licensed under the Creative Commons Attribution-NonCommercial 4.0 
+%International License. To view a copy of this license, visit 
+%http://creativecommons.org/licenses/by-nc/4.0/.  
+
+%Script to run the "standard" segment clustering approach on a list of
+%specified datasets
 
 %The ID# of each dataset to be clustered in the dataset library
 dataset_library_IDs = [2,3];

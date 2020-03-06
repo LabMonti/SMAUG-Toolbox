@@ -1,3 +1,11 @@
+%Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+%licensed under the Creative Commons Attribution-NonCommercial 4.0 
+%International License. To view a copy of this license, visit 
+%http://creativecommons.org/licenses/by-nc/4.0/.  
+
+%Script for analyzing the results of the test in which the same dataset was
+%re-clustered using several different values for the TopChop parameter
+
 save_folder = 'C:\Users\LabMonti\Desktop\Nathan Temperory Outputs\TopChopTest';
 base_name = '113-3 1uM OPV3-BT-NO2 Dep1T1_';
 

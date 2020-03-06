@@ -1,3 +1,12 @@
+%Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+%licensed under the Creative Commons Attribution-NonCommercial 4.0 
+%International License. To view a copy of this license, visit 
+%http://creativecommons.org/licenses/by-nc/4.0/.  
+
+%Script for analyzing the results of the testing of the effects of 
+%different LenPerDup values on the clustering of a given dataset, and how
+%those changes correlate with changes in minPts
+
 save_folder = 'C:\Users\LabMonti\Desktop\Nathan Temperory Outputs\minpts_LengthperDup_Correlation';
 
 ClustOut = importdata(fullfile(save_folder,'113-2 1uM OPV3-BT Dep2T1_ClustOut.mat'));

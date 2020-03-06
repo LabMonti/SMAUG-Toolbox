@@ -1,3 +1,10 @@
+%Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
+%licensed under the Creative Commons Attribution-NonCommercial 4.0 
+%International License. To view a copy of this license, visit 
+%http://creativecommons.org/licenses/by-nc/4.0/.  
+
+%Script for analyzing the results of the test in which the same dataset was
+%re-clustered using several different values for the minSize parameter
 function ResultStruct = Analyze_MinSizeTest(OO_List, TracesUsed, ...
     cutoff_frac, refOutputID, refSolnID, refClustID)
 
