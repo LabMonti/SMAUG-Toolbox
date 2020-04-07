@@ -103,6 +103,6 @@ function Plot_Overlaid_1DConductanceHistograms(TraceStructList,...
     else
         label_list = LegendOverride;
     end
-    legend(label_list, 'Interpreter', 'none');
+    legend(label_list, 'Interpreter', 'none', 'Location', 'best');
     
 end
