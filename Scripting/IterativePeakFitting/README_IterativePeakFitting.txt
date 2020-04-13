@@ -1,0 +1,1 @@
+The functions used for the iterative fitting of the raw 1D histogram molecular peaks in Bamberger et al.  Not inteneded to be the "best" way to fit these raw peaks, just one way that empirically gives reasonable results (in order to compare to results from clustering).  
