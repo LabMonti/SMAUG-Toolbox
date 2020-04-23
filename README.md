@@ -1,7 +1,7 @@
 # SMAUG-Toolbox
 Single Molecule Analysis Unified Graphical (SMAUG) Toolbox
 
-This software package contains a suite of graphical analysis tools for analyzing single molecule distance/conductance breaking trace data, including Segment Clustering as described in Bamberger et al. 2020 (link).  
+This software package contains a suite of graphical analysis tools for analyzing single molecule distance/conductance breaking trace data, including Segment Clustering as described in Bamberger et al. 2020 (https://arxiv.org/abs/2004.10731).  
 
 New users should start by reading the "START_HERE.pdf" document found in SMAUG-Toolbox/Documentation.  
 
