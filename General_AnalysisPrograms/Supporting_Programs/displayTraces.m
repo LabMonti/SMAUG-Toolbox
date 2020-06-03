@@ -38,6 +38,10 @@ function displayTraces(TraceStruct,ChosenTraceIndices,offset_nm,LinLog)
     %Load in the trace structure
     TraceStruct = LoadTraceStruct(TraceStruct);
     
+    %Make sure y-data are in log-space, as expected (and x-data in linear
+    %space)
+    TraceStruct.convertTraces('Lin','Log');
+    
     nDisp = length(ChosenTraceIndices);
     form = TraceStruct.Format;
 
@@ -96,12 +100,7 @@ function displayTraces(TraceStruct,ChosenTraceIndices,offset_nm,LinLog)
         num2str(offset_nm),TraceStruct.x_units)); 
     
     %Set y-axis label:
-    yname = strcat('Condutance/',TraceStruct.y_units);
-    if strcmp(LinLog,'Lin')
-        ylabel(yname,'FontSize',14);
-    elseif strcmp(LinLog,'Log')
-        ylabel(strcat('Log(',yname,')'),'FontSize',14);
-    end
+    ylabel(strcat('Condutance/',TraceStruct.y_units));
     ylim([TraceStruct.NoiseFloor 10]);
     
     %Make legend listing each trace index:
