@@ -27,6 +27,9 @@ function [counts, centers] = DisplacementHistogram_AtCut(TraceStruct, ...
     %ToPlot: logical variable; whether or not to make a visible plot
     
     
+    %Load in trace structure
+    TraceStruct = LoadTraceStruct(TraceStruct);
+    
     Ntraces = TraceStruct.Ntraces;
     if nargin < 7
         ToPlot = true;
@@ -51,9 +54,8 @@ function [counts, centers] = DisplacementHistogram_AtCut(TraceStruct, ...
     %Convert CondCut to logarithmic scale
     CondCut = log10(CondCut);
     
-    %Load trace structure and make sure distance is in linear space and
+    %Make sure distance is in linear space and
     %conductance is in logarithmic space
-    TraceStruct = LoadTraceStruct(TraceStruct);
     TraceStruct.convertTraces('Lin', 'Log');
 
     Ntraces_used = EndTrace - StartTrace + 1;
