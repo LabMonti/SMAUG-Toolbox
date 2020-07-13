@@ -86,6 +86,8 @@ function [atten_peak, atten_width, atten_error, FormPeakInfo] = ...
     %inter-electrode distance is 6 decades/nm
     correct_slope = -6.00;
     trace_attenuations = trace_slopes ./ (1000 * correct_slope);
+    %trace_attenuations = trace_attenuations(trace_attenuations > 0);
+    %trace_attenuations = trace_attenuations(trace_attenuations < prctile(trace_attenuations,98));
         
     %Get histogram:
     bin_width = 2 * iqr(trace_attenuations) * length(trace_attenuations)^(-1/3);
