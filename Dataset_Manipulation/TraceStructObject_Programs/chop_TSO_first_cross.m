@@ -34,7 +34,12 @@ function chop_TSO_first_cross(TSO)
             %Find last point before trace breaks off, since we only want to
             %chop AFTER there (if it dips below the noise floor before
             %fully breaking, ignore it)
-            start_index = find(tr(:,2) > 0, 1, 'last');
+            start_index = find(tr(:,1) < 0, 1, 'last');
+            
+            %Make sure start index exists!
+            if isempty(start_index)
+                start_index = 1;
+            end
 
             %Find first point below noise (as long as it is after the 1G0
             %break-off)
