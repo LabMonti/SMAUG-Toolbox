@@ -64,6 +64,9 @@ function [counts, centers] = make2DHistogram_fromArbitraryData(DataArray, ...
         end           
     end
     
+    %Make the histogram figure; use histogram2 with pre-calculated edges
+    %and bins because this makes the nicest plot (using scatter instead can
+    %lead to overlapping colored squares)
     figure();
     histogram2('XBinEdges',edges{1},'YBinEdges',edges{2},'BinCounts',counts,...
         'DisplayStyle','tile','LineStyle','none');
@@ -72,6 +75,7 @@ function [counts, centers] = make2DHistogram_fromArbitraryData(DataArray, ...
     colorbar();
     grid off;
 
+    %Change axes to logarithmic if necessary
     if strcmp(LinLog{1},'Log')
         set(gca,'XScale','log');
     end    
