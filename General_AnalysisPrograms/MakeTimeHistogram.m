@@ -44,7 +44,7 @@ function MakeTimeHistogram(TraceStruct, tracesperbin, binsper_y, LinLog,...
         binsper_y = 30;
     end
     if nargin < 2
-        tracesperbin = 1;
+        tracesperbin = 5;
     end
     if nargin < 1 || nargin > 5
         error('Incorrect number of input parameters!');
@@ -60,13 +60,12 @@ function MakeTimeHistogram(TraceStruct, tracesperbin, binsper_y, LinLog,...
     %for x-data doesn't matter, so set it to linear arbitrarily
     TraceStruct.convertTraces('Lin',LinLog);
     
-    %Put data into single matrix, first column trace number, second is
+    %Put data into a single matrix, first column trace number, second is
     %conductance
     ColumnData = zeros(TraceStruct.NumTotalPoints, 2);
     counter = 0;
     for i = 1:NTraces
         tr = TraceStruct.Traces{i};
-        %%%tr = TraceStruct.(strcat('Trace',num2str(i)));
         n = size(tr,1);
         ColumnData(counter+1:counter+n, 1) = i;
         ColumnData(counter+1:counter+n, 2) = tr(:,2);
