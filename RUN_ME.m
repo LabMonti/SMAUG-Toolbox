@@ -12,10 +12,24 @@ function RUN_ME()
     current_location = pwd;
     addpath(genpath(current_location));
     
+    %Add folders and sub-folders in the LabMonti "in-house" version to the
+    %file path, if they exist one level up (not applicable for public
+    %version)
+    if exist(fullfile('..','SMAUG-Development'),'dir')
+        addpath(genpath(fullfile('..','SMAUG-Development')));
+        
+        %But remove temporary/in-development/obsolete folders from within
+        %the "in-house" version
+        rmpath(genpath(fullfile('..','SMAUG-Development',...
+            'InDevelopment_OrTemporary')));
+        rmpath(genpath(fullfile('..','SMAUG-Development',...
+            'Obsolete')));
+    end
+    
     %Remove all temporary/in-development/obsolete folders from the path so 
     %there is no confusion in accidentally running something that is
     %not in a completed form yet (only applicable for the LabMonti
-    %"in-house" version, not for the public version)
+    %"in-house" version if it is placed inside SMAUG-Toolbox)
     rmpath(genpath(fullfile('SMAUG-Development',...
         'InDevelopment_OrTemporary')));
     rmpath(genpath(fullfile('SMAUG-Development','Obsolete')));
