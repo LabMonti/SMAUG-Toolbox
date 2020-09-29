@@ -82,9 +82,17 @@ function [atten_peak, atten_width, atten_error, FormPeakInfo] = ...
     [trace_slopes, ~] = fit_tunneling_sections(TraceStruct, min_cond, ...
         max_cond, StartTrace, EndTrace);
     
-    %Convert slopes to attenuations by assuming correct slope in
-    %inter-electrode distance is 6 decades/nm
+    %For traces collected in air, we believe the correct tunneling slope is
+    %-6 decades/nm. This is based on both doi.org/10.1021/ja209844r (which
+    %found a tunneling slope of -5.5 to -6.0 decades/nm in argon) and 
+    %doi.org/10.1002/smll.200500145 (which found an ~1.7 times shallower
+    %tunneling slope in air vs. vacuum; based on vacuum results in 
+    %doi.org/10.1063/1.3587192, that implies a tunneling slope in air of
+    %~-6 decades/nm). 
     correct_slope = -6.00;
+    
+    %Convert slopes to attenuations based on assumption of what "correct"
+    %tunneling slope should be
     trace_attenuations = trace_slopes ./ (1000 * correct_slope);
     %trace_attenuations = trace_attenuations(trace_attenuations > 0);
     %trace_attenuations = trace_attenuations(trace_attenuations < prctile(trace_attenuations,98));
