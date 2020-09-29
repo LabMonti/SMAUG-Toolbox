@@ -108,7 +108,7 @@ function [slopes, intercepts, r2s, nPoints, trace_IDs] = fit_tunneling_sections(
                 intercepts(counter) = mean(ydata) - slopes(counter)*mean(xdata);
                 
                 %Calculate R^2 using covariance matrix
-                if c(1,1) == 0 || c(1,2) == 0
+                if c(1,1) == 0 || c(2,2) == 0
                     r2s(counter) = 1;
                 else
                     r2s(counter) = c(1,2)^2/(c(1,1)*c(2,2));
