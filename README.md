@@ -10,4 +10,6 @@ This work is licensed under the Creative Commons Attribution-NonCommercial 4.0 I
 
 To report a problem or ask for help, please contact monti@email.arizona.edu. 
 
+Make sure to also check out our sister repository at github.com/LabMonti/ImageChargeCalculations_ForSingleMoleculeJunctions; this software package can be used to model the renormalization of the transport levels of an individual molecule between two electrodes due to image charge effects, and was used for the image charge calculations in https://arxiv.org/abs/2010.08662.
+
 Code and documentation written by Nathan Bamberger.  
