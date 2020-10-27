@@ -129,12 +129,19 @@ function MakeTimeHistogram(TraceStruct, tracesperbin, binsper_y, LinLog,...
         hold off
     end
     
+    %Add label to color bar
+    f = gcf;
+    f.Children(1).Label.String = 'Bin Count';
+    f.Children(1).Label.Rotation = 270;
+    f.Children(1).Label.VerticalAlignment = 'bottom';
+    
     %Plot the motor position on top of the time histogram
     if PlotMotorPosition && ~isempty(TraceStruct.MotorPositions)
         
         %Move colorbar to top:
         cb = get(ancestor(gca,'axes'),'ColorBar');
         cb.Location = 'northoutside';
+        cb.Label.Rotation = 0;
         
         motor_pos = TraceStruct.MotorPositions;
         hold on;
