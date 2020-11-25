@@ -63,7 +63,15 @@ function name = create_name_for_library_entry(dataset_library, id)
         pcs = split(dataset_library.section_type{id},'_');
         
         name = strcat(sample, {' '}, conc, {' '}, mol, {' '}, dep, trial, ...
-            '_', pcs{2});          
+            '_', pcs{2});   
+        
+    elseif contains(dataset_library.section_type{id},'Tunneling_Reset')
+        
+        pcs = split(dataset_library.section_type{id},'_');
+        solv = dataset_library.solvent_name(id);
+        name = strcat(sample,' Tunn. Sect. (Pure', {' '}, solv,')',...
+            '_', pcs{2});
+        
     else
         error('not ready yet');
     end
