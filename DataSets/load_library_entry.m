@@ -32,20 +32,21 @@ function TraceStruct = load_library_entry(dataset_library, id2load)
         file_path = fullfile(base_path, dataset_library.path_name{id2load},...
             strcat(dataset_library.file_name{id2load},'.mat'));
         
+        %If the file contains just a single trace structure, read in the
+        %whole thing. If it contains multiple, use the matfile function
+        %to just read in the data we need (this saves time!)
+        if isempty(dataset_library.section_name{id2load})
+            TraceStruct = importdata(file_path);
+        else
+            fileObj = matfile(file_path,'Writable',false);
+            TraceStruct = fileObj.(dataset_library.section_name{id2load});
+        end
+        
     %Read in from the example library for the public version on GitHub
     else
         file_path = fullfile('DataSets',strcat(...
             dataset_library.file_name{id2load},'.mat'));
-    end
-
-    %Load the file
-    TraceStruct = importdata(file_path);
-    
-    %If the file contains multiple trace structures, select just the one we
-    %want (only relevant for LabMonti library)
-    if isfield(dataset_library,'path_name') && ...
-            ~isempty(dataset_library.section_name{id2load})
-        TraceStruct = TraceStruct.(dataset_library.section_name{id2load});
+        TraceStruct = importdata(file_path);
     end
 
 end
