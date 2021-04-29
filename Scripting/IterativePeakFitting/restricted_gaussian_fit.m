@@ -1,4 +1,4 @@
-function peak = restricted_gaussian_fit(xdata, ydata, lower_bound, ...
+function [peak,xdata,yhat] = restricted_gaussian_fit(xdata, ydata, lower_bound, ...
     upper_bound, ToPlot)
 
     if nargin < 5
@@ -11,6 +11,6 @@ function peak = restricted_gaussian_fit(xdata, ydata, lower_bound, ...
     ydata = ydata(xdata < upper_bound);
     xdata = xdata(xdata < upper_bound);
     
-    [~,peak] = fit_xyData_nGaussians(xdata,ydata,1,ToPlot);
+    [yhat,peak] = fit_xyData_nGaussians(xdata,ydata,1,ToPlot);
 
 end
