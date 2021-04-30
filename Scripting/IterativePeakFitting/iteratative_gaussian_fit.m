@@ -49,7 +49,7 @@ function peaks = iteratative_gaussian_fit(TraceStruct, initial_lb, ...
         hold on;
         plot(x,y);
         plot(xfit,yfit);
-        legend({'Raw Data', 'Iterative Fit Result'});
+        legend({'Raw Data', 'Iterative Fit Result'},'Location','southwest');
     end
     
 end
