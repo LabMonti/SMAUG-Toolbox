@@ -21,7 +21,7 @@ function new_path = GetAbsolutePath(dir_name, optional_parent_name)
     
     
     %The name of the top-level directory for this package
-    main_dir_name = 'SMAUG-Toolbox';
+    main_dir_name = {'SMAUG-Toolbox','SMAUG-Toolbox-master'};
 
     %Get all the pieces of the current path
     path_parts = split(pwd,filesep);
@@ -29,20 +29,21 @@ function new_path = GetAbsolutePath(dir_name, optional_parent_name)
     
     %Look in the current path for the top-level package directory
     found_main_dir = false;
-    i = 1;
-    while ~found_main_dir && i <= n
+    i = n;
+    while ~found_main_dir && i >= 1
         
-        if strcmp(path_parts{i},main_dir_name)
+        if any(strcmp(path_parts{i},main_dir_name))
             found_main_dir = true;
             dir_location = i;
         else
-            i = i + 1;
+            i = i - 1;
         end
     end
     
     %This will only work in a child of the top-level directory!
     if ~found_main_dir
-        error(strcat('ERROR: "',main_dir_name,'" was not found as a parent directory!'));
+        error(strcat('ERROR: neither "',main_dir_name{1},'" nor "', ...
+            main_dir_name{2},'" was not found as a parent directory!'));
     end
     
     %Construct aboslute path to top-level directory:
