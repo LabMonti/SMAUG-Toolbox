@@ -1,5 +1,6 @@
-function [peak, error, halfwidth] = SegmentCluster_to_1DHist(OutputStruct, epsilon, ...
-    cutoff_frac, cluster_num, ToPlot, nPeaksToFit)
+function [peak, error, halfwidth, cond_median] = ...
+    SegmentCluster_to_1DHist(OutputStruct, epsilon, cutoff_frac, ...
+    cluster_num, ToPlot, nPeaksToFit)
     %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
     %licensed under the Creative Commons Attribution-NonCommercial 4.0 
     %International License. To view a copy of this license, visit 
@@ -41,6 +42,8 @@ function [peak, error, halfwidth] = SegmentCluster_to_1DHist(OutputStruct, epsil
     %error: error in the peak(s) of the fitted Gaussian(s)
     %
     %halfwidth: half width at half maximum of the fitted Gaussian(s)
+    %
+    %cond_median: median of all conductance values in the chosen cluster
     
     
     if nargin < 5
@@ -83,6 +86,9 @@ function [peak, error, halfwidth] = SegmentCluster_to_1DHist(OutputStruct, epsil
     
     [peak, error, halfwidth] = fit_histogram_peak(AllCondData,...
         nPeaksToFit,'algorithm',ToPlot);
+    
+    %Get median conductance value
+    cond_median = median(AllCondData);
     
     if ToPlot
         xlabel('Log(Conductance/G_0)');

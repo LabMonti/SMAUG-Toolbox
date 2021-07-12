@@ -1,4 +1,4 @@
-function [peaks, peak_errors, peak_halfwidths] = ...
+function [peaks, peak_errors, peak_halfwidths, cond_medians] = ...
     Standard_ProcessSegClust_Peaks(OO_List, TracesUsed, cutoff_frac, ...
     ref_outputID, ref_solID, ref_clustID, ToPlot, nPeaksPerPlot)
     %Copyright 2020 LabMonti.  Written by Nathan Bamberger.  This work is 
@@ -53,6 +53,8 @@ function [peaks, peak_errors, peak_halfwidths] = ...
     %
     %halfwidth: half width at half maximums of the fitted Gaussian(s) for
     %   each cluster
+    %
+    %cond_medians: median conductance value for each cluster
     
     
     if nargin < 7
@@ -65,7 +67,8 @@ function [peaks, peak_errors, peak_halfwidths] = ...
     Nout = length(OO_List);
     peaks = zeros(Nout,nPeaksPerPlot);
     peak_errors = zeros(Nout,nPeaksPerPlot);
-    peak_halfwidths = zeros(Nout,nPeaksPerPlot);    
+    peak_halfwidths = zeros(Nout,nPeaksPerPlot);  
+    cond_medians = zeros(Nout,1);
     
     %Find the peaks at which to extract each clustering output, and which 
     %of the clusters matched the best:
@@ -87,8 +90,9 @@ function [peaks, peak_errors, peak_halfwidths] = ...
         %Make 1D histogram for chosen cluster
         OO = OO_List{i};
         OO.TracesUsed = TracesUsed;
-        [peaks(i,:),peak_errors(i,:),peak_halfwidths(i,:)] = SegmentCluster_to_1DHist(...
-            OO,extraction_eps(i),cutoff_frac,clust_nums(i),plot_now,nPeaksPerPlot);   
+        [peaks(i,:),peak_errors(i,:),peak_halfwidths(i,:),cond_medians(i)] = ...
+            SegmentCluster_to_1DHist(OO,extraction_eps(i),cutoff_frac,...
+            clust_nums(i),plot_now,nPeaksPerPlot);   
     end
 
 end
